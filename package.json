@@ -1,0 +1,33 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "THEME=Default expo start "
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
+    "@valdio/react-native-scrollable-tabview": "^0.8.12",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.4.1",
+    "ex-react-native-i18n": "0.0.4",
+    "expo": "^35.0.0",
+    "expo-asset": "~7.0.0",
+    "expo-constants": "^7.0.0",
+    "expo-font": "~7.0.0",
+    "expo-linear-gradient": "^7.0.0",
+    "native-base": "^2.13.12",
+    "react": "16.8.3",
+    "react-bootstrap": "^1.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-ionicons": "^5.0.0-beta",
+    "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-searchable-dropdown": "^1.1.1",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.4.1",
+    "react-redux": "^5.0.7",
+    "react-timer-mixin": "^0.13.4",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0"
+  }
+}
