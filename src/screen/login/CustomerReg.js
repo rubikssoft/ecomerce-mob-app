@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView } from 'react-native';
 import { Button } from 'native-base'
+import LocationDropDown from 'src/component/Location/LocationDropDown'
 
 import Spinner from "react-native-loading-spinner-overlay";
 
@@ -25,20 +26,40 @@ import {
 
 function mapStateToProps(state) {
     return {
+        userType: state.register.userType,
+        loading: state.register.loading,
+        user: state.register.user,
+        number: state.register.number,
+        otp: state.register.otp,
+        location: state.register.location
 
     };
 }
+
+
+
 
 class CustomerReg extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userType: 'customer',
-            number: ''
+            location: {
+                id: null,
+                name: 'Location'
+            },
+            locationSelection: false
+
         }
+        this.onCountrySelect = this.onCountrySelect.bind(this)
     }
+    onCountrySelect(location) {
+        this.setState({
+            location: location
+        })
+    }
+
     render() {
-        const { userType } = this.state;
+        const { userType, location } = this.state;
         return (
 
 
@@ -46,22 +67,19 @@ class CustomerReg extends Component {
 
 
                 <View style={styles.topContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.shop}>SHOP</Text>
-                        <Text style={styles.ease}>EASE</Text>
-                    </View>
+                    <Text style={styles.heading}>
+                        Verify your phone number
+                                </Text>
                     <Text style={styles.h2}>
                         Shopease will send an sms message ( carrier charges may apply ) to verify your mobile number , Enter your contry code , phone number ,city/town,category and name of the shop
                   </Text>
                 </View>
+
                 <View style={styles.middleContainer}>
 
 
-                    <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 10, flexDirection: 'column' }}>
-                        {/* <Text style={{ fontSize: 10, color: '#000', textAlign: 'center' }}> Tap "Agree and Continue" to accepet</Text>
-                        <Text style={{ fontSize: 10, color: 'green', fontWeight: 'bold', textAlign: 'center' }}> Terms and Condition</Text>
-                  
-                  */}
+                    <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
+
                         < View style={{ flexDirection: 'row' }}>
                             <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
                             <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
@@ -72,37 +90,34 @@ class CustomerReg extends Component {
 
                     </View>
 
+                    <KeyboardAvoidingView behavior="padding">
+                        <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
+
+                            <View >
+                                <Button primary={true} style={styles.landingButton} onPress={() => this.setState({ userType: 'customer' })}>
+
+                                    <Text style={styles.landingButtonText}> {location.name} </Text>
+                                    <Right>
+                                        {locationSelection && <Icon name="md-arrow-down" style={[styles.landingButtonText, { fontSize: 18 }]} />}
+
+                                    </Right>
 
 
-                    <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 100, flexDirection: 'column' }}>
-                        {/* <Text style={{ fontSize: 10, color: '#000', textAlign: 'center' }}> Tap "Agree and Continue" to accepet</Text>
-                        <Text style={{ fontSize: 10, color: 'green', fontWeight: 'bold', textAlign: 'center' }}> Terms and Condition</Text>
-                  
-                  */}
-                        <View>
-                            <Button primary={true} style={styles.landingButton} onPress={() => this.setState({ userType: 'customer' })}>
+                                </Button>
 
-                                <Text style={styles.landingButtonText}> Location </Text>
-                                <Right>
-                                    <Text>
-                                        >
-                                        </Text>
-                                </Right>
-
-                            </Button>
+                                <LocationDropDown onCountrySelect={this.onCountrySelect} default={location.name} selected={location.id} />
+                            </View>
 
 
 
                         </View>
-
-
-
-                    </View>
+                    </KeyboardAvoidingView>
 
 
 
 
                 </View>
+
 
                 <View style={styles.bottomContainer}>
 
@@ -132,9 +147,9 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#f0eee9'
     },
-    shop: {
-        color: 'blue',
-        fontSize: 30,
+    heading: {
+        color: '#3281a8',
+        fontSize: 15,
         fontFamily: "Purpose"
     },
     ease: {
@@ -162,14 +177,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        marginTop: 50,
+        marginTop: 35,
 
     },
     middleContainer: {
         flex: 3,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 50,
+        paddingTop: 10,
     },
     bottomContainer: {
         flex: 1,

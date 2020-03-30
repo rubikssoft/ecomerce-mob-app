@@ -5,7 +5,7 @@ import SearchableDropdown from 'react-native-searchable-dropdown';
 import {
     Text
 } from 'react-native'
-import { View } from 'native-base';
+import { View, KeyboardAvoidingView } from 'native-base';
 function mapStateToProps(state) {
     return {
         theme: state.theme
@@ -13,9 +13,8 @@ function mapStateToProps(state) {
     };
 }
 class LocationDropDown extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = {
             serverData: [],
             //Data Source for the SearchableDropdown
@@ -26,10 +25,12 @@ class LocationDropDown extends Component {
         return (
 
             <View>
+
                 <SearchableDropdown
                     onTextChange={text => console.log(text)}
                     //On text change listner on the searchable input
-                    onItemSelect={item => alert(JSON.stringify(item))}
+                    // onItemSelect={item => alert(JSON.stringify(item))}
+                    onItemSelect={item => this.props.onCountrySelect(item)}
                     //onItemSelect called after the selection from the dropdown
                     containerStyle={{ padding: 5 }}
                     //suggestion container style
@@ -55,20 +56,21 @@ class LocationDropDown extends Component {
                     itemsContainerStyle={{
                         //items container style you can pass maxHeight
                         //to restrict the items dropdown hieght
-                        maxHeight: '100%',
+                        maxHeight: '70%',
                     }}
                     items={cities}
                     //mapping of item array
-                    defaultIndex={2}
+                    defaultIndex={this.props.selected}
                     //default selected item index
-                    placeholder="Location"
+                    placeholder={this.props.default}
                     //place holder for the search input
                     resetValue={true}
                     //reset textInput Value with true and false state
                     underlineColorAndroid="transparent"
                 //To remove the underline from the android input
                 />
-            </View>
+
+            </View >
         );
     }
 }

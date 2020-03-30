@@ -1,14 +1,14 @@
 import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE } from "src/utils";
 
 const initialState = {
-  error: "",
-  name: "",
-  email: "",
-  mobile: "",
-  pwd: "",
-  status: {},
-  msg: "",
-  avatar: "",
+  error: null,
+  msg: null,
+  number: "",
+  otp: "",
+  user: {},
+  userType: '',
+  location: null,
+  avatar: null,
   loading: false
 };
 
@@ -24,16 +24,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        name: action.payload.name,
-        email: action.payload.email,
-        avatar: action.payload.avatar
+        user: action.payload.user,
+        avatar: action.payload.avatar,
+        userType: action.payload.userType
       };
 
     case REGISTER_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.message
+        error: action.payload.error,
+        msg: action.payload.msg
       };
 
     default:
