@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
-import cities from './cities';
+import categories from './categories';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import {
     Text
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 
     };
 }
-class LocationDropDown extends Component {
+class CategoryDropDown extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +52,6 @@ class LocationDropDown extends Component {
 
                     }}
                     placeholderTextColor="#fff"
-
                     itemStyle={{
                         //single dropdown item style
                         padding: 10,
@@ -60,24 +59,22 @@ class LocationDropDown extends Component {
                         backgroundColor: '#FAF9F8',
                         borderColor: '#bbb',
                         borderWidth: 1,
-
                     }}
                     itemTextStyle={{
                         //single dropdown item's text style
                         color: '#222',
-                        textAlign: 'center'
                     }}
                     itemsContainerStyle={{
                         //items container style you can pass maxHeight
                         //to restrict the items dropdown hieght
-                        maxHeight: 200,
-
+                        maxHeight: 100,
                     }}
-                    items={cities}
+                    items={categories}
                     //mapping of item array
-                    // defaultIndex={this.props.selected}
+                    defaultIndex={this.props.selected}
                     //default selected item index
-                    placeholder="Location"
+                    placeholder="Category"
+
                     //place holder for the search input
                     resetValue={false}
                     //reset textInput Value with true and false state
@@ -98,7 +95,7 @@ class LocationDropDown extends Component {
 
 export default connect(
     mapStateToProps,
-)(LocationDropDown);
+)(CategoryDropDown);
 
 
 const styles = StyleSheet.create({
