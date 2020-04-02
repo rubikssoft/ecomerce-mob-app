@@ -5,7 +5,7 @@ import { Dimensions, TouchableOpacit } from 'react-native'
 import CustomLabel from '../../../../component/common/CustomLabel'
 import SellerGrid from '../../../../component/common/SellerGrid'
 
-import { Headers } from "../../../../component/common/CustomerHeader";
+import Headers from "../../../../component/common/CustomerHeader";
 import {
     Container,
     Content,
@@ -40,7 +40,7 @@ class SrollDashboard extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers routes={this.props.navigation} headername="AppName" />
+                <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} />
                 <View
                     style={{
                         height: height - 150,

@@ -10,6 +10,7 @@ import ScrollableDashNav from './Customer/ScrollableNav'
 
 
 
+import AuthNavigator from "./AuthNavigator";
 
 export default createDrawerNavigator(
   {

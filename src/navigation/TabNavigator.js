@@ -17,7 +17,6 @@ const HomeStack = createStackNavigator(
   },
   { headerMode: "none" }
 );
-
 HomeStack.navigationOptions = {
   tabBarLabel: ({ focused }) => (
     <Text style={{ color: focused ? "white" : "#D3D3D3" }}>Home</Text>

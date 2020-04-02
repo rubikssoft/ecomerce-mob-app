@@ -16,12 +16,8 @@ import {
 
 function mapStateToProps(state) {
     return {
-        userType: state.register.userType,
         loading: state.register.loading,
-        user: state.register.user,
-        number: state.register.number,
-        otp: state.register.otp,
-        location: state.register.location
+        number: state.register.number
 
     };
 }
@@ -29,44 +25,26 @@ function mapStateToProps(state) {
 
 
 
-class SellerReg extends Component {
+class Otp extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            location: {
-                id: null,
-                name: 'Location'
-            }, category: {
-                id: null,
-                name: 'Category'
-            },
-
-
+            otp: ''
         }
-        this.onCountrySelect = this.onCountrySelect.bind(this)
-        this.onCategorySelect = this.onCategorySelect.bind(this)
-    }
-    onCountrySelect(location) {
-        this.setState({
-            location: location,
-
-        })
-
-
     }
 
-    onCategorySelect(category) {
-        this.setState({ category: category }
-        )
+    componentDidMount() {
+        //console.log(this.props)
+
     }
+    handleSubmit() {
+        console.log('handlesubmit is called')
+        this.props.navigation.navigate('ScrollableDash')
 
-    subimitData() {
-
-        this.props.navigation.navigate('Otp')
     }
 
     render() {
-        const { userType, location, category } = this.state;
+
         return (
 
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }}>
@@ -76,53 +54,34 @@ class SellerReg extends Component {
                 </TouchableOpacity>
 
                 <View style={styles.container}>
-
-
                     <View style={styles.topContainer}>
                         <Text style={styles.heading}>
-                            Verify your phone number
+                            Enter OTP
                                 </Text>
                         <Text style={styles.h2}>
-                            Shopease will send an sms message ( carrier charges may apply ) to verify your mobile number , Enter your contry code , phone number ,city/town,category and name of the shop
-                  </Text>
+                            OTP is send to +91 {this.props.number}
+                        </Text>
                     </View>
 
                     <View style={styles.middleContainer}>
-                        <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
+                        <View style={{ width: 150, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
 
                             < View style={{ flexDirection: 'row' }}>
-                                <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
-                                <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
+
+                                <Input placeholder="OTP" keyboardType={'numeric'} type="tel" value={this.state.otp} onChangeText={text => this.setState({ otp: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
 
                             </View>
                         </View>
 
-                        <KeyboardAvoidingView behavior="padding">
-                            <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'column' }}>
-                                    <LocationDropDown onCountrySelect={this.onCountrySelect} default={location.name} selected={location.id} bgcolor="blue" />
-                                    <CategoryDropDown onCountrySelect={this.onCategorySelect} default={category.name} selected={category.id} bgcolor="red" />
-                                    <RubiksInput bgcolor='orange' />
-                                </View>
 
+                        <View style={styles.bottomContainer}>
 
-
-                            </View>
-                        </KeyboardAvoidingView>
-
-
-
-
-                    </View>
-
-
-                    <View style={styles.bottomContainer}>
-
-                        <Button success style={{ marginTop: 50, padding: 20 }} onPress={() => this.subimitData()} >
-                            <Text style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'bold' }} > Next </Text>
-                        </Button>
-                    </View>
-                </View >
+                            <Button success style={{ marginTop: 50, padding: 20 }} >
+                                <Text style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'bold' }} onPress={() => this.handleSubmit()}> Next </Text>
+                            </Button>
+                        </View>
+                    </View >
+                </View>
             </View>
         );
     }
@@ -133,7 +92,7 @@ class SellerReg extends Component {
 
 export default connect(
     mapStateToProps,
-)(SellerReg);
+)(Otp);
 
 
 const styles = StyleSheet.create({
@@ -184,11 +143,11 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     bottomContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 2,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
         width: '90%',
-        margin: 20,
+        margin: 50,
         padding: 10,
     },
     userButton: {
@@ -202,7 +161,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase', textAlign: 'center', color: '#fff', fontWeight: 'bold', flex: 0.8
     },
     inputBox:
-        { borderBottomColor: '#12144a', borderBottomWidth: 0.5, height: 50, marginLeft: 3 }
+        { textAlign: 'center', borderBottomColor: '#12144a', borderBottomWidth: 0.5, height: 50, marginLeft: 3 }
 
 
 });

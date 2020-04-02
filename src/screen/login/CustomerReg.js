@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'; import PropTypes from 'prop-types';
 
 import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base'
 import LocationDropDown from 'src/component/Location/LocationDropDown'
-import CategoryDropDown from 'src/component/Category/CategoryDropDown'
+
+import { REGISTER } from "src/utils";
 
 import Spinner from "react-native-loading-spinner-overlay";
 
-import Logo from '../../../assets/icon.png';
+import { requestOtp } from 'src/action/RegisterAction'
+
+
 
 import {
     Container,
@@ -27,16 +30,9 @@ import {
 
 function mapStateToProps(state) {
     return {
-        userType: state.register.userType,
-        loading: state.register.loading,
-        user: state.register.user,
-        number: state.register.number,
-        otp: state.register.otp,
-        location: state.register.location
 
     };
 }
-
 
 
 
@@ -51,6 +47,9 @@ class CustomerReg extends Component {
                 id: null,
                 name: 'Category'
             },
+            number: '',
+            userType: 'customer'
+
 
 
         }
@@ -71,10 +70,17 @@ class CustomerReg extends Component {
         )
     }
 
+    subimitData() {
+
+        const { number, userType, location } = this.state;
+        this.props.requestOtp({ number, userType, location });
+        this.props.navigation.navigate('Otp')
+    }
+
     render() {
         const { userType, location, category } = this.state;
         return (
-            <View style={{ flex: 1, backgroundColor: '#f0eee9' }}>
+            <View style={{ flex: 1, backgroundColor: '#f0eee9' }} >
                 <TouchableOpacity style={{ marginTop: 50, paddingLeft: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }} onPress={() => this.props.navigation.goBack()}>
                     <Icon name="md-arrow-dropleft" style={[styles.heading]} />
                     <Text style={[styles.heading]} > Back</Text>
@@ -98,7 +104,7 @@ class CustomerReg extends Component {
 
                             < View style={{ flexDirection: 'row' }}>
                                 <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
-                                <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
+                                <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.props.number} onChangeText={(text) => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
 
                             </View>
 
@@ -128,12 +134,12 @@ class CustomerReg extends Component {
 
                     <View style={styles.bottomContainer}>
 
-                        <Button success style={{ marginTop: 50, padding: 20 }} >
+                        <Button success style={{ marginTop: 50, padding: 20 }} onPress={() => this.subimitData()} >
                             <Text style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'bold' }} > Next </Text>
                         </Button>
                     </View>
                 </View >
-            </View>
+            </View >
         );
     }
 }
@@ -141,8 +147,9 @@ class CustomerReg extends Component {
 
 
 
+
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { requestOtp }
 )(CustomerReg);
 
 
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '90%',
-        margin: 20,
+        margin: 45,
         padding: 10,
     },
     userButton: {

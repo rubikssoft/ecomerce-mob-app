@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import Registers from "./Register";
+// import { registerUser } from "src/action";
 import { registerUser } from "src/action";
 
 class Register extends PureComponent {

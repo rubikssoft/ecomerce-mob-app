@@ -1,4 +1,4 @@
-import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE } from "src/utils";
+import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE, OTP_REQUEST } from "src/utils";
 
 const initialState = {
   error: null,
@@ -15,9 +15,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case REGISTER:
+    case OTP_REQUEST:
       return {
         ...state,
-        loading: true
+        number: action.payload.number,
+        userType: action.payload.userType,
+        location: action.payload.location
       };
 
     case REGISTER_SUCCESS:

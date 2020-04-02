@@ -16,9 +16,11 @@ import { localize } from "src/internationalization";
 import theme from '../../style/theme/default'
 import LocationDropDown from '../../component/Location/LocationDropDown'
 import { TouchableOpacity } from "react-native";
-export class Headers extends Component {
-    constructor() {
-        super();
+import { connect } from 'react-redux';
+
+class Headers extends Component {
+    constructor(props) {
+        super(props);
 
         this.state = {
             locationChooser: false
@@ -26,19 +28,22 @@ export class Headers extends Component {
         };
     }
     render() {
+
         return (
             <View>
                 <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 20 }}>
 
-                    <Left>
-                        <Button
-                            transparent
-                            onPress={() => {
-                                this.props.routes.openDrawer();
-                            }}
-                        >
-                            <Icon name="ios-menu" style={{ color: theme.headerIcon }} />
-                        </Button>
+                    {this.props.leftmenu}<Left>
+                        {this.props.leftmenu &&
+                            <Button
+                                transparent
+                                onPress={() => {
+                                    this.props.navigation.goBack();
+                                }}
+                            >
+                                <Icon name="md-arrow-dropleft" style={{ color: theme.headerIcon }} />
+                            </Button>
+                        }
                     </Left>
                     <Body>
                         {/* <Title style={{ color: "white" }}>{this.props.headername} {localize(this.props.headername)}</Title> */}
@@ -59,12 +64,25 @@ export class Headers extends Component {
                 </Header>
                 <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
                     <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
-                        <Text style={{ textAlign: 'center', color: theme.headerTitle }}> Kozhikode</Text>
+                        <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
                     </TouchableOpacity>
-                    {this.state.locationChooser && <LocationDropDown />}
+                    {this.state.locationChooser && <LocationDropDown onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />}
 
                 </View>
             </View>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        location: state.location.location,
+
+
+    };
+}
+
+
+export default connect(
+    mapStateToProps,
+)(Headers);

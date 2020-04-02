@@ -17,4 +17,8 @@ export const TESTAPI_SUCCESS = "TESTAPI_SUCCESS";
 export const TESTAPI_FAIL = "TESTAPI_FAIL";
 
 
-export const LOAD_SETTINGS = "LOAD_SETTINGS"
+export const LOAD_SETTINGS = "LOAD_SETTINGS";
+export const OTP_REQUEST = "OTP_REQUEST";
+
+export const LOAD_LOCATION = "LOAD_LOCATION";
+

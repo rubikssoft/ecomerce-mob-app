@@ -16,7 +16,7 @@ import {
 
 function mapStateToProps(state) {
     return {
-
+        location: state.location.location
     };
 }
 
@@ -24,6 +24,8 @@ class SellerItem extends Component {
 
     constructor(props) {
         super(props)
+        console.log(this.props.location);
+
     }
     render() {
         const { item } = this.props;
@@ -46,6 +48,7 @@ class SellerItem extends Component {
                                     <Text style={styles.place}>{item.place}</Text>
                                     <Text style={styles.category}>{item.category}</Text>
                                     <Text style={styles.phone}>{item.phone}</Text>
+                                    <Text >{this.props.location.name}</Text>
                                 </View>
 
                             </View>
