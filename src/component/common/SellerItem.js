@@ -24,7 +24,7 @@ class SellerItem extends Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props.location);
+        //console.log(this.props.location);
 
     }
     render() {

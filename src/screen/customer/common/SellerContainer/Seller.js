@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 
 import { Dimensions, FlatList } from "react-native";
 
-import { Headers } from "../../../../component/common/CustomerHeader";
+import Headers from "../../../../component/common/CustomerHeader";
 
 let { height } = Dimensions.get("window");
-
-import LocationDropDown from '../../../../component/Location/LocationDropDown'
 
 import CustomLabel from '../../../../component/common/CustomLabel'
 import SellerGrid from '../../../../component/common/SellerGrid'
@@ -62,7 +60,7 @@ class Seller extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers routes={this.props.navigation} headername="Seller" />
+                <Headers routes={this.props.navigation} headername="Seller" leftmenu={true} {...this.props} />
                 <View
                     style={{
                         height: height - 150,

@@ -38,7 +38,7 @@ class Headers extends Component {
                             <Button
                                 transparent
                                 onPress={() => {
-                                    this.props.navigation.goBack();
+                                    this.props.navigation.goBack()
                                 }}
                             >
                                 <Icon name="md-arrow-dropleft" style={{ color: theme.headerIcon }} />

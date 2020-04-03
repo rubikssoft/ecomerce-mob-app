@@ -5,14 +5,16 @@ import {
     createStackNavigator,
 } from "react-navigation";
 
-import Dashboard from "src/screen/customer/common/DashboardContainer";
+//import Dashboard from "src/screen/customer/common/DashboardContainer";
 import Seller from "src/screen/customer/common/SellerContainer";
+import ScrollableConatiner from "src/screen/customer/common/ScrollableConatiner";
 import theme from 'src/style/theme/default'
 
 export default CommonStack = createStackNavigator(
     {
-        Dashboard: Dashboard,
-        SellerView: Seller
+        //Dashboard: Dashboard,
+        SellerView: Seller,
+        ScrollableDashboard: ScrollableConatiner,
 
     },
     { headerMode: "none" }

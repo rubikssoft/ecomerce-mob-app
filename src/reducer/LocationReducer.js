@@ -4,7 +4,11 @@ import { purgeStoredState } from 'redux-persist'
 
 
 const initialState = {
-    location: {}
+    location: {
+        "id": "3",
+        "name": "Bengaluru",
+        "state": "Karnataka"
+    }
 }
 
 

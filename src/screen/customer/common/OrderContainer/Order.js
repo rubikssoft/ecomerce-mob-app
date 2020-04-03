@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dimensions, FlatList } from "react-native";
 
 
-import { Headers } from "../../../../component/common/CustomerHeader";
+import Headers from "../../../../component/common/CustomerHeader";
 
 let { height } = Dimensions.get("window");
 
@@ -47,7 +47,8 @@ class Order extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers routes={this.props.navigation} headername="Orders" />
+                <Headers routes={this.props.navigation} headername="Orders" leftmenu={true} {...this.props} />
+                {/* <Headers routes={this.props.navigation} headername="Orders" /> */}
                 <View
                     style={{
                         height: height - 150,
