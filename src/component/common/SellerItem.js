@@ -30,7 +30,7 @@ class SellerItem extends Component {
     render() {
         const { item } = this.props;
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SellerView')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemList')}>
                 <Card>
                     <CardItem>
 

@@ -29,19 +29,22 @@ class Headers extends Component {
     }
     render() {
 
+        console.log(this.props);
+
         return (
             <View>
                 <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 20 }}>
 
-                    {this.props.leftmenu}<Left>
+                    <Left>
                         {this.props.leftmenu &&
                             <Button
                                 transparent
                                 onPress={() => {
-                                    this.props.navigation.goBack()
+                                    this.props.navigation.navigate(this.props.leftmenu.path);
                                 }}
                             >
-                                <Icon name="md-arrow-dropleft" style={{ color: theme.headerIcon }} />
+                                <Icon name={this.props.leftmenu.icon} style={{ color: theme.headerIcon }} />
+
                             </Button>
                         }
                     </Left>

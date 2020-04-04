@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import Seller from "./Seller";
+import Items from "./Items";
 import { fetchCurrentUser } from "src/action";
 
-class SellerContainer extends PureComponent {
+class ItemsContainer extends PureComponent {
     render() {
-        return <Seller {...this.props} />;
+        return <Items {...this.props} />;
     }
 }
 
@@ -16,4 +16,4 @@ const mapStateToProps = ({ }) => {
 export default connect(
     mapStateToProps,
     { fetchCurrentUser }
-)(SellerContainer);
+)(ItemsContainer);
