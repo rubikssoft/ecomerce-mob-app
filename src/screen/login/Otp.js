@@ -38,7 +38,7 @@ class Otp extends Component {
 
     }
     handleSubmit() {
-        console.log('handlesubmit is called')
+
         this.props.navigation.navigate('ScrollableDash')
 
     }

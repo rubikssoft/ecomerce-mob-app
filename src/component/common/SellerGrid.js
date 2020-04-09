@@ -7,37 +7,14 @@ import { Row } from 'native-base';
 
 
 function mapStateToProps(state) {
+    console.log('seller grid')
+    console.log(state);
     return {
-
+        sellers: state.seller.sellers,
+        loading: state.seller.sellerLoading,
     };
 }
-var items = [
-    {
-        name: 'Test Shop',
-        place: 'Mukkam ',
-        category: 'Grocery , Test Cate1 ',
-        phone: '98765433455',
-        img: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
-    }, {
-        name: 'Test Shop',
-        place: 'Mukkam ',
-        category: 'Grocery , Test Cate1 ',
-        phone: '98765433455',
-        img: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
-    }, {
-        name: 'Test Shop',
-        place: 'Mukkam ',
-        category: 'Grocery , Test Cate1 ',
-        phone: '98765433455',
-        img: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
-    }, {
-        name: 'Test Shop',
-        place: 'Mukkam ',
-        category: 'Grocery , Test Cate1 ',
-        phone: '98765433455',
-        img: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
-    },
-]
+
 
 
 const styles = StyleSheet.create({
@@ -53,10 +30,16 @@ const styles = StyleSheet.create({
 
 class SellerGrid extends Component {
     render() {
+        if (this.props.loading)
+            return (
+                <View style={styles.sellerGrid}>
+                    <Text>Loading</Text>
+                </View>
+            )
         return (
             <View style={styles.sellerGrid}>
 
-                {items.map((item, key) =>
+                {this.props.sellers.map((item, key) =>
                     <SellerItem item={item} key={key} {...this.props} />
                 )
                 }

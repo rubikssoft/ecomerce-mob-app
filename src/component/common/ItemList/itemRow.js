@@ -37,7 +37,7 @@ class itemRow extends Component {
                             {value.unit.map(type => {
 
                                 return (
-                                    <TouchableOpacity style={[styles.unitBox, type === this.state.type ? { backgroundColor: 'green' } : null]} onPress={() => this.setState({ type: type })}>
+                                    <TouchableOpacity style={[styles.unitBox, type === this.state.type ? { backgroundColor: 'green' } : null]} onPress={this.handleChange(type)} >
                                         <Label style={styles.unitBoxLabel}>{type}</Label>
                                     </TouchableOpacity>
 

@@ -22,3 +22,6 @@ export const OTP_REQUEST = "OTP_REQUEST";
 
 export const LOAD_LOCATION = "LOAD_LOCATION";
 
+export const LOAD_SELLERS = "LOAD_SELLERS";
+export const SET_ACTIVE_SELLER = "SET_ACTIVE_SELLER";
+

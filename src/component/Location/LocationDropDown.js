@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import cities from './cities';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import { setuplocation } from "src/action/LocationAction";
+import { setuplocation, loadSellers } from "src/action/LocationAction";
 import {
     Text
 } from 'react-native'
@@ -33,7 +33,7 @@ class LocationDropDown extends Component {
                     onTextChange={text => console.log(text)}
                     //On text change listner on the searchable input
                     // onItemSelect={item => alert(JSON.stringify(item))}
-                    onItemSelect={item => this.props.setuplocation(item)}
+                    onItemSelect={(item) => (this.props.setuplocation(item) || this.props.loadSellers(item))}
                     //onItemSelect called after the selection from the dropdown
                     containerStyle={{ padding: 5 }}
                     //suggestion container style
@@ -98,7 +98,7 @@ class LocationDropDown extends Component {
 }
 
 export default connect(
-    mapStateToProps, { setuplocation }
+    mapStateToProps, { setuplocation, loadSellers }
 )(LocationDropDown);
 
 
