@@ -1,6 +1,6 @@
 import {
     LOAD_LOCATION, LOADSELLERS,
-    LOAD_SELLERS, SET_ACTIVE_SELLER
+    LOAD_SELLERS, SET_ACTIVE_SELLER,SELLER_LOADING
 } from "src/utils";
 import { fetch, POST } from "src/apis";
 
@@ -15,8 +15,10 @@ export const setuplocation = (locaton) => {
 
 export const loadSellers = (location) => {
 
-
     return dispatch => {
+        dispatch({
+            type: SELLER_LOADING, payload: true
+        });
 
         //load sellers from api by sending location data
 
@@ -51,10 +53,11 @@ export const loadSellers = (location) => {
                 img: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
             },
         ]
-
-
         dispatch({
             type: LOAD_SELLERS, payload: sellers
+        });
+        dispatch({
+            type: SELLER_LOADING, payload: false
         });
     };
 };

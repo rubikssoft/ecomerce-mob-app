@@ -1,9 +1,10 @@
 import {
     LOAD_SELLERS,
-    SET_ACTIVE_SELLER
+    SET_ACTIVE_SELLER,
+    SELLER_LOADING
 } from "../utils";
 const initialState = {
-    sellerLoading: true,
+    sellerLoading: false,
     sellers: [],
     activeSeller: {}
 }
@@ -17,6 +18,11 @@ export default (state = initialState, { type, payload }) => {
                 sellers: payload
             }
             break;
+            case SELLER_LOADING:
+                return{
+                    ...state,
+                    sellerLoading:payload
+                }
         case SET_ACTIVE_SELLER:
             return {
                 ...state,

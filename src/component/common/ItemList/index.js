@@ -67,19 +67,11 @@ class ItemList extends Component {
                         <Text style={[styles.titleColumn, { flex: 0.3 }]}> Select </Text>
                     </View>
                     <ScrollView style={{ flex: 1 }}>
-                        <ItemRow items={items} />
+                    {items.map((value, key) => (
+                        <ItemRow item={value} key={key}/>
+                        ))}
                     </ScrollView>
-                    <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, paddingBottom: 50, backgroundColor: '#7f1925', height: 70, justifyContent: 'space-between' }}>
-                        <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center' }}>
-                            <Text style={{ flex: 0.5, textAlign: 'center', color: '#fff', fontWeight: 'bold', }}> $66 | 2 Items</Text>
-                            <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', padding: 10 }} >
-                                <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Continue</Text>
-                            </TouchableOpacity>
-
-                        </View>
-
-
-                    </View>
+                    
                 </View>
 
 

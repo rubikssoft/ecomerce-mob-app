@@ -15,14 +15,20 @@ class itemRow extends Component {
             count: 0,
             type: 'kg'
         }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(type) {
+        console.log('handlechange called');
+        this.setState({ type: type });
     }
     render() {
+        const {item ,key} =this.props;
         return (
 
-            this.props.items.map((value, key) => (
+       
                 <View style={[styles.bodyRow]} key={key}>
-                    <Text style={[styles.bodyColumn]}> {value.name} </Text>
-                    <Text style={[styles.bodyColumn]}> {value.price}  </Text>
+                    <Text style={[styles.bodyColumn]}> {item.name} </Text>
+                    <Text style={[styles.bodyColumn]}> {item.price}  </Text>
                     <View style={[styles.bodyColumn, { flex: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 0 }]}>
                         <Input
                             text={this.state.count}
@@ -34,25 +40,19 @@ class itemRow extends Component {
                             style={styles.qtyBox}
                         />
                         <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-                            {value.unit.map(type => {
+                            {item.unit.map((type, key1) => (
+                                <TouchableOpacity style={[styles.unitBox, type === this.state.type ? { backgroundColor: 'green' } : null]} onPress={() => this.handleChange(type)} key={key1}>
+                                    <Label style={styles.unitBoxLabel}>{type}</Label>
+                                </TouchableOpacity>
+                            )
 
-                                return (
-                                    <TouchableOpacity style={[styles.unitBox, type === this.state.type ? { backgroundColor: 'green' } : null]} onPress={this.handleChange(type)} >
-                                        <Label style={styles.unitBoxLabel}>{type}</Label>
-                                    </TouchableOpacity>
-
-
-
-
-
-                                )
-                            })}
+                            )}
 
                         </View>
                     </View>
                     <Text style={[styles.bodyColumn, { flex: 0.3 }]}>  </Text>
                 </View>
-            ))
+       
 
         );
     }
