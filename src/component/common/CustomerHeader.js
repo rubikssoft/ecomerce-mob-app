@@ -17,6 +17,7 @@ import theme from '../../style/theme/default'
 import LocationDropDown from '../../component/Location/LocationDropDown'
 import { TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
+import {StyleSheet } from 'react-native'
 
 class Headers extends Component {
     constructor(props) {
@@ -64,6 +65,8 @@ class Headers extends Component {
                     </Right>
 
                 </Header>
+
+                {this.props.locationSelect && 
                 <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
                     <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
                         <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
@@ -71,6 +74,13 @@ class Headers extends Component {
                     {this.state.locationChooser && <LocationDropDown onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />}
 
                 </View>
+                }
+
+
+                {this.props.activeSellerView &&  
+                 <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
+    <Text style={styles.sellerText}>  {this.props.activeSeller.name} | {this.props.activeSeller.phone} | {this.props.activeSeller.place}</Text>
+             </View>}
             </View>
         );
     }
@@ -79,12 +89,19 @@ class Headers extends Component {
 function mapStateToProps(state) {
     return {
         location: state.location.location,
-
+        activeSeller:state.seller.activeSeller
 
     };
 }
 
-
+const styles = StyleSheet.create({
+    sellerText:{
+        color:'#fff',
+        fontWeight:'bold',
+        fontSize:12,
+        textAlign:"center"
+    }
+});
 export default connect(
     mapStateToProps,
 )(Headers);

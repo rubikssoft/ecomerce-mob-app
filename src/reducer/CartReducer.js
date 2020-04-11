@@ -1,34 +1,51 @@
-import { LOAD_LOCATION } from "../utils";
-import { PURGE, REHYDRATE } from 'redux-persist';
-import { purgeStoredState } from 'redux-persist'
+import { ADD_TO_CART } from "../utils";
+
 
 
 const initialState = {
     cart: [
         {
-            "id": "shopeid",
+            "sellerid": 0,
             "count": 0,
             "totalAmount": 0,
-            items: []
+            items: [],
         }
-    ]
+    ],
+    
 }
 
 
 export default (state = initialState, action) => {
-
     switch (action.type) {
 
-        case LOAD_LOCATION:
+        case ADD_TO_CART:
+            let seller = action.payload.seller;
+            let item = action.payload.item;
+            let cart = state.cart;
+            cart.map((value, key) => {
+                if (value.sellerid === seller.id) {
+                    cart[key].totalAmount += item.price;
+                    cart[key].count++;
+                    cart[key].items.filter((d) => d.id !== item.id).map(() => {
+                        cart[key].items.push(item)
+                    })
+                }
+            })
+            const checkSeller = obj => obj.sellerid === seller.id;
+            if (!cart.some(checkSeller)) {
+                const cartiem = {
+                    count: 1,
+                    sellerid: seller.id,
+                    items: [item],
+                    totalAmount: item.price
+                }
+                cart.push(cartiem)
+            }
             return {
-                location: action.payload
+                ...state,
+                cart: cart
             };
-            REHYDRATE:    // This added just to show that this action type also exists, can be omitted. 
-            console.log("REHYDRATING!!!!");
-            return state;
-            PURGE:
-            console.log("PURGING!!!!");
-            return {};
+
         default:
             return state
     }

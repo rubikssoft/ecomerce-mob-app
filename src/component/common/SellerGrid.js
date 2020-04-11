@@ -8,7 +8,7 @@ import { Row } from 'native-base';
 
 function mapStateToProps(state) {
     console.log('seller grid')
-    console.log(state);
+    //console.log(state);
     return {
         sellers: state.seller.sellers,
         loading: state.seller.sellerLoading,

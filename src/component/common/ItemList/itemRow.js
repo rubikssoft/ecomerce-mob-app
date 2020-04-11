@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Label, Text, Button, Input } from 'native-base'
+import { View, Label, Text, Button, Input ,CheckBox} from 'native-base'
 import { StyleSheet, TouchableOpacity } from 'react-native'
+
+import {addToCart}  from 'src/action/CartActions'
 function mapStateToProps(state) {
     return {
-
+        seller : state.seller
     };
 }
 
@@ -18,14 +20,17 @@ class itemRow extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(type) {
-        console.log('handlechange called');
         this.setState({ type: type });
+        //console.log(this.props.seller);
+    }
+    optionChecked(item){
+        const activeSeller = this.props.seller.activeSeller;
+        const {count,type} = this.state;
+     this.props.addToCart(activeSeller,item,count,type);
     }
     render() {
         const {item ,key} =this.props;
         return (
-
-       
                 <View style={[styles.bodyRow]} key={key}>
                     <Text style={[styles.bodyColumn]}> {item.name} </Text>
                     <Text style={[styles.bodyColumn]}> {item.price}  </Text>
@@ -50,7 +55,10 @@ class itemRow extends Component {
 
                         </View>
                     </View>
-                    <Text style={[styles.bodyColumn, { flex: 0.3 }]}>  </Text>
+                    <View style={[styles.bodyColumn, { flex: 0.3 ,alignItems:'center'}]}>
+                    <CheckBox checked={false} color="green" onPress={()=>this.optionChecked(item)}/>
+                    </View>
+                   
                 </View>
        
 
@@ -98,5 +106,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps,{addToCart}
 )(itemRow);

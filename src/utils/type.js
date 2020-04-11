@@ -27,3 +27,5 @@ export const LOAD_SELLERS = "LOAD_SELLERS";
 export const SET_ACTIVE_SELLER = "SET_ACTIVE_SELLER";
 
 export const SELLER_LOADING="SELLER_LOADING";
+
+export const ADD_TO_CART="ADD_TO_CART";

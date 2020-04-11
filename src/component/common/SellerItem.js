@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import {setActiveSeller} from 'src/action';
 import {
     View,
     Text,
@@ -9,6 +9,7 @@ import {
     TouchableHighlight,
     TouchableOpacity
 } from 'react-native'
+
 
 import {
     Thumbnail, Card, CardItem, Body
@@ -27,10 +28,14 @@ class SellerItem extends Component {
         //console.log(this.props.location);
 
     }
+    navigateToItemList(item){
+        this.props.navigation.navigate('ItemList');
+        this.props.setActiveSeller(item)
+    }
     render() {
         const { item } = this.props;
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemList')}>
+            <TouchableOpacity onPress={() => this.navigateToItemList(item)}>
                 <Card>
                     <CardItem>
 
@@ -95,5 +100,5 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps,{setActiveSeller}
 )(SellerItem);

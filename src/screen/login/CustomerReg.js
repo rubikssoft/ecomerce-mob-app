@@ -28,11 +28,6 @@ import {
     Header
 } from "native-base";
 
-function mapStateToProps(state) {
-    return {
-
-    };
-}
 
 
 
@@ -116,9 +111,7 @@ class CustomerReg extends Component {
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
 
                                 <View >
-
-                                    <LocationDropDown onCountrySelect={this.onCountrySelect} default={location.name} selected={location.id} bgcolor="blue" />
-
+                                <LocationDropDown bgcolor="#000" onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />
                                 </View>
 
 
@@ -146,7 +139,13 @@ class CustomerReg extends Component {
 
 
 
+function mapStateToProps(state) {
+    return {
+        location: state.location.location,
 
+
+    };
+}
 
 export default connect(
     mapStateToProps, { requestOtp }

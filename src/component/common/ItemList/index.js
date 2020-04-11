@@ -9,8 +9,13 @@ function mapStateToProps(state) {
     };
 }
 
+const min = 1;
+const max = 100;
+
+
 const items = [
     {
+        id:1,
         name: 'Rice 1',
         category: 'Raice',
         price: 50,
@@ -18,6 +23,7 @@ const items = [
 
     },
     {
+        id:2,
         name: 'Rice 2',
         category: 'Raice',
         price: 20,
@@ -25,6 +31,7 @@ const items = [
 
     },
     {
+        id:3,
         name: 'Rice 6',
         category: 'Raice',
         price: 20,
@@ -32,6 +39,7 @@ const items = [
 
     },
     {
+        id:4,
         name: 'Rice 3',
         category: 'Raice',
         price: 20,
@@ -39,6 +47,7 @@ const items = [
 
     },
     {
+        id:5,
         name: 'Rice 4',
         category: 'Raice',
         price: 20,

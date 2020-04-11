@@ -1,9 +1,15 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import Items from "./Items";
-import { fetchCurrentUser } from "src/action";
+
 
 class ItemsContainer extends PureComponent {
+    constructor(props){
+        super(props);
+        
+       
+
+    }
     render() {
         return <Items {...this.props} />;
     }
@@ -14,6 +20,6 @@ const mapStateToProps = ({ }) => {
 };
 
 export default connect(
-    mapStateToProps,
-    { fetchCurrentUser }
+    mapStateToProps
+    ,
 )(ItemsContainer);

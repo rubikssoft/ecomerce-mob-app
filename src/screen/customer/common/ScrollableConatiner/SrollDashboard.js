@@ -40,7 +40,7 @@ class SrollDashboard extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} />
+                <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false}/>
                 <View
                     style={{
                         height: height - 150,
