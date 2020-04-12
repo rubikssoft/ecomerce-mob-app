@@ -22,7 +22,7 @@ class Index extends Component {
         this.toggleSubCategory =this.toggleSubCategory.bind(this)
     }
     toggleSubCategory (){
-        console.log('toggle called')
+        //console.log('toggle called')
         this.setState({categoryVisble:!this.state.categoryVisble})
     }
     render() {

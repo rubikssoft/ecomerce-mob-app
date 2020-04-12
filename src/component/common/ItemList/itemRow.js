@@ -4,9 +4,11 @@ import { View, Label, Text, Button, Input ,CheckBox} from 'native-base'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
 import {addToCart}  from 'src/action/CartActions'
+import {removeCart} from 'src/action/CartActions'
 function mapStateToProps(state) {
     return {
-        seller : state.seller
+        seller : state.seller,
+        cart:state.cart
     };
 }
 
@@ -15,19 +17,37 @@ class itemRow extends Component {
         super(props)
         this.state = {
             count: 0,
-            type: 'kg'
+            type: 'kg',
+            selected:false,
         }
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(type) {
         this.setState({ type: type });
-        //console.log(this.props.seller);
     }
     optionChecked(item){
         const activeSeller = this.props.seller.activeSeller;
         const {count,type} = this.state;
-     this.props.addToCart(activeSeller,item,count,type);
+        const added = this.checkItemAtCart(item);
+        if(!added){
+            this.props.addToCart(activeSeller,item,count,type);
+        }else{
+            this.props.removeCart(activeSeller,item,count,type);
+        }
+   
+
     }
+    checkItemAtCart(item){
+        let status = false;
+         const activeCart = this.props.cart.activeCart;
+         activeCart.items.map(val=>{
+             if(val.id === item.id){
+                 status= true;
+             }
+         })
+         return status
+     }
+
     render() {
         const {item ,key} =this.props;
         return (
@@ -56,7 +76,7 @@ class itemRow extends Component {
                         </View>
                     </View>
                     <View style={[styles.bodyColumn, { flex: 0.3 ,alignItems:'center'}]}>
-                    <CheckBox checked={false} color="green" onPress={()=>this.optionChecked(item)}/>
+                    <CheckBox checked={this.checkItemAtCart(item)} color="green" onPress={()=>this.optionChecked(item)}/>
                     </View>
                    
                 </View>
@@ -106,5 +126,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-    mapStateToProps,{addToCart}
+    mapStateToProps,{addToCart,removeCart}
 )(itemRow);

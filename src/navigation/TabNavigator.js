@@ -9,7 +9,7 @@ import {
 import HomeScreen from "src/component/homeScreen";
 import AccountScreen from "src/component/AccountScreen";
 import WishlistScreen from "src/component/WishlistScreen/WishlistScreen";
-import CartScreen from "src/component/CartScreen/CartScreen";
+// import CartScreen from "src/component/CartScreen/CartScreen";
 
 const HomeStack = createStackNavigator(
   {
@@ -131,7 +131,7 @@ export default createStackNavigator(
   {
     HomeStack,
     WishlistStack,
-    CartStack,
+    // CartStack,
     AccountStack
   },
   { headerMode: "none" },

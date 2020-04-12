@@ -6,6 +6,7 @@ import ItemRow from './itemRow';
 function mapStateToProps(state) {
     return {
 
+        cart: state.cart
     };
 }
 
@@ -15,7 +16,7 @@ const max = 100;
 
 const items = [
     {
-        id:1,
+        id: 1,
         name: 'Rice 1',
         category: 'Raice',
         price: 50,
@@ -23,7 +24,7 @@ const items = [
 
     },
     {
-        id:2,
+        id: 2,
         name: 'Rice 2',
         category: 'Raice',
         price: 20,
@@ -31,7 +32,7 @@ const items = [
 
     },
     {
-        id:3,
+        id: 3,
         name: 'Rice 6',
         category: 'Raice',
         price: 20,
@@ -39,7 +40,7 @@ const items = [
 
     },
     {
-        id:4,
+        id: 4,
         name: 'Rice 3',
         category: 'Raice',
         price: 20,
@@ -47,7 +48,7 @@ const items = [
 
     },
     {
-        id:5,
+        id: 5,
         name: 'Rice 4',
         category: 'Raice',
         price: 20,
@@ -64,6 +65,7 @@ class ItemList extends Component {
 
         }
     }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -76,11 +78,11 @@ class ItemList extends Component {
                         <Text style={[styles.titleColumn, { flex: 0.3 }]}> Select </Text>
                     </View>
                     <ScrollView style={{ flex: 1 }}>
-                    {items.map((value, key) => (
-                        <ItemRow item={value} key={key}/>
+                        {items.map((value, key) => (
+                            <ItemRow item={value} key={key} />
                         ))}
                     </ScrollView>
-                    
+
                 </View>
 
 
