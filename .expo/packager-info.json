@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 3509,
-  "expoServerNgrokUrl": "https://97-mdp.sadutdy.ecomerce-mob-app.exp.direct",
-  "packagerNgrokUrl": "https://packager.97-mdp.sadutdy.ecomerce-mob-app.exp.direct",
-  "ngrokPid": 3525
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

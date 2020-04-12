@@ -5,7 +5,48 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import SubCategory from './SubCategory'
 import ItemList from '../ItemList'
 
+const items = [
+    {
+        id: 1,
+        name: 'Rice 1',
+        category: 'Raice',
+        price: 50,
+        unit: ['gm', 'kg'],
 
+    },
+    {
+        id: 2,
+        name: 'Rice 2',
+        category: 'Raice',
+        price: 20,
+        unit: ['gm', 'kg'],
+
+    },
+    {
+        id: 3,
+        name: 'Rice 6',
+        category: 'Raice',
+        price: 20,
+        unit: ['gm', 'kg'],
+
+    },
+    {
+        id: 4,
+        name: 'Rice 3',
+        category: 'Raice',
+        price: 20,
+        unit: ['gm', 'kg'],
+
+    },
+    {
+        id: 5,
+        name: 'Rice 4',
+        category: 'Raice',
+        price: 20,
+        unit: ['gm', 'kg'],
+
+    }
+]
 
 function mapStateToProps(state) {
     return {
@@ -39,7 +80,7 @@ class Index extends Component {
                 {this.state.categoryVisble && 
                 <View>
                     <SubCategory data={this.props.data.subCategories}  style={{marginLeft:10}}/>
-                    <ItemList />
+                    <ItemList items={items}/>
                 </View>
                  }
             </View>

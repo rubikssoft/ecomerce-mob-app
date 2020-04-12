@@ -14,48 +14,7 @@ const min = 1;
 const max = 100;
 
 
-const items = [
-    {
-        id: 1,
-        name: 'Rice 1',
-        category: 'Raice',
-        price: 50,
-        unit: ['gm', 'kg'],
 
-    },
-    {
-        id: 2,
-        name: 'Rice 2',
-        category: 'Raice',
-        price: 20,
-        unit: ['gm', 'kg'],
-
-    },
-    {
-        id: 3,
-        name: 'Rice 6',
-        category: 'Raice',
-        price: 20,
-        unit: ['gm', 'kg'],
-
-    },
-    {
-        id: 4,
-        name: 'Rice 3',
-        category: 'Raice',
-        price: 20,
-        unit: ['gm', 'kg'],
-
-    },
-    {
-        id: 5,
-        name: 'Rice 4',
-        category: 'Raice',
-        price: 20,
-        unit: ['gm', 'kg'],
-
-    }
-]
 
 class ItemList extends Component {
     constructor(props) {
@@ -67,6 +26,7 @@ class ItemList extends Component {
     }
 
     render() {
+        const {items} =this.props
         return (
             <View style={{ flex: 1 }}>
 
