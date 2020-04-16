@@ -17,7 +17,7 @@ import theme from '../../style/theme/default'
 import LocationDropDown from '../../component/Location/LocationDropDown'
 import { TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
-import {StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 class Headers extends Component {
     constructor(props) {
@@ -53,53 +53,72 @@ class Headers extends Component {
                         <Title style={{ color: theme.headerTitle }}>{this.props.headername}</Title>
                     </Body>
                     <Right>
+                        {this.props.notification && 
+                           <Button
+                           transparent
+                           onPress={() => this.props.routes.navigate("Notify")}
+                       >
+                           <Badge style={{ position: "absolute" }}>
+                               <Text>2</Text>
+                           </Badge>
+                           <Icon name="ios-notifications" style={{ color: theme.headerIcon }} />
+                       </Button>
+                        
+                        }
+                          {this.props.settingsIcon && 
                         <Button
                             transparent
-                            onPress={() => this.props.routes.navigate("Notify")}
+                            onPress={() => this.props.routes.navigate("Settings")}
                         >
-                            <Badge style={{ position: "absolute" }}>
-                                <Text>2</Text>
-                            </Badge>
-                            <Icon name="ios-notifications" style={{ color: theme.headerIcon }} />
+                            
+                            <Icon name="md-cog" style={{ color: theme.headerIcon }} />
                         </Button>
+    }
                     </Right>
 
                 </Header>
 
-                {this.props.locationSelect && 
-                <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
-                    <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
-                        <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
-                    </TouchableOpacity>
-                    {this.state.locationChooser && <LocationDropDown onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />}
+                {this.props.locationSelect &&
+                    <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
+                        <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
+                            <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
+                        </TouchableOpacity>
+                        {this.state.locationChooser && <LocationDropDown onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />}
 
-                </View>
+                    </View>
                 }
 
 
-                {this.props.activeSellerView &&  
-                 <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
-    <Text style={styles.sellerText}>  {this.props.activeSeller.name} | {this.props.activeSeller.phone} | {this.props.activeSeller.place}</Text>
-             </View>}
+                {this.props.activeSellerView &&
+                    <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
+                        <Text style={styles.sellerText}>  {this.props.activeSeller.name} | {this.props.activeSeller.phone} | {this.props.activeSeller.place}</Text>
+                    </View>}
             </View>
         );
     }
 }
 
+Headers.defaultProps = {
+    locationSelect: false,
+    activeSellerView: false,
+    notification: false,
+    settingsIcon:true
+  };
+
 function mapStateToProps(state) {
     return {
         location: state.location.location,
-        activeSeller:state.seller.activeSeller
+        activeSeller: state.seller.activeSeller
 
     };
 }
 
 const styles = StyleSheet.create({
-    sellerText:{
-        color:'#fff',
-        fontWeight:'bold',
-        fontSize:12,
-        textAlign:"center"
+    sellerText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 12,
+        textAlign: "center"
     }
 });
 export default connect(
