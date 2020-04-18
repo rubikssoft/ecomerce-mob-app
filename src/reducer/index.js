@@ -5,6 +5,7 @@ import UserReducer from "./UserReducer";
 import AccountReducer from "./AccountReducer";
 import AppSettings from "./AppSettings";
 import Location from "./LocationReducer";
+import Category from "./CategoryReducer";
 
 import SellerReducer from "./SellerReducer";
 import CartReducer from "./CartReducer";
@@ -19,6 +20,7 @@ export default combineReducers({
   settings: AppSettings,
   location: Location,
   cart: CartReducer,
-  seller: SellerReducer
+  seller: SellerReducer,
+  category: Category
   //navigate: NavigationReducer
 });

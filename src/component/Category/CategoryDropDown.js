@@ -3,23 +3,33 @@ import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import categories from './categories';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import {
-    Text
-} from 'react-native'
+import { setupcategory } from "src/action/CategoryAction";
+import { loadSellers } from "src/action/LocationAction"
 import { View, Button } from 'native-base';
 function mapStateToProps(state) {
     return {
-        theme: state.theme
+        category: state.category.category,
+        location: state.category.location,
 
     };
 }
-class CategoryDropDown extends Component {
+
+
+class CategoriesDropDown extends Component {
     constructor(props) {
         super(props);
         this.state = {
             serverData: [],
             //Data Source for the SearchableDropdown
         };
+    }
+    handleChange(item) {
+        this.props.setupcategory(item);
+        var payload = {
+            location: this.props.location,
+            category: item
+        }
+        this.props.loadSellers(payload)
     }
     render() {
 
@@ -32,7 +42,7 @@ class CategoryDropDown extends Component {
                     onTextChange={text => console.log(text)}
                     //On text change listner on the searchable input
                     // onItemSelect={item => alert(JSON.stringify(item))}
-                    onItemSelect={item => this.props.onCountrySelect(item)}
+                    onItemSelect={(item) => this.handleChange(item)}
                     //onItemSelect called after the selection from the dropdown
                     containerStyle={{ padding: 5 }}
                     //suggestion container style
@@ -52,6 +62,7 @@ class CategoryDropDown extends Component {
 
                     }}
                     placeholderTextColor="#fff"
+
                     itemStyle={{
                         //single dropdown item style
                         padding: 10,
@@ -59,22 +70,24 @@ class CategoryDropDown extends Component {
                         backgroundColor: '#FAF9F8',
                         borderColor: '#bbb',
                         borderWidth: 1,
+
                     }}
                     itemTextStyle={{
                         //single dropdown item's text style
                         color: '#222',
+                        textAlign: 'center'
                     }}
                     itemsContainerStyle={{
                         //items container style you can pass maxHeight
                         //to restrict the items dropdown hieght
-                        maxHeight: 100,
+                        maxHeight: 200,
+
                     }}
                     items={categories}
                     //mapping of item array
-                    defaultIndex={this.props.selected}
+                    defaultIndex={this.props.category.id}
                     //default selected item index
                     placeholder="Category"
-
                     //place holder for the search input
                     resetValue={false}
                     //reset textInput Value with true and false state
@@ -82,10 +95,6 @@ class CategoryDropDown extends Component {
                 //To remove the underline from the android input
                 />
 
-                {/* <Button primary={true} style={styles.Button}>
-
-                   
-                </Button> */}
 
 
             </View >
@@ -94,8 +103,8 @@ class CategoryDropDown extends Component {
 }
 
 export default connect(
-    mapStateToProps,
-)(CategoryDropDown);
+    mapStateToProps, { setupcategory, loadSellers }
+)(CategoriesDropDown);
 
 
 const styles = StyleSheet.create({

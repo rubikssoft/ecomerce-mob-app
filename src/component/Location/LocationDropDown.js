@@ -4,13 +4,11 @@ import { StyleSheet } from 'react-native';
 import cities from './cities';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import { setuplocation, loadSellers } from "src/action/LocationAction";
-import {
-    Text
-} from 'react-native'
 import { View, Button } from 'native-base';
 function mapStateToProps(state) {
     return {
-        location: state.location.location
+        location: state.location.location,
+        category: state.category.category,
 
     };
 }
@@ -21,6 +19,15 @@ class LocationDropDown extends Component {
             serverData: [],
             //Data Source for the SearchableDropdown
         };
+    }
+
+    handleChange(item) {
+        this.props.setuplocation(item);
+        var payload = {
+            location: item,
+            category: this.props.category
+        }
+        this.props.loadSellers(payload)
     }
     render() {
 
@@ -33,7 +40,7 @@ class LocationDropDown extends Component {
                     onTextChange={text => console.log(text)}
                     //On text change listner on the searchable input
                     // onItemSelect={item => alert(JSON.stringify(item))}
-                    onItemSelect={(item) => (this.props.setuplocation(item) || this.props.loadSellers(item))}
+                    onItemSelect={(item) => this.handleChange(item)}
                     //onItemSelect called after the selection from the dropdown
                     containerStyle={{ padding: 5 }}
                     //suggestion container style

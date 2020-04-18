@@ -15,6 +15,7 @@ import { localize } from "src/internationalization";
 
 import theme from '../../style/theme/default'
 import LocationDropDown from '../../component/Location/LocationDropDown'
+import CategoriesDropDown from '../../component/Category/CategoryDropDown'
 import { TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native'
@@ -53,27 +54,27 @@ class Headers extends Component {
                         <Title style={{ color: theme.headerTitle }}>{this.props.headername}</Title>
                     </Body>
                     <Right>
-                        {this.props.notification && 
-                           <Button
-                           transparent
-                           onPress={() => this.props.routes.navigate("Notify")}
-                       >
-                           <Badge style={{ position: "absolute" }}>
-                               <Text>2</Text>
-                           </Badge>
-                           <Icon name="ios-notifications" style={{ color: theme.headerIcon }} />
-                       </Button>
-                        
+                        {this.props.notification &&
+                            <Button
+                                transparent
+                                onPress={() => this.props.routes.navigate("Notify")}
+                            >
+                                <Badge style={{ position: "absolute" }}>
+                                    <Text>2</Text>
+                                </Badge>
+                                <Icon name="ios-notifications" style={{ color: theme.headerIcon }} />
+                            </Button>
+
                         }
-                          {this.props.settingsIcon && 
-                        <Button
-                            transparent
-                            onPress={() => this.props.routes.navigate("Settings")}
-                        >
-                            
-                            <Icon name="md-cog" style={{ color: theme.headerIcon }} />
-                        </Button>
-    }
+                        {this.props.settingsIcon &&
+                            <Button
+                                transparent
+                                onPress={() => this.props.routes.navigate("Settings")}
+                            >
+
+                                <Icon name="md-cog" style={{ color: theme.headerIcon }} />
+                            </Button>
+                        }
                     </Right>
 
                 </Header>
@@ -83,7 +84,18 @@ class Headers extends Component {
                         <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
                             <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
                         </TouchableOpacity>
-                        {this.state.locationChooser && <LocationDropDown onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />}
+                        {this.state.locationChooser &&
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                                <LocationDropDown onCountrySelect={() => this.props.setuplocation()}
+                                    default={this.props.location.name}
+                                    selected={this.props.location.id} />
+                                <CategoriesDropDown onCountrySelect={() => this.props.setuplocation()}
+                                    default={this.props.location.name}
+                                    selected={this.props.location.id} />
+                            </View>
+
+
+                        }
 
                     </View>
                 }
@@ -102,8 +114,8 @@ Headers.defaultProps = {
     locationSelect: false,
     activeSellerView: false,
     notification: false,
-    settingsIcon:true
-  };
+    settingsIcon: true
+};
 
 function mapStateToProps(state) {
     return {

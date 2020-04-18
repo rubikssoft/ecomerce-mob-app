@@ -1,6 +1,6 @@
 import {
     LOAD_LOCATION, LOADSELLERS,
-    LOAD_SELLERS, SET_ACTIVE_SELLER,SELLER_LOADING
+    LOAD_SELLERS, SET_ACTIVE_SELLER, SELLER_LOADING
 } from "src/utils";
 import { fetch, POST } from "src/apis";
 
@@ -13,7 +13,7 @@ export const setuplocation = (locaton) => {
 };
 
 
-export const loadSellers = (location) => {
+export const loadSellers = (payload) => {
 
     return dispatch => {
         dispatch({
