@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {setActiveSeller} from 'src/action';
+import { setActiveSeller } from 'src/action';
 import {
     View,
     Text,
@@ -28,7 +28,7 @@ class SellerItem extends Component {
         //console.log(this.props.location);
 
     }
-    navigateToItemList(item){
+    navigateToItemList(item) {
         this.props.navigation.navigate('ItemList');
         this.props.setActiveSeller(item)
     }
@@ -53,7 +53,6 @@ class SellerItem extends Component {
                                     <Text style={styles.place}>{item.place}</Text>
                                     <Text style={styles.category}>{item.category}</Text>
                                     <Text style={styles.phone}>{item.phone}</Text>
-                                    <Text >{this.props.location.name}</Text>
                                 </View>
 
                             </View>
@@ -74,11 +73,12 @@ const styles = StyleSheet.create({
         flex: 0.5,
         borderColor: '#000',
         borderWidth: 0.3,
-        padding: 10
+        padding: 3
     }, sellerImage: {
         width: 100,
         height: 100,
-        flex: 0.5
+        flex: 0.4,
+        borderRadius: 10
     },
     name: {
         fontSize: 14,
@@ -100,5 +100,5 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-    mapStateToProps,{setActiveSeller}
+    mapStateToProps, { setActiveSeller }
 )(SellerItem);

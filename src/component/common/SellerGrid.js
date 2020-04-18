@@ -17,7 +17,7 @@ function mapStateToProps(state) {
 
 const styles = StyleSheet.create({
     sellerGrid: {
-        margin: 10,
+        margin: 0,
         flex: 1,
         flexDirection: 'column',
         alignContent: 'space-around'

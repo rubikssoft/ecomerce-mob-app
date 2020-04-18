@@ -7,14 +7,14 @@ import {
 
 import Invoice from "src/screen/customer/order/InvoiceContainer";
 import OrderDetails from "src/screen/customer/order/OrderDetailsContainer";
-import Orders from "src/screen/customer/order/OrdersContainer";
+// import Orders from "src/screen/customer/order/OrdersContainer";
 import theme from 'src/style/theme/default'
 
 export default OrderStack = createStackNavigator(
     {
         Orders: Orders,
         Invoice: Invoice,
-        OrderDetails: OrderDetails
+        // OrderDetails: OrderDetails
 
     },
     { headerMode: "none" }

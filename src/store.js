@@ -4,7 +4,7 @@ import rootReducer from "./reducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
-import {composeWithDevTools} from "redux-devtools-extension"
+import { composeWithDevTools } from "redux-devtools-extension"
 const persistConfig = {
   key: "root",
   storage,
@@ -18,7 +18,7 @@ export default () => {
   let store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
   let persistor = persistStore(store, null, () => {
     store.getState();
-  // }).purge();
+    // }).purge();
   });
   return { store, persistor };
 };

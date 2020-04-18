@@ -15,7 +15,7 @@ const initialState = {
             items: [],
         }
     ],
-    activeCart: []
+    activeCart: { "sellerid": 0, totalAmount: 0, count: 0, items: [] }
 
 }
 
@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
 
         case LOAD_CART:
             let ItemIndex = null;
-            activeCart = { totalAmount: 0, count: 0 ,items:[]}
+            activeCart = { totalAmount: 0, count: 0, items: [] }
             ItemIndex = state.cart.findIndex(
                 item => item.sellerid === action.payload.id
             );
@@ -96,7 +96,7 @@ export default (state = initialState, action) => {
             })
             return {
                 ...state,
-                cart:cart,
+                cart: cart,
                 activeCart: activeCart
             };
 
