@@ -8,6 +8,8 @@ import SellerItems from './Customer/ItemsStack';
 
 import ScrollableDashNav from './Customer/ScrollableNav'
 
+import SellerCommonStack from './Seller/CommonStack'
+
 export default initialRouteName =>
   createSwitchNavigator(
     {
@@ -15,7 +17,10 @@ export default initialRouteName =>
       Authentication: { screen: AuthNavigator },
       Site: { screen: SiteNavigator },
       ScrollableDash: { screen: ScrollableDashNav },
-      SellerItems: { screen: SellerItems }
+      SellerItems: { screen: SellerItems },
+
+      //seller
+      Seller: SellerCommonStack
     },
     {
       initialRouteName,

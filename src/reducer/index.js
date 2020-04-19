@@ -12,6 +12,12 @@ import CartReducer from "./CartReducer";
 
 //import NavigationReducer from './NavigationReducer'
 
+//seller
+
+import Seller from './Seller/Seller'
+
+
+
 export default combineReducers({
   login: LoginReducer,
   register: RegisterReducer,
@@ -21,6 +27,8 @@ export default combineReducers({
   location: Location,
   cart: CartReducer,
   seller: SellerReducer,
-  category: Category
-  //navigate: NavigationReducer
+  category: Category,
+  //seller
+
+  sellerData: Seller
 });

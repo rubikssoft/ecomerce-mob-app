@@ -14,9 +14,7 @@ import {
 import { localize } from "src/internationalization";
 
 import theme from '../../style/theme/default'
-import LocationDropDown from '../../component/Location/LocationDropDown'
-import CategoriesDropDown from '../../component/Category/CategoryDropDown'
-import { TouchableOpacity } from "react-native";
+
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native'
 
@@ -25,7 +23,7 @@ class Headers extends Component {
         super(props);
 
         this.state = {
-            locationChooser: false
+            locationChooser: false,
             //Data Source for the SearchableDropdown
         };
     }
@@ -51,7 +49,7 @@ class Headers extends Component {
                     </Left>
                     <Body>
                         {/* <Title style={{ color: "white" }}>{this.props.headername} {localize(this.props.headername)}</Title> */}
-                        <Title style={{ color: theme.headerTitle }}>{this.props.headername}</Title>
+                        <Title style={{ color: theme.headerTitle }}>{this.props.seller.name}</Title>
                     </Body>
                     <Right>
                         {this.props.notification &&
@@ -79,32 +77,7 @@ class Headers extends Component {
 
                 </Header>
 
-                {this.props.locationSelect &&
-                    <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
-                        <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
-                            <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
-                        </TouchableOpacity>
-                        {this.state.locationChooser &&
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
-                                <LocationDropDown
-                                    default={this.props.location.name}
-                                    selected={this.props.location.id} />
-                                <CategoriesDropDown
-                                    default={this.props.category.name}
-                                    selected={this.props.category.id} />
-                            </View>
 
-
-                        }
-
-                    </View>
-                }
-
-
-                {this.props.activeSellerView &&
-                    <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
-                        <Text style={styles.sellerText}>  {this.props.activeSeller.name} | {this.props.activeSeller.phone} | {this.props.activeSeller.place}</Text>
-                    </View>}
             </View>
         );
     }
@@ -121,7 +94,8 @@ function mapStateToProps(state) {
     return {
         location: state.location.location,
         category: state.category.category,
-        activeSeller: state.seller.activeSeller
+        activeSeller: state.seller.activeSeller,
+        seller: state.sellerData.seller
 
     };
 }

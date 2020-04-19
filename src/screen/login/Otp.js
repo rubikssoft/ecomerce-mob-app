@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 
 import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base'
-import LocationDropDown from 'src/component/Location/LocationDropDown'
-import CategoryDropDown from 'src/component/Category/CategoryDropDown'
 
-import RubiksInput from 'src/component/common/RubiksInput';
+import { loadData } from '../../action/Seller/MainActions'
 
 import {
 
@@ -17,7 +15,8 @@ import {
 function mapStateToProps(state) {
     return {
         loading: state.register.loading,
-        number: state.register.number
+        number: state.register.number,
+        userType: state.register.userType
 
     };
 }
@@ -38,8 +37,13 @@ class Otp extends Component {
 
     }
     handleSubmit() {
-
-        this.props.navigation.navigate('ScrollableDash')
+        const { userType } = this.props
+        if (userType === "customer") {
+            this.props.navigation.navigate('ScrollableDash')
+        } else if (userType === 'seller') {
+            this.props.loadData()
+            this.props.navigation.navigate('Seller')
+        }
 
     }
 
@@ -91,7 +95,7 @@ class Otp extends Component {
 
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { loadData }
 )(Otp);
 
 

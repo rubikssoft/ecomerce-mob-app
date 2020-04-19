@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import Dashboard from "./Dashboard";
+import SrollDashboard from "./SrollDashboard";
 import { fetchCurrentUser } from "src/action";
 
-class DashboardContainer extends PureComponent {
+class ScrollableConatiner extends PureComponent {
     render() {
-        return <Dashboard {...this.props} />;
+        return <SrollDashboard {...this.props} />;
     }
 }
 
@@ -16,4 +16,4 @@ const mapStateToProps = ({ }) => {
 export default connect(
     mapStateToProps,
     { fetchCurrentUser }
-)(DashboardContainer);
+)(ScrollableConatiner);

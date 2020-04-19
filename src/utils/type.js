@@ -33,3 +33,24 @@ export const LOAD_CART = "LOAD_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
 export const LOAD_CATEGORY = "LOAD_CATEGORY"
+
+
+
+
+
+
+
+///seller 
+
+export const LOADING_SELLER_DATA = "LOADING_SELLER_DATA"
+export const LOAD_SELLER_DATA = "LOAD_SELLER_DATA"
+export const LOAD_SELLER_DATA_SUCCESS = "LOAD_SELLER_DATA_SUCCESS"
+
+//seller - dashboard - components
+export const SELLER_LOADING_ORDERS = "SELLER_LOADING_ORDERS";
+export const SELLER_LOAD_ORDERS = "SELLER_LOAD_ORDERS";
+
+
+export const SELLER_LOADING_PRODUCTS = "SELLER_LOADING_PRODUCTS";
+export const SELLER_LOAD_PRODUCTS = "SELLER_LOAD_PRODUCTS";
+

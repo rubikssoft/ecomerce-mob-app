@@ -5,3 +5,11 @@ export * from "./AccountAction";
 export * from "./SellerActions";
 export * from "./CartActions";
 
+
+
+
+//seller
+
+
+export * from "./Seller/MainActions"
+

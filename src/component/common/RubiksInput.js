@@ -26,7 +26,12 @@ class RubiksInput extends Component {
                         maxWidth: 150,
                         borderRadius: 5
                     }
-                }></Input>
+                }
+                    onChangeText={(text) =>
+                        this.props.onChangeText(text)
+                    }
+                    value={this.props.value}
+                />
             </View>
 
         );

@@ -8,6 +8,8 @@ import CategoryDropDown from 'src/component/Category/CategoryDropDown'
 
 import RubiksInput from 'src/component/common/RubiksInput';
 
+import { requestOtp } from 'src/action/RegisterAction'
+
 import {
 
     Input,
@@ -18,10 +20,8 @@ function mapStateToProps(state) {
     return {
         userType: state.register.userType,
         loading: state.register.loading,
-        user: state.register.user,
-        number: state.register.number,
-        otp: state.register.otp,
-        location: state.register.location
+        location: state.location.location,
+        category: state.category.category,
 
     };
 }
@@ -33,40 +33,32 @@ class SellerReg extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            location: {
-                id: null,
-                name: 'Location'
-            }, category: {
-                id: null,
-                name: 'Category'
-            },
-
+            number: '',
+            userType: 'seller',
+            shopeName: ''
 
         }
-        this.onCountrySelect = this.onCountrySelect.bind(this)
-        this.onCategorySelect = this.onCategorySelect.bind(this)
-    }
-    onCountrySelect(location) {
-        this.setState({
-            location: location,
-
-        })
-
-
-    }
-
-    onCategorySelect(category) {
-        this.setState({ category: category }
-        )
     }
 
     subimitData() {
+        const { number, userType } = this.state;
+        const data = {
+            location: this.props.location,
+            category: this.props.category,
 
+        }
+        this.props.requestOtp({ number, userType, data });
         this.props.navigation.navigate('Otp')
+        return true;
     }
 
+
+    handleShopNameInput(txt) {
+
+    }
+
+
     render() {
-        const { userType, location, category } = this.state;
         return (
 
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }}>
@@ -92,7 +84,7 @@ class SellerReg extends Component {
 
                             < View style={{ flexDirection: 'row' }}>
                                 <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
-                                <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
+                                <Input placeholder="number" keyboardType={'numeric'} value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox} />
 
                             </View>
                         </View>
@@ -100,9 +92,16 @@ class SellerReg extends Component {
                         <KeyboardAvoidingView behavior="padding">
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
                                 <View style={{ flexDirection: 'column' }}>
-                                    <LocationDropDown onCountrySelect={this.onCountrySelect} default={location.name} selected={location.id} bgcolor="blue" />
-                                    <CategoryDropDown onCountrySelect={this.onCategorySelect} default={category.name} selected={category.id} bgcolor="red" />
-                                    <RubiksInput bgcolor='orange' />
+                                    <LocationDropDown
+                                        default={this.props.location.name}
+                                        selected={this.props.location.id}
+                                        bgcolor="blue"
+                                    />
+                                    <CategoryDropDown
+                                        default={this.props.location.name}
+                                        selected={this.props.location.id}
+                                        bgcolor="red" />
+                                    <RubiksInput bgcolor='orange' onChangeText={(txt) => this.setState({ shopeName: txt })} value={this.state.shopeName} />
                                 </View>
 
 
@@ -132,7 +131,7 @@ class SellerReg extends Component {
 
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { requestOtp }
 )(SellerReg);
 
 

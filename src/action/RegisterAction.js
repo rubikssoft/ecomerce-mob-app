@@ -9,13 +9,14 @@ export const registerUser = ({ name, email, mobile, password }) => {
   };
 };
 
-export const requestOtp = ({ number, userType, location }) => {
+export const requestOtp = ({ number, userType, data }) => {
   return dispatch => {
     dispatch({
       type: OTP_REQUEST, payload: {
         number: number,
         userType: userType,
-        location: location
+        location: data.location,
+        category: data.category
       }
     });
   };

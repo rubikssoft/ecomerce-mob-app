@@ -35,45 +35,30 @@ class CustomerReg extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            location: {
-                id: null,
-                name: 'Location'
-            }, category: {
-                id: null,
-                name: 'Category'
-            },
             number: '',
             userType: 'customer'
 
 
 
         }
-        this.onCountrySelect = this.onCountrySelect.bind(this)
-        this.onCategorySelect = this.onCategorySelect.bind(this)
-    }
-    onCountrySelect(location) {
-        this.setState({
-            location: location,
-
-        })
-
 
     }
 
-    onCategorySelect(category) {
-        this.setState({ category: category }
-        )
-    }
+
 
     subimitData() {
 
-        const { number, userType, location } = this.state;
-        this.props.requestOtp({ number, userType, location });
+        const { number, userType } = this.state;
+        const data = {
+            location: this.props.location,
+            category: this.props.category,
+
+        }
+        this.props.requestOtp({ number, userType, data });
         this.props.navigation.navigate('Otp')
     }
 
     render() {
-        const { userType, location, category } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }} >
                 <TouchableOpacity style={{ marginTop: 50, paddingLeft: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }} onPress={() => this.props.navigation.goBack()}>
@@ -99,7 +84,7 @@ class CustomerReg extends Component {
 
                             < View style={{ flexDirection: 'row' }}>
                                 <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
-                                <Input placeholder="number" keyboardType={'numeric'} type="tel" value={this.props.number} onChangeText={(text) => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
+                                <Input placeholder="number" keyboardType={'numeric'} value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox} />
 
                             </View>
 
@@ -111,7 +96,11 @@ class CustomerReg extends Component {
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
 
                                 <View >
-                                <LocationDropDown bgcolor="#000" onCountrySelect={() => this.props.setuplocation()} default={this.props.location.name} selected={this.props.location.id} />
+                                    <LocationDropDown
+                                        default={this.props.location.name}
+                                        selected={this.props.location.id}
+                                        bgcolor="blue"
+                                    />
                                 </View>
 
 
@@ -135,8 +124,8 @@ class CustomerReg extends Component {
             </View >
         );
     }
-}
 
+}
 
 
 function mapStateToProps(state) {
