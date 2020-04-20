@@ -1,25 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { View, Text } from 'native-base'
+import { View, Text, CheckBox } from 'native-base'
 
 class Item extends Component {
-    render() {
-        const { item } = this.props;
 
-        console.log(item);
+
+    render() {
+        const { item, edit, checked } = this.props;
 
         return (
 
 
             <TouchableOpacity
-                // onPress={() => this.props.navigation.navigate('')  }
+
                 style={styles.item}>
-                {/* <Text>{item.name}</Text> */}
+
                 <Text style={[styles.column]}> {item.name} </Text>
                 <Text style={[styles.column]}> {item.category} </Text>
                 <Text style={[styles.column]}> {item.price} </Text>
+                {edit &&
+                    <View style={[styles.column, styles.checkbox]}>
+                        <CheckBox checked={checked} onPress={(val) => this.props._itemSelected(item.id)} />
+                    </View>
 
+
+                }
             </TouchableOpacity >
 
         );
@@ -29,7 +35,7 @@ class Item extends Component {
 const styles = StyleSheet.create({
 
     item: {
-        height: 35,
+        height: 40,
         borderBottomColor: '#000',
         borderBottomWidth: 0.5,
         padding: 4,
@@ -37,8 +43,11 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     column: {
-        flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', padding: 5, textAlign: 'center', color: '#000'
+        flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', padding: 5, textAlign: 'center', color: '#000', fontSize: 14
     },
+    checkbox: {
+        alignItems: 'center'
+    }
 })
 
 const mapStateToProps = (state) => ({

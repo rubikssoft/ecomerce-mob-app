@@ -20,6 +20,40 @@ function mapStateToProps(state) {
 
 
 class ProductsContainer extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            selected: [],
+            edit: false,
+
+        }
+        this.changeEditStatus = this.changeEditStatus.bind(this)
+    }
+
+    changeEditStatus() {
+        this.setState({ edit: !this.state.edit })
+    }
+
+    _checkItemChecked(val) {
+        return this.state.selected.includes(val.id)
+
+    }
+
+    _itemSelected(item) {
+        var { selected } = this.state;
+        const index = selected.indexOf(item);
+        if (index > -1) {
+            selected.splice(index, 1);
+        } else {
+            selected.push(item)
+        }
+
+        this.setState({ selected: selected })
+
+
+    }
+
     render() {
         const products = this.props.sellerData.products
 
@@ -33,11 +67,13 @@ class ProductsContainer extends Component {
                     />
                 }
                 >
-                    <Header />
+                    <Header edit={this.state.edit} changeEditStatus={() => this.changeEditStatus()} />
 
-                    {products.data && products.data.map((value, key) => (
-                        <Item item={value} {...this.props} key={key} />
-                    ))}
+                    {
+                        products.data && products.data.map((value, key) => (
+                            <Item item={value} {...this.props} key={key} edit={this.state.edit} checked={this._checkItemChecked(value)} _itemSelected={(item) => this._itemSelected(item)} />
+                        ))
+                    }
 
 
 

@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, TouchableOpacit } from 'react-native'
 
-import CustomLabel from '../../../../component/common/CustomLabel'
-import SellerGrid from '../../../../component/common/SellerGrid'
-import OrderGrid from '../../../../component/Order/OrderGrid'
-
-
 import OrderContainer from '../../../../component/Seller/Dashboard/OrderContainer'
 import ProductsContainer from '../../../../component/Seller/Dashboard/ProductsContainer'
 import FloatingButton from '../../../../component/Seller/Dashboard/Products/FloatingButton'
