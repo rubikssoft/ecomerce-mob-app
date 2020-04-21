@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import AddProduct from "./AddProduct";
-import { fetchCurrentUser } from "src/action";
+import ChooseMethod from "./ChooseMethod"
+// import { fetchCurrentUser } from "src/action";
 
 class AddProductContainer extends PureComponent {
     render() {
-        return <AddProduct {...this.props} />;
+        return <ChooseMethod {...this.props} />;
     }
 }
 
@@ -15,5 +16,4 @@ const mapStateToProps = ({ }) => {
 
 export default connect(
     mapStateToProps,
-    { fetchCurrentUser }
 )(AddProductContainer);

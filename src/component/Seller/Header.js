@@ -36,6 +36,7 @@ class Headers extends Component {
 
                     <Left>
                         {this.props.leftmenu &&
+
                             <Button
                                 transparent
                                 onPress={() => {
@@ -45,11 +46,12 @@ class Headers extends Component {
                                 <Icon name={this.props.leftmenu.icon} style={{ color: theme.headerIcon }} />
 
                             </Button>
+
                         }
                     </Left>
                     <Body>
                         {/* <Title style={{ color: "white" }}>{this.props.headername} {localize(this.props.headername)}</Title> */}
-                        <Title style={{ color: theme.headerTitle }}>{this.props.seller.name}</Title>
+                        <Title style={{ color: theme.headerTitle }}>{this.props.seller.name} </Title>
                     </Body>
                     <Right>
                         {this.props.notification &&

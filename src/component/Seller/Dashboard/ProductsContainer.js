@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Item from './Products/Item'
 import Header from './Products/Header'
 import FloatingButton from './Products/FloatingButton'
-import { loadProducts } from 'src/action/Seller/Dashboard'
+import { loadProducts, deleteProducts } from 'src/action/Seller/Dashboard'
 import {
     Container,
     View,
@@ -40,6 +40,11 @@ class ProductsContainer extends Component {
 
     }
 
+    deleteItems() {
+        const { selected } = this.state
+        this.props.deleteProducts(selected)
+    }
+
     _itemSelected(item) {
         var { selected } = this.state;
         const index = selected.indexOf(item);
@@ -50,9 +55,9 @@ class ProductsContainer extends Component {
         }
 
         this.setState({ selected: selected })
-
-
     }
+
+
 
     render() {
         const products = this.props.sellerData.products
@@ -67,7 +72,7 @@ class ProductsContainer extends Component {
                     />
                 }
                 >
-                    <Header edit={this.state.edit} changeEditStatus={() => this.changeEditStatus()} />
+                    <Header edit={this.state.edit} changeEditStatus={() => this.changeEditStatus()} deleteItems={() => this.deleteItems()} />
 
                     {
                         products.data && products.data.map((value, key) => (
@@ -87,5 +92,5 @@ class ProductsContainer extends Component {
 }
 
 export default connect(
-    mapStateToProps, { loadProducts }
+    mapStateToProps, { loadProducts, deleteProducts }
 )(ProductsContainer);

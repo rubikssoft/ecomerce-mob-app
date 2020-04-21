@@ -61,7 +61,7 @@ export class Header extends Component {
                         }
 
                         {edit &&
-                            <FontAwesome.Button name="trash" backgroundColor="#3b5998" style={[styles.button]}>
+                            <FontAwesome.Button name="trash" backgroundColor="#3b5998" style={[styles.button]} onPress={() => this.props.deleteItems()}>
                                 <Text style={[styles.buttontext, { borderColor: 'red' }]}>
                                     Delete
                         </Text>

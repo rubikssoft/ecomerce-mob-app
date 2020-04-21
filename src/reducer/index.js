@@ -15,6 +15,8 @@ import CartReducer from "./CartReducer";
 //seller
 
 import Seller from './Seller/Seller'
+import SellerErrorReducer from './Seller/ErrorReducer'
+import SellerAddProducts from './Seller/AddProducts'
 
 
 
@@ -30,5 +32,7 @@ export default combineReducers({
   category: Category,
   //seller
 
-  sellerData: Seller
+  sellerData: Seller,
+  sellerAddProducts: SellerAddProducts,
+  sellerError: SellerErrorReducer
 });

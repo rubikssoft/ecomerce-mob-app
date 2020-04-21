@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TouchableOpacit } from 'react-native'
+import { Dimensions } from 'react-native'
+import RBSheet from "react-native-raw-bottom-sheet";
 
 import OrderContainer from '../../../../component/Seller/Dashboard/OrderContainer'
 import ProductsContainer from '../../../../component/Seller/Dashboard/ProductsContainer'
@@ -11,20 +12,31 @@ import Headers from "../../../../component/Seller/Header";
 import {
     Container,
     View,
+    Text
 } from "native-base";
 import { ScrollableTabView, DefaultTabBar, ScrollableTabBar, } from '@valdio/react-native-scrollable-tabview'
 let { height } = Dimensions.get("window");
 
 function mapStateToProps(state) {
     return {
-
-    };
+        error: state.sellerError
+    }
 }
 
 class SrollDashboard extends Component {
 
     constructor(props) {
         super(props)
+    }
+
+    componentDidUpdate(prevProps) {
+
+        const { error } = this.props;
+        if (error.error) {
+            this.RBSheet.open()
+        }
+
+
     }
     render() {
         return (
@@ -62,24 +74,37 @@ class SrollDashboard extends Component {
 
                         <View tabLabel='Products'>
                             <View style={{
+                                height: height - 10,
                                 height: height - 150,
-                                marginBottom: 10,
                             }}>
 
                                 <ProductsContainer />
-                                <FloatingButton />
+                                <FloatingButton {...this.props} />
                             </View>
 
                         </View>
 
 
-
-                        {/* <Text tabLabel='Tab #2'>favorite</Text>
-                        <Text tabLabel='Tab #3'>project</Text> */}
-                        {/* <TouchableOpacity tabLabel='Back' onPress={() => this.tabView.goToPage(0)}>
-                            <Text>Lets go back!</Text>
-                        </TouchableOpacity> */}
                     </ScrollableTabView>
+                    <RBSheet
+                        ref={ref => {
+                            this.RBSheet = ref;
+                        }}
+                        height={100}
+                        duration={250}
+                        customStyles={{
+                            container: {
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }
+                        }}
+                    >
+
+                        <Text>
+                            {this.props.error.msg}
+                        </Text>
+
+                    </RBSheet>
                 </View>
 
             </Container>
