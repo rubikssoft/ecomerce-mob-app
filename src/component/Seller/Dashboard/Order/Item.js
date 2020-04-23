@@ -10,7 +10,7 @@ class Item extends Component {
         const seller = order.seller;
 
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SellerOrderDetails', { order: order })}>
                 <Card>
                     <CardItem>
 

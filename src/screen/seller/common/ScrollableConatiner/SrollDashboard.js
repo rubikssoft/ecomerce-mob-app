@@ -12,7 +12,7 @@ import Headers from "../../../../component/Seller/Header";
 import {
     Container,
     View,
-    Text
+    Text, Content
 } from "native-base";
 import { ScrollableTabView, DefaultTabBar, ScrollableTabBar, } from '@valdio/react-native-scrollable-tabview'
 let { height } = Dimensions.get("window");
@@ -42,12 +42,8 @@ class SrollDashboard extends Component {
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
-                <View
-                    style={{
-                        height: height - 150,
-                        marginBottom: 10,
-                        marginTop: 10
-                    }}
+                <Content
+
                 >
 
                     <ScrollableTabView
@@ -57,13 +53,9 @@ class SrollDashboard extends Component {
 
 
                         <View tabLabel='Orders'>
-                            <View style={{
-                                height: height - 150,
-                                marginBottom: 10,
+                            <View style={{ flex: 1 }}>
 
-                            }}>
-
-                                <OrderContainer />
+                                <OrderContainer {...this.props} />
 
 
                             </View>
@@ -73,10 +65,7 @@ class SrollDashboard extends Component {
 
 
                         <View tabLabel='Products'>
-                            <View style={{
-                                height: height - 10,
-                                height: height - 150,
-                            }}>
+                            <View style={{ flex: 1 }}>
 
                                 <ProductsContainer />
                                 <FloatingButton {...this.props} />
@@ -105,7 +94,7 @@ class SrollDashboard extends Component {
                         </Text>
 
                     </RBSheet>
-                </View>
+                </Content>
 
             </Container>
 

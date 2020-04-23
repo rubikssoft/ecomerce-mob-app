@@ -55,7 +55,7 @@ class ChooseMethod extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
+                <Headers leftmenu={{ path: 'SellerDashobard', icon: 'md-arrow-dropleft' }} routes={this.props.navigation} locationSelect={true} activeSellerView={false} {...this.props} />
                 <View
                     style={{
                         height: height - 10,
@@ -79,7 +79,7 @@ class ChooseMethod extends Component {
 
                             </ListItem>
                             <ListItem>
-                                <TouchableOpacity style={styles.listButton}>
+                                <TouchableOpacity style={styles.listButton} onPress={() => this.props.navigation.navigate('CustomProduct')}>
                                     <View style={styles.buttonInfo}>
                                         <Text style={styles.optionHeading}>Custom Product</Text>
                                         <Text style={styles.optionSubHeading}>Create your own custom product </Text>

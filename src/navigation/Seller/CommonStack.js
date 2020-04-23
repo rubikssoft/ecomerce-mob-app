@@ -1,8 +1,4 @@
 
-import {
-    createStackNavigator,
-} from "react-navigation";
-
 import { FluidNavigator, Transition } from "react-navigation-fluid-transitions"
 
 import Dashobard from "src/screen/seller/common/ScrollableConatiner";
@@ -11,13 +7,19 @@ import CategoryChooser from "src/screen/seller/products/AddProductContainer/Cate
 import SubCategoryChooser from "src/screen/seller/products/AddProductContainer/SubCategoryChooser";
 import ProductChooser from "src/screen/seller/products/AddProductContainer/ProductChooser";
 
+import CustomProduct from "src/screen/seller/products/AddProductContainer/CustomProduct";
+import OrderDetails from "src/screen/seller/order/OrderDetails";
+
 export default CommonStack = FluidNavigator(
     {
         SellerDashobard: Dashobard,
         AddProduct: AddProductContainer,
         CategoryChooser: CategoryChooser,
         ProductChooser: ProductChooser,
-        SubCategoryChooser: SubCategoryChooser
+        SubCategoryChooser: SubCategoryChooser,
+
+        CustomProduct: CustomProduct,
+        SellerOrderDetails: OrderDetails
 
 
     },
