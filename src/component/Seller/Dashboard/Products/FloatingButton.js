@@ -15,7 +15,7 @@ export class FloatingButton extends Component {
         return (
 
 
-            <TouchableOpacity style={styles.TouchableOpacityStyle} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('AddProduct')}>
+            <TouchableOpacity style={styles.TouchableOpacityStyle} activeOpacity={0.7} onPress={() => this.props.addProductToggle()}>
                 <Image
 
                     source={{

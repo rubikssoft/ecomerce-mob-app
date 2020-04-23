@@ -7,7 +7,7 @@ import CategoryChooser from "src/screen/seller/products/AddProductContainer/Cate
 import SubCategoryChooser from "src/screen/seller/products/AddProductContainer/SubCategoryChooser";
 import ProductChooser from "src/screen/seller/products/AddProductContainer/ProductChooser";
 
-import CustomProduct from "src/screen/seller/products/AddProductContainer/CustomProduct";
+// import CustomProduct from "src/screen/seller/products/AddProductContainer/CustomProduct";
 import OrderDetails from "src/screen/seller/order/OrderDetails";
 
 export default CommonStack = FluidNavigator(
@@ -18,7 +18,7 @@ export default CommonStack = FluidNavigator(
         ProductChooser: ProductChooser,
         SubCategoryChooser: SubCategoryChooser,
 
-        CustomProduct: CustomProduct,
+        // CustomProduct: CustomProduct,
         SellerOrderDetails: OrderDetails
 
 

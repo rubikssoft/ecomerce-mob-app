@@ -78,7 +78,7 @@ class ChooseMethod extends Component {
                                 </TouchableOpacity>
 
                             </ListItem>
-                            <ListItem>
+                            {/* <ListItem>
                                 <TouchableOpacity style={styles.listButton} onPress={() => this.props.navigation.navigate('CustomProduct')}>
                                     <View style={styles.buttonInfo}>
                                         <Text style={styles.optionHeading}>Custom Product</Text>
@@ -89,7 +89,7 @@ class ChooseMethod extends Component {
                                     </Right>
                                 </TouchableOpacity>
 
-                            </ListItem>
+                            </ListItem> */}
 
                         </List>
                     </Content>
