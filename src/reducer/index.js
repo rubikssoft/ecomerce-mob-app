@@ -19,8 +19,23 @@ import SellerErrorReducer from './Seller/ErrorReducer'
 import SellerAddProducts from './Seller/AddProducts'
 
 
+//auth
+import AuthReducer from './AuthReducer'
+import BottomPopReducer from './BottomPopReducer'
+
+
+//error handler 
+import ErrorReducer from './ErrorReducer'
+
+
+
 
 export default combineReducers({
+
+  auth: AuthReducer,
+  error: ErrorReducer,
+  //customer 
+
   login: LoginReducer,
   register: RegisterReducer,
   user: UserReducer,
@@ -34,5 +49,9 @@ export default combineReducers({
 
   sellerData: Seller,
   sellerAddProducts: SellerAddProducts,
-  sellerError: SellerErrorReducer
+  sellerError: SellerErrorReducer,
+
+
+  //common
+  bottomPopup: BottomPopReducer
 });

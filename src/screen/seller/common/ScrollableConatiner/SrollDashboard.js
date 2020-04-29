@@ -86,25 +86,7 @@ class SrollDashboard extends Component {
 
 
                     </ScrollableTabView>
-                    <RBSheet
-                        ref={ref => {
-                            this.RBSheet = ref;
-                        }}
-                        height={100}
-                        duration={250}
-                        customStyles={{
-                            container: {
-                                justifyContent: "center",
-                                alignItems: "center"
-                            }
-                        }}
-                    >
 
-                        <Text>
-                            {this.props.error.msg}
-                        </Text>
-
-                    </RBSheet>
                 </Content>
                 <View>{this.addProductModal()}
                 </View>

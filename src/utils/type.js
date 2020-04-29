@@ -19,6 +19,7 @@ export const TESTAPI_FAIL = "TESTAPI_FAIL";
 
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const OTP_REQUEST = "OTP_REQUEST";
+export const OTP_SUCEESS = "OTP_SUCEESS"
 
 export const LOAD_LOCATION = "LOAD_LOCATION";
 
@@ -68,3 +69,11 @@ export const LOAD_SUB_CATEGORIES_SUCCESS = "LOAD_SUB_CATEGORIES_SUCCESS";
 export const LOAD_PRODUCTS = "LOAD_PRODUCTS";
 export const LOAD_PRODUCTS_SUCCESS = "LOAD_PRODUCTS_SUCCESS";
 
+
+
+export const LOAD_BOTTOM_INFO = "LOAD_BOTTOM_INFO";
+export const BOTTOM_INFO_OFF = "BOTTOM_INFO_OFF";
+
+
+export const LOAD_USER = "LOAD_USER";
+export const UNLOAD_USER = "UNLOAD_USER";

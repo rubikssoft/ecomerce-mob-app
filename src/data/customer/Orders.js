@@ -16,7 +16,10 @@ export default [
                 name: 'Rice 2',
                 category: 'Raice',
                 price: 20,
-                unit: ['gm', 'kg'],
+                unit: [
+                    { name: 'gm', default: false, value: 0.001 },
+                    { name: 'kg', default: true, value: 1, }
+                ]
 
             },
             {
@@ -24,7 +27,10 @@ export default [
                 name: 'Rice 6',
                 category: 'Raice',
                 price: 20,
-                unit: ['gm', 'kg'],
+                unit: [
+                    { name: 'gm', default: false, value: 0.001 },
+                    { name: 'kg', default: true, value: 1, }
+                ]
 
             },
 
@@ -67,7 +73,10 @@ export default [
                 name: 'Rice 2',
                 category: 'Raice',
                 price: 20,
-                unit: ['gm', 'kg'],
+                unit: [
+                    { name: 'gm', default: false, value: 0.001 },
+                    { name: 'kg', default: true, value: 1, }
+                ]
 
             },
             {
@@ -75,7 +84,10 @@ export default [
                 name: 'Rice 6',
                 category: 'Raice',
                 price: 20,
-                unit: ['gm', 'kg'],
+                unit: [
+                    { name: 'gm', default: false, value: 0.001 },
+                    { name: 'kg', default: true, value: 1, }
+                ]
 
             },
 

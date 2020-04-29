@@ -7,6 +7,9 @@ import { StyleSheet, Text, SafeAreaView, Platform } from 'react-native';
 import { StatusBar, View } from 'react-native'
 import theme from 'src/style/theme/default'
 
+import BottomPopup from './component/common/BottomPopup'
+import ErrorHandler from './component/common/ErrorHandler'
+
 class Root extends PureComponent {
   render() {
     let storeDefaults = storeConfig();
@@ -25,6 +28,8 @@ class Root extends PureComponent {
               translucent={true}
             />
             <Router />
+            <BottomPopup />
+            <ErrorHandler />
           </View>
 
         </PersistGate>

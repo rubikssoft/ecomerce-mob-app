@@ -49,13 +49,15 @@ class CustomerReg extends Component {
     subimitData() {
 
         const { number, userType } = this.state;
+        const { register } = this.props;
         const data = {
             location: this.props.location,
             category: this.props.category,
 
         }
         this.props.requestOtp({ number, userType, data });
-        this.props.navigation.navigate('Otp')
+        if (register.otpReference !== '')
+            this.props.navigation.navigate('Otp')
     }
 
     render() {
@@ -131,7 +133,7 @@ class CustomerReg extends Component {
 function mapStateToProps(state) {
     return {
         location: state.location.location,
-
+        register: state.register
 
     };
 }

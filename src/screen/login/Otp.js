@@ -6,6 +6,8 @@ import { Button } from 'native-base'
 
 import { loadData } from '../../action/Seller/MainActions'
 
+import { registerUser } from 'src/action/RegisterAction'
+
 import {
 
     Input,
@@ -14,9 +16,8 @@ import {
 
 function mapStateToProps(state) {
     return {
-        loading: state.register.loading,
-        number: state.register.number,
-        userType: state.register.userType
+        register: state.register,
+        auth: state.auth
 
     };
 }
@@ -32,18 +33,33 @@ class Otp extends Component {
         }
     }
 
-    componentDidMount() {
-        //console.log(this.props)
 
-    }
-    handleSubmit() {
-        const { userType } = this.props
-        if (userType === "customer") {
+    componentWillReceiveProps() {
+        console.log('componentWillReceiveProps called')
+        const { auth } = this.props
+        if (auth.isAuthenticated && auth.type === "customer") {
             this.props.navigation.navigate('ScrollableDash')
-        } else if (userType === 'seller') {
+        } else if (auth.isAuthenticated && auth.type === 'seller') {
             this.props.loadData()
             this.props.navigation.navigate('Seller')
         }
+    }
+
+    handleSubmit() {
+
+        const { otp } = this.state
+        const { register } = this.props;
+
+        const data = {
+            otp: otp,
+            number: register.number,
+            otpReference: register.otpReference,
+            type: register.userType,
+            category: register.category ? register.category.id : "",
+            location: register.location.id ? register.location.id : "",
+        }
+
+        this.props.registerUser(data)
 
     }
 
@@ -78,12 +94,12 @@ class Otp extends Component {
                         </View>
 
 
-                        <View style={styles.bottomContainer}>
+                        <TouchableOpacity style={styles.bottomContainer} >
 
-                            <Button success style={{ marginTop: 50, padding: 20 }} >
-                                <Text style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'bold' }} onPress={() => this.handleSubmit()}> Next </Text>
+                            <Button success style={{ marginTop: 50, padding: 20 }} onPress={() => this.handleSubmit()} >
+                                <Text style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'bold' }}> Next </Text>
                             </Button>
-                        </View>
+                        </TouchableOpacity>
                     </View >
                 </View>
             </View>
@@ -95,7 +111,7 @@ class Otp extends Component {
 
 
 export default connect(
-    mapStateToProps, { loadData }
+    mapStateToProps, { loadData, registerUser }
 )(Otp);
 
 
