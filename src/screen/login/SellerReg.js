@@ -22,6 +22,8 @@ function mapStateToProps(state) {
         loading: state.register.loading,
         location: state.location.location,
         category: state.category.category,
+        register: state.register,
+        error: state.error
 
     };
 }
@@ -40,18 +42,24 @@ class SellerReg extends Component {
         }
     }
 
-    subimitData() {
+
+    async subimitData() {
+
         const { number, userType } = this.state;
+
         const data = {
             location: this.props.location,
             category: this.props.category,
 
         }
-        this.props.requestOtp({ number, userType, data });
-        this.props.navigation.navigate('Otp')
-        return true;
-    }
+        await this.props.requestOtp({ number, userType, data }).then(e => {
+            const { register, error } = this.props;
+            if (register.otpReference !== '' && !error.status)
+                this.props.navigation.navigate('Otp')
+        }
+        );
 
+    }
 
     handleShopNameInput(txt) {
 
@@ -59,6 +67,7 @@ class SellerReg extends Component {
 
 
     render() {
+        const { error } = this.props
         return (
 
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }}>
@@ -80,6 +89,13 @@ class SellerReg extends Component {
                     </View>
 
                     <View style={styles.middleContainer}>
+                        <View>
+                            {error.errors.map((value, key) => (
+                                <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
+                                    {value}
+                                </Text>
+                            ))}
+                        </View>
                         <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
 
                             < View style={{ flexDirection: 'row' }}>
@@ -92,6 +108,7 @@ class SellerReg extends Component {
                         <KeyboardAvoidingView behavior="padding">
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
                                 <View style={{ flexDirection: 'column' }}>
+                                    <RubiksInput bgcolor='orange' onChangeText={(txt) => this.setState({ shopeName: txt })} value={this.state.shopeName} />
                                     <LocationDropDown
                                         default={this.props.location.name}
                                         selected={this.props.location.id}
@@ -101,7 +118,7 @@ class SellerReg extends Component {
                                         default={this.props.location.name}
                                         selected={this.props.location.id}
                                         bgcolor="red" />
-                                    <RubiksInput bgcolor='orange' onChangeText={(txt) => this.setState({ shopeName: txt })} value={this.state.shopeName} />
+
                                 </View>
 
 

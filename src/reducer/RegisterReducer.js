@@ -32,7 +32,7 @@ export default (state = initialState, { type, payload }) => {
     case OTP_SUCEESS:
       return {
         ...state,
-        otpReference: payload.otpReference
+        otpReference: payload.reference_id
       };
 
       break;

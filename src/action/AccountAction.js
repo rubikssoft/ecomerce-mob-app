@@ -1,10 +1,10 @@
 import { LOGOUT, TESTAPI, TESTAPI_SUCCESS, TESTAPI_FAIL } from "src/utils";
 import { fetch, GET } from "src/apis";
-export const logout = () => {
-  return {
-    type: LOGOUT
-  };
-};
+// export const logout = () => {
+//   return {
+//     type: LOGOUT
+//   };
+// };
 
 export const testapi = () => {
   return async dispatch => {
@@ -28,3 +28,4 @@ export const testapi = () => {
       });
   };
 };
+``

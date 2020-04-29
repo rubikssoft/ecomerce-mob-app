@@ -25,7 +25,7 @@ import Logo from '../../../assets/icon.png';
 
 function mapStateToProps(state) {
     return {
-
+        auth: state.auth
     };
 }
 
@@ -44,6 +44,18 @@ class Landing extends Component {
             modalVisible: false
         });
     }
+
+    componentDidMount() {
+
+        const { auth } = this.props
+        if (auth.isAuthenticated && auth.type === "customer") {
+            this.props.navigation.navigate('ScrollableDash')
+        } else if (auth.isAuthenticated && auth.type === 'seller') {
+            this.props.loadData()
+            this.props.navigation.navigate('Seller')
+        }
+    }
+
 
     _onContinue() {
         const { userType } = this.state;

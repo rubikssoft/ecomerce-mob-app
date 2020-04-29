@@ -40,18 +40,17 @@ class CustomerReg extends Component {
 
     }
 
-
-
     async subimitData() {
 
         const { number, userType } = this.state;
-        const { register, error } = this.props;
+
         const data = {
             location: this.props.location,
             category: this.props.category,
 
         }
         await this.props.requestOtp({ number, userType, data }).then(e => {
+            const { register, error } = this.props;
             if (register.otpReference !== '' && !error.status)
                 this.props.navigation.navigate('Otp')
         }

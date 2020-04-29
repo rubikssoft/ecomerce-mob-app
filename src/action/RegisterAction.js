@@ -6,6 +6,7 @@ import {
   LOAD_BOTTOM_INFO,
   BOTTOM_INFO_OFF,
   LOAD_USER,
+  UNLOAD_USER,
   SET_ERROR,
   CLEAR_ERROR
 } from "src/utils";
@@ -16,29 +17,17 @@ import axiosConfig from '../utils/axioConfig';
 const API = axiosConfig()
 export const requestOtp = (data) => {
 
-
-
   return async dispatch => {
-
-
-
-    // dispatch({
-    //   type: OTP_SUCEESS, payload: {
-    //     otpReference: '32423423'
-    //   }
-    // });
-
-    // console.log(data);
-
+    dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Requesting OTP' } } });
     dispatch({
       type: OTP_REQUEST, payload: {
         number: data.number,
         userType: data.userType,
-        location: data.location,
-        category: data.category
+        location: data.data.location,
+        category: data.data.category
       }
     });
-    dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Requesting OTP' } } });
+
     const post_data = {
       phone_number: data.number,
       type: data.userType,
@@ -50,9 +39,7 @@ export const requestOtp = (data) => {
       if (data.status) {
         dispatch({ type: BOTTOM_INFO_OFF });
         dispatch({
-          type: OTP_SUCEESS, payload: {
-            otpReference: '32423423'
-          }
+          type: OTP_SUCEESS, payload: data.data
         })
 
       } else {
@@ -73,12 +60,6 @@ export const requestOtp = (data) => {
         type: SET_ERROR, payload: error
       });
     })
-    ///retquest otp
-
-    // dispatch({
-    //   type: BOTTOM_INFO_OFF,
-    // });
-
   };
 };
 
@@ -87,42 +68,39 @@ export const requestOtp = (data) => {
 export const registerUser = (data) => {
 
   return async dispatch => {
+    dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: ' Login in' } } });
+    const post_data = {
+      otp: data.otp,
+      reference_id: data.otpReference
 
-
-    dispatch({
-      type: LOAD_BOTTOM_INFO, payload: {
-        data: {
-          type: 'loading',
-          msg: ' Login in'
-        }
-
-      }
-    });
-
-
-    const payload = {
-      user: {
-        name: 'sadu',
-        phone: '732432423423',
-        location: 12
-      },
-      token: 234234234234,
-      type: 'customer'
     }
+    await API.post('check-otp', post_data).then(res => {
+      console.log(res)
+      const data = res.data
+      if (data.status) {
+        dispatch({ type: BOTTOM_INFO_OFF });
+        dispatch({
+          type: LOAD_USER, payload: data.data
+        })
+
+      } else {
+        dispatch({
+          type: SET_ERROR, payload: { ...data, type: 'OTP_ERROR', status: true }
+        });
+      }
 
 
-    dispatch({
-      type: LOAD_USER, payload: payload
-    });
-
-    dispatch({
-      type: BOTTOM_INFO_OFF,
-    });
-
-
-
-
-
+    }).catch(err => {
+      console.log(err);
+      const error = {
+        msg: 'Network Request Failed',
+        errors: [],
+        type: 'NETWORK_REQUEST_FAILED'
+      }
+      dispatch({
+        type: SET_ERROR, payload: error
+      });
+    })
 
   }
 
@@ -136,5 +114,16 @@ export const clearError = () => {
     dispatch({
       type: CLEAR_ERROR
     });
+  }
+}
+
+
+
+export const logout = () => {
+  return async dispatch => {
+    dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Logging Out' } } });
+
+    dispatch({ type: UNLOAD_USER });
+
   }
 }

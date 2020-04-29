@@ -24,7 +24,6 @@ class ErrorHandler extends Component {
 
     render() {
         const { error } = this.props;
-        console.log(error)
         return (
             <ErrorRBSheet
                 ref={ref => {

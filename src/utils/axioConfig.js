@@ -9,7 +9,7 @@ export default function () {
         headers: {
             "Content-Type": 'application/json',
         },
-        "baseURL": "http://localhost/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/",
+        "baseURL": "http://192.168.100.63/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/",
         responseType: "json"
     }
 

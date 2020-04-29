@@ -7,6 +7,8 @@ import {
 
 import Headers from "../../../../component/common/CustomerHeader";
 
+import { logout } from 'src/action/RegisterAction'
+
 import {
     Container,
     Content,
@@ -38,6 +40,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Settings extends Component {
+
+
+    async logout() {
+        await this.props.logout()
+        this.props.navigation.navigate('Landing')
+    }
     render() {
 
 
@@ -110,10 +118,14 @@ class Settings extends Component {
                 <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, paddingBottom: 50, backgroundColor: '#7f1925', height: 70, justifyContent: 'space-between' }}>
 
 
-                    <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center' }}>
+                    <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'space-between' }}>
 
-                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10, marginLeft: 'auto' }} onPress={() => this.props.navigation.navigate('Cart')} >
+                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this.props.navigation.navigate('Cart')} >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}>Update</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={{ flex: 0.5, borderRadius: 5, alignItems: 'center', backgroundColor: '#fff', padding: 10, marginLeft: 10 }} onPress={() => this.logout()} >
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#000' }}>Logout</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -127,5 +139,5 @@ class Settings extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { logout }
 )(Settings);

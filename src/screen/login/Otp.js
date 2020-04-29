@@ -6,7 +6,7 @@ import { Button } from 'native-base'
 
 import { loadData } from '../../action/Seller/MainActions'
 
-import { registerUser } from 'src/action/RegisterAction'
+import { registerUser, clearError } from 'src/action/RegisterAction'
 
 import {
 
@@ -17,7 +17,8 @@ import {
 function mapStateToProps(state) {
     return {
         register: state.register,
-        auth: state.auth
+        auth: state.auth,
+        error: state.error
 
     };
 }
@@ -34,40 +35,37 @@ class Otp extends Component {
 
         this.props.clearError()
 
+
     }
 
 
-    componentWillReceiveProps() {
 
-        const { auth } = this.props
-        if (auth.isAuthenticated && auth.type === "customer") {
-            this.props.navigation.navigate('ScrollableDash')
-        } else if (auth.isAuthenticated && auth.type === 'seller') {
-            this.props.loadData()
-            this.props.navigation.navigate('Seller')
-        }
-    }
-
-    handleSubmit() {
+    async handleSubmit() {
 
         const { otp } = this.state
         const { register } = this.props;
-
         const data = {
             otp: otp,
-            number: register.number,
             otpReference: register.otpReference,
-            type: register.userType,
-            category: register.category ? register.category.id : "",
-            location: register.location.id ? register.location.id : "",
+
         }
 
-        this.props.registerUser(data)
+
+        await this.props.registerUser(data).then(e => {
+            const { auth } = this.props
+            if (auth.isAuthenticated && auth.type === "customer") {
+                this.props.navigation.navigate('ScrollableDash')
+            } else if (auth.isAuthenticated && auth.type === 'seller') {
+                this.props.loadData()
+                this.props.navigation.navigate('Seller')
+            }
+        }
+        );
 
     }
 
     render() {
-
+        const { register, error } = this.props
         return (
 
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }}>
@@ -82,11 +80,18 @@ class Otp extends Component {
                             Enter OTP
                                 </Text>
                         <Text style={styles.h2}>
-                            OTP is send to +91 {this.props.number}
+                            OTP is send to +91 {register.number}
                         </Text>
                     </View>
 
                     <View style={styles.middleContainer}>
+                        <View>
+                            {error.errors.map((value, key) => (
+                                <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
+                                    {value}
+                                </Text>
+                            ))}
+                        </View>
                         <View style={{ width: 150, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
 
                             < View style={{ flexDirection: 'row' }}>
@@ -114,7 +119,7 @@ class Otp extends Component {
 
 
 export default connect(
-    mapStateToProps, { loadData, registerUser }
+    mapStateToProps, { loadData, registerUser, clearError }
 )(Otp);
 
 
