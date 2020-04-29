@@ -1,5 +1,5 @@
 import {
-    SET_ERROR, CLEAR_ERROR
+    SET_ERROR, CLEAR_ERROR, LOAD_BOTTOM_INFO, OTP_SUCEESS
 } from "../utils";
 
 const initialState = {
@@ -14,13 +14,16 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
 
         case SET_ERROR:
+
             return {
                 status: true,
-                msg: payload.msg,
-                errors: payload.errors,
+                msg: payload.message,
+                errors: payload.error,
                 type: payload.type
 
             }
+        case LOAD_BOTTOM_INFO:
+        case OTP_SUCEESS:
         case CLEAR_ERROR:
             return {
                 status: false,

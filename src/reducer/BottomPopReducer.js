@@ -1,5 +1,5 @@
 import {
-    LOAD_BOTTOM_INFO, BOTTOM_INFO_OFF
+    LOAD_BOTTOM_INFO, BOTTOM_INFO_OFF, SET_ERROR, OTP_SUCEESS
 } from "../utils";
 const initialState = {
     status: false,
@@ -18,7 +18,8 @@ export default (state = initialState, { type, payload }) => {
                 data: payload.data
             }
             break;
-
+        case SET_ERROR:
+        case OTP_SUCEESS:
         case BOTTOM_INFO_OFF:
             return {
                 ...state,

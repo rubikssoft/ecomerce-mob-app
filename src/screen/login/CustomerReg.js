@@ -9,7 +9,7 @@ import { REGISTER } from "src/utils";
 
 import Spinner from "react-native-loading-spinner-overlay";
 
-import { requestOtp } from 'src/action/RegisterAction'
+import { requestOtp, clearError } from 'src/action/RegisterAction'
 
 
 
@@ -28,39 +28,39 @@ import {
     Header
 } from "native-base";
 
-
-
-
 class CustomerReg extends Component {
     constructor(props) {
         super(props)
         this.state = {
             number: '',
             userType: 'customer'
-
-
-
         }
+
+        this.props.clearError()
 
     }
 
 
 
-    subimitData() {
+    async subimitData() {
 
         const { number, userType } = this.state;
-        const { register } = this.props;
+        const { register, error } = this.props;
         const data = {
             location: this.props.location,
             category: this.props.category,
 
         }
-        this.props.requestOtp({ number, userType, data });
-        if (register.otpReference !== '')
-            this.props.navigation.navigate('Otp')
+        await this.props.requestOtp({ number, userType, data }).then(e => {
+            if (register.otpReference !== '' && !error.status)
+                this.props.navigation.navigate('Otp')
+        }
+        );
+
     }
 
     render() {
+        const { error } = this.props
         return (
             <View style={{ flex: 1, backgroundColor: '#f0eee9' }} >
                 <TouchableOpacity style={{ marginTop: 50, paddingLeft: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }} onPress={() => this.props.navigation.goBack()}>
@@ -81,7 +81,13 @@ class CustomerReg extends Component {
 
                     <View style={styles.middleContainer}>
 
-
+                        <View>
+                            {error.errors.map((value, key) => (
+                                <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
+                                    {value}
+                                </Text>
+                            ))}
+                        </View>
                         <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 5, flexDirection: 'column' }}>
 
                             < View style={{ flexDirection: 'row' }}>
@@ -133,13 +139,14 @@ class CustomerReg extends Component {
 function mapStateToProps(state) {
     return {
         location: state.location.location,
-        register: state.register
+        register: state.register,
+        error: state.error
 
     };
 }
 
 export default connect(
-    mapStateToProps, { requestOtp }
+    mapStateToProps, { requestOtp, clearError }
 )(CustomerReg);
 
 

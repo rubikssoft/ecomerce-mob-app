@@ -28,8 +28,9 @@ class Root extends PureComponent {
               translucent={true}
             />
             <Router />
-            <BottomPopup />
             <ErrorHandler />
+            <BottomPopup />
+
           </View>
 
         </PersistGate>

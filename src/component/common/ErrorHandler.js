@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RBSheet from "react-native-raw-bottom-sheet";
+import ErrorRBSheet from "react-native-raw-bottom-sheet";
 
 import { Text, Spinner, View } from 'native-base'
 
@@ -15,20 +15,20 @@ function mapStateToProps(state) {
 class ErrorHandler extends Component {
 
 
-    componentDidUpdate(prevProps) {
-
+    componentDidUpdate() {
         const { error } = this.props;
-        error.status ? this.RBSheet.open() : this.RBSheet.close()
-
-
+        if (error.status) {
+            this.ErrorRBSheet.open()
+        }
     }
 
     render() {
         const { error } = this.props;
+        console.log(error)
         return (
-            <RBSheet
+            <ErrorRBSheet
                 ref={ref => {
-                    this.RBSheet = ref;
+                    this.ErrorRBSheet = ref;
                 }}
                 height={100}
                 closeOnDragDown={false}
@@ -40,15 +40,23 @@ class ErrorHandler extends Component {
                     }
                 }}
             >
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'column' }}>
 
-                    <Text>
+                    <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
                         {error.msg}
                     </Text>
 
+                    {error.errors.map((value, key) => (
+                        <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
+                            {value}
+                        </Text>
+                    ))}
+
+
+
                 </View>
 
-            </RBSheet>
+            </ErrorRBSheet>
         );
     }
 }

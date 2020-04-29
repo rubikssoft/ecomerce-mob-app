@@ -25,7 +25,8 @@ export default (state = initialState, { type, payload }) => {
         userType: payload.userType,
         location: payload.location,
         category: payload.category ? payload.category : null,
-        shopename: payload.shopename ? payload.shopename : null
+        shopename: payload.shopename ? payload.shopename : null,
+        otpReference: ''
       };
       break;
     case OTP_SUCEESS:

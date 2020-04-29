@@ -31,11 +31,14 @@ class Otp extends Component {
         this.state = {
             otp: ''
         }
+
+        this.props.clearError()
+
     }
 
 
     componentWillReceiveProps() {
-        console.log('componentWillReceiveProps called')
+
         const { auth } = this.props
         if (auth.isAuthenticated && auth.type === "customer") {
             this.props.navigation.navigate('ScrollableDash')

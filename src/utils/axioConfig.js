@@ -1,15 +1,15 @@
 import axios from "axios";
-import storeConfig from "./store";
+import storeConfig from "../store";
 
 export default function () {
     let storeDefaults = storeConfig();
     let store = storeDefaults.store
-    const token = store.auth.token ? store.auth.token : null;
+    const token = store.getState().auth.token ? store.getState().auth.token : null;
     const config = {
         headers: {
             "Content-Type": 'application/json',
         },
-        "baseURL": "localhost/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/",
+        "baseURL": "http://localhost/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/",
         responseType: "json"
     }
 
