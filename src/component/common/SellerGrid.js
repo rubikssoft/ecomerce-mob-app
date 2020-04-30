@@ -4,6 +4,7 @@ import { Text, View, StyleSheet } from 'react-native';
 
 import SellerItem from './SellerItem';
 import { Row } from 'native-base';
+import SkeletonContent from "react-native-skeleton-content";
 
 
 function mapStateToProps(state) {
@@ -28,19 +29,34 @@ const styles = StyleSheet.create({
 
 class SellerGrid extends Component {
     render() {
-        if (this.props.loading)
-            return (
-                <View style={styles.sellerGrid}>
-                    <Text>Loading</Text>
-                </View>
-            )
+
         return (
             <View style={styles.sellerGrid}>
 
-                {this.props.sellers.map((item, key) =>
-                    <SellerItem item={item} key={key} {...this.props} />
-                )
-                }
+                <SkeletonContent
+                    containerStyle={{ flex: 1 }}
+                    isLoading={this.props.loading}
+                    layout={[
+                        { key: "1", width: 600, height: 100, marginBottom: 6 },
+                        { key: "2", width: 600, height: 100, marginBottom: 6 },
+                        { key: "3", width: 600, height: 100, marginBottom: 6 },
+                        { key: "4", width: 600, height: 100, marginBottom: 6 },
+                        { key: "5", width: 600, height: 100, marginBottom: 6 },
+                        { key: "6", width: 600, height: 100, marginBottom: 6 },
+                        { key: "7", width: 600, height: 100, marginBottom: 6 },
+                        { key: "8", width: 600, height: 100, marginBottom: 6 },
+
+                    ]}
+                >
+
+                    {this.props.sellers.map((item, key) =>
+                        <SellerItem item={item} key={key} {...this.props} />
+                    )
+                    }
+
+                </SkeletonContent>
+
+
             </View>
 
 

@@ -9,7 +9,7 @@ import { View, Button } from 'native-base';
 function mapStateToProps(state) {
     return {
         category: state.category.category,
-        location: state.category.location,
+        location: state.location.location,
 
     };
 }
@@ -27,7 +27,9 @@ class CategoriesDropDown extends Component {
         this.props.setupcategory(item);
         var payload = {
             location: this.props.location,
-            category: item
+            category: item,
+            limit: 100,
+            offset: 0
         }
         this.props.loadSellers(payload)
     }

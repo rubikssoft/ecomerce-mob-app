@@ -26,7 +26,7 @@ class LocationDropDown extends Component {
         var payload = {
             location: item,
             category: this.props.category,
-            limit: 10,
+            limit: 100,
             offset: 0
         }
         this.props.loadSellers(payload)
