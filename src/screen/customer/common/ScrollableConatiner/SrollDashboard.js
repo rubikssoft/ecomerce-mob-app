@@ -82,11 +82,7 @@ class SrollDashboard extends Component {
 
 
 
-                        {/* <Text tabLabel='Tab #2'>favorite</Text>
-                        <Text tabLabel='Tab #3'>project</Text> */}
-                        {/* <TouchableOpacity tabLabel='Back' onPress={() => this.tabView.goToPage(0)}>
-                            <Text>Lets go back!</Text>
-                        </TouchableOpacity> */}
+
                     </ScrollableTabView>
                 </View>
 

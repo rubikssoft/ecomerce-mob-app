@@ -7,8 +7,11 @@ import { View, Item, Text } from "native-base";
 
 import Headers from "../../../../component/common/CustomerHeader";
 import Category from "../../../../component/common/Category";
+import SkeletonContent from "react-native-skeleton-content";
 
 let { height } = Dimensions.get("window");
+
+import { loadDetails } from "src/action/CategoryAction";
 
 
 import {
@@ -18,7 +21,7 @@ import {
 
 
 
-const categories = [
+const categories2 = [
     {
         name: 'Category 1',
         subCategories: [
@@ -149,7 +152,9 @@ class Items extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeCart: this.props.activeCart
+            activeCart: this.props.activeCart,
+            categories: [],
+            loading: true
         }
         //this.props.fetchCurrentUser();
 
@@ -162,10 +167,11 @@ class Items extends Component {
     };
 
 
-    // componentWillReceiveProps(nextProps) {
-    //    console.log('componentWillReceiveProps is called');
-    // }
+    componentDidMount() {
 
+
+
+    }
 
 
 
@@ -174,15 +180,44 @@ class Items extends Component {
 
         // console.log(this.props.activeCart);
 
+        const { categories, loading } = this.state
+
+
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers routes={this.props.navigation} headername="ItemsList" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={true} />
                 <ScrollView style={{ flex: 1, height: height - 150 }}>
-                    {categories.map((value, index) => (
-                        <Category data={value} key={index} />
-                    )
 
-                    )}
+
+                    <SkeletonContent
+                        containerStyle={{ flex: 1 }}
+                        isLoading={loading}
+                        layout={[
+                            { key: "1", width: 600, height: 50, marginBottom: 6 },
+                            { key: "2", width: 600, height: 50, marginBottom: 6 },
+                            { key: "3", width: 600, height: 50, marginBottom: 6 },
+                            { key: "4", width: 600, height: 50, marginBottom: 6 },
+                            { key: "5", width: 600, height: 50, marginBottom: 6 },
+                            { key: "6", width: 600, height: 50, marginBottom: 6 },
+                            { key: "7", width: 600, height: 50, marginBottom: 6 },
+                            { key: "8", width: 600, height: 50, marginBottom: 6 },
+                            { key: "9", width: 600, height: 50, marginBottom: 6 },
+                            { key: "10", width: 600, height: 50, marginBottom: 6 },
+                            { key: "11", width: 600, height: 50, marginBottom: 6 },
+                            { key: "12", width: 600, height: 50, marginBottom: 6 },
+
+
+
+                        ]}
+                    >
+
+                        {categories.map((value, index) => (
+                            <Category data={value} key={index} />
+                        )
+
+                        )}
+
+                    </SkeletonContent>
 
 
 

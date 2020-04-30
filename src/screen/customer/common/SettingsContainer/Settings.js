@@ -7,29 +7,26 @@ import {
 
 import Headers from "../../../../component/common/CustomerHeader";
 
-import { logout } from 'src/action/RegisterAction'
+import { logout, updateProfile } from 'src/action/RegisterAction'
 
 import {
     Container,
     Content,
-    Button,
-    Icon,
     Card,
     CardItem,
     Text,
-    List,
-    ListItem,
+
     View,
     Item,
-    Form,
     Input,
-    Body,
+    Label,
     Thumbnail
 } from "native-base";
 let { height } = Dimensions.get("window");
 function mapStateToProps(state) {
     return {
-
+        auth: state.auth,
+        error: state.error
     };
 }
 
@@ -42,13 +39,45 @@ function mapDispatchToProps(dispatch) {
 class Settings extends Component {
 
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            address: '',
+            city: '',
+            phone_number: '',
+            zip: ''
+
+        }
+    }
+
     async logout() {
         await this.props.logout()
         this.props.navigation.navigate('Landing')
     }
+
+    async _updateProfile() {
+        const state = this.state;
+
+        await this.props.updateProfile(state)
+    }
+
+    componentDidMount() {
+        const { user, userDetails } = this.props.auth
+        this.setState({
+            name: userDetails.name,
+            address: userDetails.address,
+            city: userDetails.city,
+            zip: userDetails.zip,
+            phone_number: user.phone_number,
+
+        })
+
+    }
     render() {
 
-
+        const { name, address, city, zip, phone_number } = this.state
+        const { error } = this.props
         return (
 
 
@@ -75,15 +104,27 @@ class Settings extends Component {
                             </CardItem>
                             <CardItem>
                                 <View>
-                                    <Text>Sadu</Text>
-                                    <Text>676576745675674</Text>
+                                    <Text>{name}</Text>
+                                    <Text>{phone_number}</Text>
                                 </View>
 
                             </CardItem>
                         </Card>
 
                         <Card>
+
+                            <View>
+                                {error.errors.map((value, key) => (
+                                    <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
+                                        {value}
+                                    </Text>
+                                ))}
+                            </View>
+
                             <CardItem header>
+
+
+
                                 <View>
                                     <Text style={{ fontWeight: 'bold' }}>Address</Text>
                                 </View>
@@ -91,23 +132,31 @@ class Settings extends Component {
                             </CardItem>
                             <CardItem>
                                 <View style={{ flex: 1, padding: 0, margin: 0 }}>
-                                    <Form style={{ flex: 1, padding: 0, margin: 0 }}>
-                                        <Item>
-                                            <Input placeholder="Address 1" />
-                                        </Item>
-                                        <Item >
-                                            <Input placeholder="Address 2" />
-                                        </Item>
-                                        <Item >
-                                            <Input placeholder="City" />
-                                        </Item>
-                                        <Item >
-                                            <Input placeholder="State" />
-                                        </Item>
-                                        <Item last>
-                                            <Input placeholder="Pincode" />
-                                        </Item>
-                                    </Form>
+
+                                    <Item floatingLabel>
+                                        <Label>Name</Label>
+                                        <Input value={name} onChangeText={(e) => {
+
+                                            this.setState({ name: e })
+                                        }
+                                        } />
+                                    </Item>
+                                    <Item floatingLabel>
+                                        <Label>Address</Label>
+                                        <Input value={address} onChangeText={(e) => this.setState({ address: e })} />
+                                    </Item>
+                                    <Item floatingLabel>
+                                        <Label>City</Label>
+                                        <Input value={city} onChangeText={(e) => this.setState({ city: e })} />
+                                    </Item>
+                                    <Item floatingLabel>
+                                        <Label>Pincode</Label>
+                                        <Input value={zip} onChangeText={(e) => this.setState({ zip: e })} />
+                                    </Item>
+
+
+
+
                                 </View>
 
                             </CardItem>
@@ -120,7 +169,7 @@ class Settings extends Component {
 
                     <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'space-between' }}>
 
-                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this.props.navigation.navigate('Cart')} >
+                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this._updateProfile()} >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}>Update</Text>
                         </TouchableOpacity>
 
@@ -139,5 +188,5 @@ class Settings extends Component {
 }
 
 export default connect(
-    mapStateToProps, { logout }
+    mapStateToProps, { logout, updateProfile }
 )(Settings);

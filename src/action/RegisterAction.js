@@ -8,7 +8,8 @@ import {
   LOAD_USER,
   UNLOAD_USER,
   SET_ERROR,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  LOAD_USER_DETAILS
 } from "src/utils";
 
 
@@ -124,4 +125,41 @@ export const logout = () => {
     dispatch({ type: UNLOAD_USER });
 
   }
+}
+
+
+export const updateProfile = (data) => {
+  console.log('ddd')
+  return async dispatch => {
+    dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Updating..' } } });
+
+    await API.post('update-user-details', data).then(res => {
+      const data = res.data
+      if (data.status) {
+        dispatch({ type: BOTTOM_INFO_OFF });
+        dispatch({ type: LOAD_USER_DETAILS, payload: data.user_profile })
+
+
+      } else {
+        dispatch({
+          type: SET_ERROR, payload: { ...data, type: 'PROFILE_UPDATE_ERROR', status: true }
+        });
+      }
+
+
+    }).catch(err => {
+      console.log(err);
+      const error = {
+        msg: 'Network Request Failed',
+        errors: [],
+        type: 'NETWORK_REQUEST_FAILED'
+      }
+      dispatch({
+        type: SET_ERROR, payload: error
+      });
+    })
+  }
+
+
+
 }
