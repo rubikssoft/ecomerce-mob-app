@@ -1,5 +1,5 @@
 import {
-    SET_ERROR, CLEAR_ERROR, LOAD_BOTTOM_INFO, OTP_SUCEESS
+    SET_ERROR, CLEAR_ERROR, LOAD_BOTTOM_INFO, OTP_SUCEESS, SELLER_LOADING
 } from "../utils";
 
 const initialState = {
@@ -23,6 +23,7 @@ export default (state = initialState, { type, payload }) => {
 
             }
         case LOAD_BOTTOM_INFO:
+        case SELLER_LOADING:
         case OTP_SUCEESS:
         case CLEAR_ERROR:
             return {

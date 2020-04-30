@@ -1,10 +1,10 @@
 import {
     LOAD_LOCATION, LOADSELLERS,
-    LOAD_SELLERS, SET_ACTIVE_SELLER, SELLER_LOADING
+    LOAD_SELLERS, SET_ACTIVE_SELLER, SELLER_LOADING, SET_ERROR
 } from "src/utils";
 import axiosConfig from '../utils/axioConfig';
 const API = axiosConfig()
-
+console.log(API)
 export const setuplocation = (locaton) => {
     return dispatch => {
         dispatch({

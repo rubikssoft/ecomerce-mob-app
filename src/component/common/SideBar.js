@@ -19,7 +19,7 @@ import {
 } from "native-base";
 let { height } = Dimensions.get("window");
 class SideBar extends Component {
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (!this.props.token && newProps.token) {
       this.props.navigation.navigate("Login");
     }

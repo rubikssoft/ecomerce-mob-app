@@ -1,10 +1,21 @@
 import axios from "axios";
 import storeConfig from "../store";
+let storeDefaults = storeConfig();
+let store = storeDefaults.store
+store.subscribe(listener)
+
+function select(state) {
+    return state.auth.token
+}
+
+function listener() {
+    let token = select(store.getState())
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
+
 
 export default function () {
-    let storeDefaults = storeConfig();
-    let store = storeDefaults.store
-    const token = store.getState().auth.token ? store.getState().auth.token : null;
+
     const config = {
         headers: {
             "Content-Type": 'application/json',
@@ -13,9 +24,6 @@ export default function () {
         responseType: "json"
     }
 
-    if (token) {
-        config.headers['Authorization'] = 'Bearer ' + token;
-    }
     return axios.create(config);
 }
 

@@ -26,7 +26,7 @@ class Routing extends PureComponent {
     };
   }
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     await Font.loadAsync({
       'Purpose': require("../assets/Fonts/Purpose.ttf"),
       "Roboto": require("../assets/Fonts/roboto/Roboto-Regular.ttf"),
