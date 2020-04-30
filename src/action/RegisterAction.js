@@ -10,8 +10,7 @@ import {
   SET_ERROR,
   CLEAR_ERROR
 } from "src/utils";
-import { fetch, cancelRequest, POST } from "src/apis";
-import { setProvidesAudioData } from "expo/build/AR";
+
 
 import axiosConfig from '../utils/axioConfig';
 const API = axiosConfig()
@@ -75,7 +74,6 @@ export const registerUser = (data) => {
 
     }
     await API.post('check-otp', post_data).then(res => {
-      console.log(res)
       const data = res.data
       if (data.status) {
         dispatch({ type: BOTTOM_INFO_OFF });

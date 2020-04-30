@@ -27,15 +27,15 @@ export default class Registers extends Component {
       password: ""
     };
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.loading) {
-      if (newProps.message) {
-        alert("Register Error");
-      } else {
-        this.props.navigation.navigate("Login");
-      }
-    }
-  }
+  // componentWillReceiveProps(newProps) {
+  //   if (newProps.loading) {
+  //     if (newProps.message) {
+  //       alert("Register Error");
+  //     } else {
+  //       this.props.navigation.navigate("Login");
+  //     }
+  //   }
+  // }
 
   componentWillUnmount() {
     cancelRequest();

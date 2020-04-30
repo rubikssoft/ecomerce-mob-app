@@ -4,7 +4,6 @@
     "description": "startup-mission-gov",
     "slug": "RubikSoft",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android"

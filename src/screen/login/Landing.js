@@ -22,7 +22,7 @@ import {
 import Spinner from "react-native-loading-spinner-overlay";
 
 import Logo from '../../../assets/icon.png';
-
+import { loadData } from '../../action/Seller/MainActions'
 function mapStateToProps(state) {
     return {
         auth: state.auth
@@ -188,7 +188,7 @@ class Landing extends Component {
 
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { loadData }
 )(Landing);
 
 

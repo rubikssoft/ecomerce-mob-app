@@ -20,11 +20,11 @@ import {
 } from "native-base";
 let { height } = Dimensions.get("window");
 class Menu extends Component {
-    componentWillReceiveProps(newProps) {
-        if (!this.props.token && newProps.token) {
-            this.props.navigation.navigate("Login");
-        }
-    }
+    // componentWillReceiveProps(newProps) {
+    //     if (!this.props.token && newProps.token) {
+    //         this.props.navigation.navigate("Login");
+    //     }
+    // }
 
     render() {
         return (

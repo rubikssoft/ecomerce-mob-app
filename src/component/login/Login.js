@@ -34,28 +34,28 @@ export default class Logins extends Component {
     console.log(props);
   }
 
-  componentWillReceiveProps(newProps) {
-    if (
-      !this.props.token &&
-      newProps.token &&
-      this.props.token !== newProps.token
-    ) {
-      setCustomHeaders([
-        {
-          name: "Authorization",
-          value: newProps.token
-        }
-      ]);
-      // this.props.navigation.navigate("Home");
-    } else if (newProps.message) {
-      Toast.show({
-        text: "Please input valid credentials!!!",
-        textStyle: { textAlign: "center" },
-        type: "danger",
-        duration: 3000
-      });
-    }
-  }
+  // componentWillReceiveProps(newProps) {
+  //   if (
+  //     !this.props.token &&
+  //     newProps.token &&
+  //     this.props.token !== newProps.token
+  //   ) {
+  //     setCustomHeaders([
+  //       {
+  //         name: "Authorization",
+  //         value: newProps.token
+  //       }
+  //     ]);
+  //     // this.props.navigation.navigate("Home");
+  //   } else if (newProps.message) {
+  //     Toast.show({
+  //       text: "Please input valid credentials!!!",
+  //       textStyle: { textAlign: "center" },
+  //       type: "danger",
+  //       duration: 3000
+  //     });
+  //   }
+  // }
 
   componentWillUnmount() {
     cancelRequest();
