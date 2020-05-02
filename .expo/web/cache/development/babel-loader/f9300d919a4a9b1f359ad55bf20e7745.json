@@ -1,0 +1,1 @@
+{"ast":null,"code":"","map":{"version":3,"sources":[],"names":[],"mappings":"","sourcesContent":["export type Metrics = {\n  x: number,\n  y: number,\n  width: number,\n  height: number\n}\n"]},"metadata":{},"sourceType":"script"}

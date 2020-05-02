@@ -9,32 +9,32 @@ function mapStateToProps(state) {
     };
 }
 const styles = StyleSheet.create({
-    subcatbox:{
-        maxWidth:70,
-        height:30,
-        borderWidth:0.5,
-        borderColor:'#000',
-        borderRadius:5,
-        padding:5,
-        margin:5
+    subcatbox: {
+        maxWidth: 70,
+        height: 30,
+        borderWidth: 0.5,
+        borderColor: '#000',
+        borderRadius: 5,
+        padding: 5,
+        margin: 5
     },
-    label:{
-        fontSize:13
+    label: {
+        fontSize: 13
     }
 })
 class SubCategoryItem extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
     }
 
 
 
     render() {
-        const {data} =this.props;
+        const { data } = this.props;
         return (
-           <TouchableOpacity style={[styles.subcatbox,this.props.activeCategory==data.name? {backgroundColor:'red'}:null]} onPress={()=>this.props.categorySelect(data.name)}>
-    <Text style={styles.label}> {data.name}</Text>
-           </TouchableOpacity>
+            <TouchableOpacity style={[styles.subcatbox, this.props.activeCategory == data.id ? { backgroundColor: 'red' } : null]} onPress={() => this.props.categorySelect(data.id)}>
+                <Text style={styles.label}> {data.name}</Text>
+            </TouchableOpacity>
         );
     }
 }

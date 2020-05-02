@@ -96,7 +96,10 @@ class Otp extends Component {
 
                             < View style={{ flexDirection: 'row' }}>
 
-                                <Input placeholder="OTP" keyboardType={'numeric'} type="tel" value={this.state.otp} onChangeText={text => this.setState({ otp: text.replace(/\s/g, '') })} style={styles.inputBox}> </Input>
+                                <Input placeholder="OTP" keyboardType={'numeric'} type="tel" value={this.state.otp}
+                                    onChangeText={(text) => this.setState({ otp: text })}
+
+                                    style={styles.inputBox} />
 
                             </View>
                         </View>

@@ -26,17 +26,12 @@ class ItemList extends Component {
     }
 
     render() {
-        const {items} =this.props
+        const { items } = this.props
         return (
             <View style={{ flex: 1 }}>
 
                 <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 40, color: '#fff', padding: 10 }}>
-                        <Text style={[styles.titleColumn]}> Items </Text>
-                        <Text style={[styles.titleColumn]}> Price </Text>
-                        <Text style={[styles.titleColumn, { alignItems: 'center', marginLeft: 10, flex: 0.4, }]}> Qty </Text>
-                        <Text style={[styles.titleColumn, { flex: 0.3 }]}> Select </Text>
-                    </View>
+
                     <ScrollView style={{ flex: 1 }}>
                         {items.map((value, key) => (
                             <ItemRow item={value} key={key} />

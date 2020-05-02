@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Dimensions, FlatList, TouchableOpacity, ScrollView } from "react-native";
+import { Dimensions, FlatList, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { View, Item, Text } from "native-base";
 
 
@@ -11,7 +11,7 @@ import SkeletonContent from "react-native-skeleton-content";
 
 let { height } = Dimensions.get("window");
 
-import { loadDetails } from "src/action/CategoryAction";
+import { loadCategories } from "src/action/CategoryAction";
 
 
 import {
@@ -21,133 +21,15 @@ import {
 
 
 
-const categories2 = [
-    {
-        name: 'Category 1',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    },
-    {
-        name: 'Category 2',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    },
-    {
-        name: 'Category 2',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    },
-    {
-        name: 'Category 2',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    },
-    {
-        name: 'Category 2',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    },
-    {
-        name: 'Category 2',
-        subCategories: [
-            {
-                name: 'sub1',
-            },
-            {
-                name: 'sub2',
-            }, {
-                name: 'sub3',
-            }, {
-                name: 'sub4',
-            }, {
-                name: 'sub5',
-            },
-            {
-                name: 'sub6',
-            }
-        ]
-    }
-]
-
 
 class Items extends Component {
 
-
+    willFocus = this.props.navigation.addListener(
+        'willFocus',
+        payload => {
+            this._fetchData();
+        }
+    );
 
     constructor(props) {
         super(props);
@@ -156,7 +38,7 @@ class Items extends Component {
             categories: [],
             loading: true
         }
-        //this.props.fetchCurrentUser();
+
 
     }
 
@@ -167,7 +49,14 @@ class Items extends Component {
     };
 
 
-    componentDidMount() {
+    async _fetchData() {
+
+        const { seller } = this.props;
+
+        const seller_id = seller.activeSeller.seller_id
+        await this.props.loadCategories(seller_id).then(e => {
+            this.setState({ categories: e, loading: false })
+        })
 
 
 
@@ -178,46 +67,26 @@ class Items extends Component {
 
     render() {
 
-        // console.log(this.props.activeCart);
-
-        const { categories, loading } = this.state
-
-
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers routes={this.props.navigation} headername="ItemsList" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={true} />
-                <ScrollView style={{ flex: 1, height: height - 150 }}>
-
-
-                    <SkeletonContent
-                        containerStyle={{ flex: 1 }}
-                        isLoading={loading}
-                        layout={[
-                            { key: "1", width: 600, height: 50, marginBottom: 6 },
-                            { key: "2", width: 600, height: 50, marginBottom: 6 },
-                            { key: "3", width: 600, height: 50, marginBottom: 6 },
-                            { key: "4", width: 600, height: 50, marginBottom: 6 },
-                            { key: "5", width: 600, height: 50, marginBottom: 6 },
-                            { key: "6", width: 600, height: 50, marginBottom: 6 },
-                            { key: "7", width: 600, height: 50, marginBottom: 6 },
-                            { key: "8", width: 600, height: 50, marginBottom: 6 },
-                            { key: "9", width: 600, height: 50, marginBottom: 6 },
-                            { key: "10", width: 600, height: 50, marginBottom: 6 },
-                            { key: "11", width: 600, height: 50, marginBottom: 6 },
-                            { key: "12", width: 600, height: 50, marginBottom: 6 },
+                <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 40, color: '#fff', padding: 10 }}>
+                    <Text style={[styles.titleColumn]}> Items </Text>
+                    <Text style={[styles.titleColumn]}> Price </Text>
+                    <Text style={[styles.titleColumn, { alignItems: 'center', marginLeft: 10, flex: 0.4, }]}> Qty </Text>
+                    <Text style={[styles.titleColumn, { flex: 0.3 }]}> Select </Text>
+                </View>
+                <ScrollView style={{ flex: 0.8, height: height - 200 }}>
 
 
 
-                        ]}
-                    >
 
-                        {categories.map((value, index) => (
-                            <Category data={value} key={index} />
-                        )
+                    {this.state.categories.map((value, index) => (
 
-                        )}
+                        <Category data={value} key={index} {...this.props} />
+                    ))
 
-                    </SkeletonContent>
+                    }
 
 
 
@@ -230,7 +99,7 @@ class Items extends Component {
 
                     <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center' }}>
                         <Text style={{ flex: 0.5, textAlign: 'center', color: '#fff', fontWeight: 'bold', }}>
-                            {this.props.cart.activeCart.totalAmount} | {this.props.cart.activeCart.count}
+                            {this.props.cart.activeCart.totalAmount} |({this.props.cart.activeCart.count})
                             Items</Text>
                         <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this.props.navigation.navigate('Cart')} >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Continue</Text>
@@ -249,11 +118,18 @@ class Items extends Component {
 function mapStateToProps(state) {
     return {
 
-        cart: state.cart
+        cart: state.cart,
+        seller: state.seller
     };
 }
 
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { loadCategories }
 )(Items);
+
+const styles = StyleSheet.create({
+    titleColumn: {
+        flex: 0.4, color: '#fff', fontWeight: 'bold', textAlign: 'center'
+    }
+});

@@ -4,10 +4,10 @@ import Items from "./Items";
 
 
 class ItemsContainer extends PureComponent {
-    constructor(props){
+    constructor(props) {
         super(props);
-        
-       
+
+
 
     }
     render() {

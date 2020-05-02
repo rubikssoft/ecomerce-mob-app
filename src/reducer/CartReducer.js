@@ -30,23 +30,30 @@ export default (state = initialState, action) => {
             let activeCart = state.activeCart;
             cart.map((value, key) => {
                 if (value.sellerid === seller.id) {
-                    let checkItem = itemobj => itemobj.id === item.id;
-                    if (!cart[key].items.some(checkItem)) {
+                    var totalAmount = 0;
+                    var CartItems = cart[key].items;
+                    CartItems = CartItems.filter(function (obj) {
+                        return obj.id !== item.id;
+                    });
 
-                        cart[key].totalAmount += item.price;
-                        cart[key].count++;
-                        cart[key].items.push(item)
-                    }
+                    CartItems.push(item)
+                    CartItems.map((i, k) => (
+                        totalAmount = totalAmount + (i.price * i.unitvalue * i.count)
+                    ));
+                    cart[key].items = CartItems
+                    cart[key].totalAmount = totalAmount
+                    cart[key].count = CartItems.length
                     activeCart = cart[key];
                 }
             })
             const checkSeller = obj => obj.sellerid === seller.id;
             if (!cart.some(checkSeller)) {
+
                 activeCart = {
                     count: 1,
                     sellerid: seller.id,
                     items: [item],
-                    totalAmount: item.price
+                    totalAmount: item.price * item.unitvalue * item.count
                 }
 
                 cart.push(activeCart)
@@ -81,16 +88,17 @@ export default (state = initialState, action) => {
             activeCart = state.activeCart;
             cart.map((value, key) => {
                 if (value.sellerid === seller.id) {
-                    cart[key].items.map((cartitem, cartitemindex) => {
-
-                        if (cartitem.id == item.id) {
-                            cart[key].totalAmount -= item.price;
-                            cart[key].count--;
-                            cart[key].items.splice(cartitemindex, 1);
-
-                        }
-
-                    })
+                    var totalAmount = 0;
+                    var CartItems = value.items;
+                    CartItems = CartItems.filter(function (obj) {
+                        return obj.id !== item.id;
+                    });
+                    CartItems.map((i, k) => (
+                        totalAmount = totalAmount + (i.price * i.unitvalue * i.count)
+                    ));
+                    cart[key].items = CartItems
+                    cart[key].totalAmount = totalAmount
+                    cart[key].count = CartItems.length
                     activeCart = cart[key];
                 }
             })

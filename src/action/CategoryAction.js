@@ -1,7 +1,8 @@
 import {
-    LOAD_CATEGORY,
+    LOAD_CATEGORY, SET_ERROR
 } from "src/utils";
-import { fetch, POST } from "src/apis";
+import axiosConfig from '../utils/axioConfig';
+const API = axiosConfig()
 
 export const setupcategory = (categories) => {
     return dispatch => {
@@ -12,20 +13,19 @@ export const setupcategory = (categories) => {
 };
 
 
-export const loadDetails = (data) => {
-
-    return async dispatch => {
+export const loadCategories = (seller_id) => {
+    var categories = []
+    return categories = async dispatch => {
 
         const post_data = {
-            limit: data.limit,
+            seller_id: seller_id,
 
         }
-
-        var categories = []
-        categories = await API.post('get-vendors', post_data).then(res => {
+        categories = await API.post('get-seller-categories', post_data).then(res => {
             const data = res.data
             if (data.status) {
-                return data.data
+
+                return data.data.categories
             } else {
                 dispatch({
                     type: SET_ERROR, payload: { ...data, type: 'SELLER_LOAD_ERROR', status: true }
@@ -46,8 +46,54 @@ export const loadDetails = (data) => {
         })
 
 
+
+        return categories
+
+
     };
 
 };
+
+
+
+export const loadProducts = (data) => {
+    var products = []
+
+    return products = async dispatch => {
+        data = {
+            ...data,
+            offset: 0,
+            limit: 100
+        }
+        products = await API.post('get-products', data).then(res => {
+            const data = res.data
+
+            if (data.status) {
+
+                return data.data.products
+            } else {
+                dispatch({
+                    type: SET_ERROR, payload: { ...data, type: 'SELLER_LOAD_ERROR', status: true }
+                });
+            }
+
+
+        }).catch(err => {
+            console.log(err);
+            const error = {
+                msg: 'Network Request Failed',
+                errors: [],
+                type: 'NETWORK_REQUEST_FAILED'
+            }
+            dispatch({
+                type: SET_ERROR, payload: error
+            });
+        })
+        return products
+
+
+    };
+
+}
 
 

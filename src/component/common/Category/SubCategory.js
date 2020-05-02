@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'native-base';
 import Item from './SubCategoryItem'
-import {ScrollView} from 'react-native'
+import { ScrollView } from 'react-native'
 
 function mapStateToProps(state) {
     return {
@@ -13,30 +13,38 @@ function mapStateToProps(state) {
 
 class SubCategory extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            activeCategory:''
+            activeCategory: ''
         }
         this.categorySelect = this.categorySelect.bind(this)
     }
-    
-    categorySelect(name){
-        this.setState({activeCategory:name})
+
+    categorySelect(id) {
+        const { activeCategory } = this.state
+        var SubCategory = ''
+        if (activeCategory !== id) {
+            SubCategory = id
+        }
+        this.setState({ activeCategory: SubCategory })
+
+        this.props.setSubCategory(SubCategory)
+
     }
     render() {
         const { data } = this.props;
         return (
-            <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false} >
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
 
 
-            {data.map((value,index)=>(
-                <Item  key={index} data={value} categorySelect={this.categorySelect}  activeCategory={this.state.activeCategory}/>
-            ))}
-             
+                {data.map((value, index) => (
+                    <Item key={index} data={value} categorySelect={this.categorySelect} activeCategory={this.state.activeCategory} />
+                ))}
+
             </ScrollView>
 
-     
+
         );
     }
 }

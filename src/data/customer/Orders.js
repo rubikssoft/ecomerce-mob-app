@@ -16,10 +16,7 @@ export default [
                 name: 'Rice 2',
                 category: 'Raice',
                 price: 20,
-                unit: [
-                    { name: 'gm', default: false, value: 0.001 },
-                    { name: 'kg', default: true, value: 1, }
-                ]
+                unit: [{ name: 'gm', default: false, value: 0.001 }, { name: 'kg', default: true, value: 1, }]
 
             },
             {
