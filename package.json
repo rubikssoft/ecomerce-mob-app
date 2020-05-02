@@ -23,6 +23,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-ionicons": "^5.0.0-beta",
     "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-material-dropdown": "^0.11.1",
     "react-native-popup-menu": "^0.15.7",
     "react-native-raw-bottom-sheet": "^2.1.0",
     "react-native-searchable-dropdown": "^1.1.1",

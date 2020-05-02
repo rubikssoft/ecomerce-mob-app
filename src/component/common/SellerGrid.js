@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
 import SellerItem from './SellerItem';
 import { Row } from 'native-base';
@@ -48,11 +48,14 @@ class SellerGrid extends Component {
 
                     ]}
                 >
+                    <ScrollView>
 
-                    {this.props.sellers.map((item, key) =>
-                        <SellerItem item={item} key={key} {...this.props} />
-                    )
-                    }
+
+                        {this.props.sellers.map((item, key) =>
+                            <SellerItem item={item} key={key} {...this.props} />
+                        )
+                        }
+                    </ScrollView>
 
                 </SkeletonContent>
 

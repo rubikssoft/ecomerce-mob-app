@@ -52,7 +52,7 @@ export const loadSellers = (data) => {
             console.log(err);
             const error = {
                 msg: 'Network Request Failed',
-                errors: [],
+                error: [],
                 type: 'NETWORK_REQUEST_FAILED'
             }
             dispatch({

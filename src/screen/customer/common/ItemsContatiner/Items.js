@@ -36,7 +36,9 @@ class Items extends Component {
         this.state = {
             activeCart: this.props.activeCart,
             categories: [],
-            loading: true
+            loading: true,
+            msg: '',
+            error: false,
         }
 
 
@@ -63,10 +65,20 @@ class Items extends Component {
     }
 
 
+    _navigateToCart() {
+        const activeCart = this.props.cart.activeCart;
+        if (activeCart.count) {
+            this.setState({ error: false, msg: '' })
+            this.props.navigation.navigate('Cart')
+        } else {
+            this.setState({ error: true, msg: 'Cart is empty' })
+        }
 
+        //this.props.navigation.navigate('Cart')
+    }
 
     render() {
-
+        const { error, msg } = this.state
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers routes={this.props.navigation} headername="ItemsList" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={true} />
@@ -98,10 +110,15 @@ class Items extends Component {
 
 
                     <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center' }}>
-                        <Text style={{ flex: 0.5, textAlign: 'center', color: '#fff', fontWeight: 'bold', }}>
-                            {this.props.cart.activeCart.totalAmount} |({this.props.cart.activeCart.count})
+                        <View style={{ flexDirection: 'column', flex: 0.5 }}>
+                            <Text style={{ textAlign: 'center', color: '#fff', fontWeight: 'bold', }}>
+                                {this.props.cart.activeCart.totalAmount} |({this.props.cart.activeCart.count})
                             Items</Text>
-                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this.props.navigation.navigate('Cart')} >
+
+                            {error && <Text style={{ color: 'white', textAlign: 'center' }}>{msg}</Text>}
+                        </View>
+
+                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this._navigateToCart()} >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Continue</Text>
                         </TouchableOpacity>
 

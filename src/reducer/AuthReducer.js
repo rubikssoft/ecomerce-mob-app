@@ -42,9 +42,10 @@ export default (state = initialState, { type, payload }) => {
             break;
 
         case LOAD_USER_DETAILS:
+            console.log(payload)
             return {
-                ...data,
-                userDetails: payload.user_details
+                ...state,
+                userDetails: payload.user_profile
 
             }
 

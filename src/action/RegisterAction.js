@@ -53,7 +53,7 @@ export const requestOtp = (data) => {
       console.log(err);
       const error = {
         msg: 'Network Request Failed',
-        errors: [],
+        error: [],
         type: 'NETWORK_REQUEST_FAILED'
       }
       dispatch({
@@ -93,7 +93,7 @@ export const registerUser = (data) => {
       console.log(err);
       const error = {
         msg: 'Network Request Failed',
-        errors: [],
+        error: [],
         type: 'NETWORK_REQUEST_FAILED'
       }
       dispatch({
@@ -129,16 +129,16 @@ export const logout = () => {
 
 
 export const updateProfile = (data) => {
-  console.log('ddd')
+
   return async dispatch => {
     dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Updating..' } } });
 
     await API.post('update-user-details', data).then(res => {
       const data = res.data
+      console.log(data)
       if (data.status) {
         dispatch({ type: BOTTOM_INFO_OFF });
-        dispatch({ type: LOAD_USER_DETAILS, payload: data.user_profile })
-
+        dispatch({ type: LOAD_USER_DETAILS, payload: data.data })
 
       } else {
         dispatch({
@@ -151,7 +151,7 @@ export const updateProfile = (data) => {
       console.log(err);
       const error = {
         msg: 'Network Request Failed',
-        errors: [],
+        error: [],
         type: 'NETWORK_REQUEST_FAILED'
       }
       dispatch({

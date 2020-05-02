@@ -78,3 +78,5 @@ export const BOTTOM_INFO_OFF = "BOTTOM_INFO_OFF";
 
 export const LOAD_USER = "LOAD_USER";
 export const UNLOAD_USER = "UNLOAD_USER";
+
+export const CREATE_ORDER = "CREATE_ORDER"

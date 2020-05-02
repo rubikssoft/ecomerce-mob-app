@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 const styles = StyleSheet.create({
     subcatbox: {
-        maxWidth: 70,
+
         height: 30,
         borderWidth: 0.5,
         borderColor: '#000',

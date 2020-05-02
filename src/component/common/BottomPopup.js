@@ -1,8 +1,13 @@
+import axios from "axios";
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RBSheet from "react-native-raw-bottom-sheet";
 
 import { Text, Spinner, View } from 'native-base'
+
+import storeConfig from "src/store";
+let storeDefaults = storeConfig();
+let store = storeDefaults.store
 
 
 function mapStateToProps(state) {
@@ -14,14 +19,26 @@ function mapStateToProps(state) {
 
 class BottomPopup extends Component {
 
+    constructor(props) {
+        super(props)
+        this.axiosConfig()
+    }
 
     componentDidUpdate(prevProps) {
 
         const { popUp } = this.props;
         popUp.status ? this.RBSheet.open() : this.RBSheet.close()
 
+        this.axiosConfig()
+
 
     }
+
+    axiosConfig() {
+        let token = store.getState().auth.token
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    }
+
 
     render() {
         const { popUp } = this.props;

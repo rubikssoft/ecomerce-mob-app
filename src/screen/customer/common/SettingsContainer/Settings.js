@@ -82,7 +82,7 @@ class Settings extends Component {
 
 
             <Container style={{ backgroundColor: "white" }}>
-                <Headers routes={this.props.navigation} headername="Settings" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={false} notification={false} settingsIcon={false} />
+                <Headers routes={this.props.navigation} headername="Settings"  {...this.props} locationSelect={false} activeSellerView={false} notification={false} settingsIcon={false} />
                 {/* <Headers routes={this.props.navigation} headername="Orders" /> */}
                 <View
                     style={{
@@ -114,7 +114,7 @@ class Settings extends Component {
                         <Card>
 
                             <View>
-                                {error.errors.map((value, key) => (
+                                {error.status && error.errors.map((value, key) => (
                                     <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
                                         {value}
                                     </Text>

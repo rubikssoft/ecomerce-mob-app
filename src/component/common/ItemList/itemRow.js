@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Label, Text, Button, Input, CheckBox } from 'native-base'
-import { StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-
+import { StyleSheet, TouchableOpacity, TextInput, Picker } from 'react-native'
+import { Dropdown } from 'react-native-material-dropdown';
 import { addToCart } from 'src/action/CartActions'
 import { removeCart } from 'src/action/CartActions'
 function mapStateToProps(state) {
@@ -24,7 +24,7 @@ class itemRow extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(unit, item) {
-        this.setState({ type: unit.name, unitvalue: type.value });
+        this.setState({ type: unit.name, unitvalue: unit.value });
         const activeSeller = this.props.seller.activeSeller;
         const { count, unitvalue, type } = this.state;
         this.props.addToCart(activeSeller, item, count, type, unitvalue);
@@ -50,9 +50,23 @@ class itemRow extends Component {
         activeCart.items.map(val => {
             if (val.id === item.id) {
                 status = true;
+
             }
         })
         return status
+    }
+
+    componentDidMount() {
+        const { item } = this.props;
+        const activeCart = this.props.cart.activeCart;
+        activeCart.items.map(val => {
+            if (val.id === item.id) {
+
+                this.setState({ count: val.count, type: val.type })
+
+            }
+        })
+
     }
 
     handleCountChange(item, ncount) {
@@ -66,12 +80,22 @@ class itemRow extends Component {
 
     }
 
+    async setUnitValue(itemValue, itemIndex) {
+        const { item } = this.props;
+        const activeSeller = this.props.seller.activeSeller;
+        const unit = JSON.parse(item.unit)
+        await this.setState({ type: itemValue, unitvalue: unit[itemIndex].value });
+
+        const { count, unitvalue, type } = this.state;
+        this.props.addToCart(activeSeller, item, count, type, unitvalue);
+    }
+
 
     unitSection = () => {
         const { item } = this.props;
         const unit = JSON.parse(item.unit)
         return (
-            <View>
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                 {unit.map((type, key1) => (
                     <TouchableOpacity style={[styles.unitBox, type.name === this.state.type ? { backgroundColor: 'green' } : null]} onPress={() => this.handleChange(type, item)} key={key1}>
                         <Label style={styles.unitBoxLabel}>{type.name}</Label>
@@ -85,6 +109,9 @@ class itemRow extends Component {
     }
     render() {
         const { item, key } = this.props;
+        const { type } = this.state
+        const unit = JSON.parse(item.unit)
+
         return (
 
 
@@ -99,13 +126,32 @@ class itemRow extends Component {
                         style={styles.qtyBox}
                         value={this.state.count}
                         style={styles.inputBox}
+                        defaultValue="1"
                     />
-                    <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-                        {this.unitSection()}
 
-                    </View>
+                    <Picker
+                        selectedValue={type}
+                        style={{ height: 50, width: 120 }}
+                        onValueChange={(itemValue, itemIndex) => this.setUnitValue(itemValue, itemIndex)}
+
+                    >
+                        {unit.map((type, key1) => (<Picker.Item label={type.name} value={type.name} key={key1} />))}
+                    </Picker>
+
+
+                    {/* <Dropdown
+
+                        data={data}
+                        style={{ width: 100, color: '#000', borderColor: '#000', borderWidth: 1 }}
+                        value='kg'
+                    /> */}
+                    {/* <View style={{ flexDirection: 'row' }}>
+                      {this.unitSection()}
+                       
+
+                    </View> */}
                 </View>
-                <View style={[styles.bodyColumn, { flex: 0.3, alignItems: 'center' }]}>
+                <View style={[styles.bodyColumn, { flex: 0.3, alignItems: 'flex-end', marginRight: 2 }]}>
                     <CheckBox checked={this.checkItemAtCart(item)} color="green" onPress={() => this.optionChecked(item)} />
                 </View>
 
@@ -157,7 +203,7 @@ const styles = StyleSheet.create({
     inputBox: {
         borderWidth: 1,
         borderColor: '#000',
-        width: 75,
+        width: 40,
         borderRadius: 5,
         textAlign: 'center'
     }

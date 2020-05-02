@@ -8,17 +8,55 @@ import {
     CardItem,
     Body,
     CheckBox,
-    ListItem
+    ListItem,
+    Icon,
+
 
 } from 'native-base'
-import { TouchableOpacity, ScrollView, Dimensions } from 'react-native'
+import { TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native'
 
 import Headers from "../../../../component/common/CustomerHeader";
 import ItemList from '../../../../component/common/ItemList';
 let { height } = Dimensions.get("window");
 
+import { createOrder } from 'src/action/OrderAction'
 class Cart extends Component {
+
+
+    async _createOrder() {
+        const { activeCart } = this.props.cart
+        const { activeSeller } = this.props.seller
+
+        const { userDetails } = this.props.auth
+        console.log(userDetails);
+        if (userDetails.name == null) {
+            return false
+        }
+        const order = {
+            sellerid: activeSeller.seller_id,
+            items: activeCart.items
+        }
+
+        await this.props.createOrder(order).then(order_id => {
+            if (order_id != null) {
+                Alert.alert(
+                    'Order Created',
+                    'Order id ' + order_id,
+                    [
+                        { text: 'See all orders', onPress: () => this.props.navigation.navigate('ScrollableDash') },
+                    ],
+                    { cancelable: false },
+                );
+            }
+            console.log(order_id);
+
+        });
+
+
+    }
     render() {
+
+        const { userDetails, user } = this.props.auth
 
         return (
 
@@ -34,20 +72,42 @@ class Cart extends Component {
                             <Text style={{ flex: 1 }}> Order Address </Text>
                         </CardItem>
                         <CardItem>
+                            {userDetails.name == null &&
 
-                            <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', flex: 1 }}>
-                                <View>
-                                    <Text>Sadu</Text>
-                                    <Text>Thiruvambady</Text>
-                                    <Text style={{ fontWeight: 'bold' }}>9999999</Text>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', }} onPress={() => this.props.navigation.navigate('Settings')} >
+                                    <Text style={{ color: 'red' }}> Please update your address details first
+                                   </Text>
+
+
+
+                                    <Icon name="md-add-circle" style={{ textAlign: 'right', flex: 0.5 }} />
+
+
+                                </TouchableOpacity>
+
+                            }
+                            {userDetails.name !== null &&
+                                <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
+
+
+
+                                    <View>
+                                        <Text>{userDetails.name}</Text>
+                                        <Text>{userDetails.address}</Text>
+                                        <Text>{userDetails.city}</Text>
+                                        <Text>{userDetails.zip}</Text>
+                                        <Text style={{ fontWeight: 'bold' }}>{user.phone_number}</Text>
+                                    </View>
+                                    <View>
+                                        <Text>Change</Text>
+                                    </View>
+
+
+
                                 </View>
-                                <View>
-                                    <Text>Change</Text>
-                                </View>
 
-                            </View>
-
-
+                            }
                         </CardItem>
 
                     </Card>
@@ -86,9 +146,9 @@ class Cart extends Component {
 
                     <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center' }}>
                         <Text style={{ flex: 0.5, textAlign: 'center', color: '#fff', fontWeight: 'bold', }}>
-                            {this.props.cart.activeCart.totalAmount} | {this.props.cart.activeCart.count}
+                            {this.props.cart.activeCart.totalAmount} | ({this.props.cart.activeCart.count})
                             Items</Text>
-                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this.props.navigation.navigate('Cart')} >
+                        <TouchableOpacity style={{ flex: 0.5, backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10 }} onPress={() => this._createOrder()} >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}>Confirm</Text>
                         </TouchableOpacity>
 
@@ -105,8 +165,10 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    cart: state.cart
+    cart: state.cart,
+    auth: state.auth,
+    seller: state.seller
 
 })
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps, { createOrder })(Cart)

@@ -48,6 +48,8 @@ class Headers extends Component {
 
                             </Button>
                         }
+
+
                     </Left>
                     <Body>
                         {/* <Title style={{ color: "white" }}>{this.props.headername} {localize(this.props.headername)}</Title> */}

@@ -44,7 +44,7 @@ class SrollDashboard extends Component {
                 <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
                 <View
                     style={{
-                        height: height - 150,
+                        height: height - 20,
                         marginBottom: 10,
                         marginTop: 10
                     }}
@@ -58,7 +58,7 @@ class SrollDashboard extends Component {
 
                         <View tabLabel='Shops'>
                             <View style={{
-                                height: height - 150,
+                                height: height - 10,
                                 marginBottom: 10,
 
                             }}>

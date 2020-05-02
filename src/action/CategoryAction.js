@@ -37,7 +37,7 @@ export const loadCategories = (seller_id) => {
             console.log(err);
             const error = {
                 msg: 'Network Request Failed',
-                errors: [],
+                error: [],
                 type: 'NETWORK_REQUEST_FAILED'
             }
             dispatch({
@@ -82,7 +82,7 @@ export const loadProducts = (data) => {
             console.log(err);
             const error = {
                 msg: 'Network Request Failed',
-                errors: [],
+                error: [],
                 type: 'NETWORK_REQUEST_FAILED'
             }
             dispatch({

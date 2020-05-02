@@ -33,7 +33,7 @@ class SellerItem extends Component {
         this.props.setActiveSeller(item)
     }
     render() {
-        const { item } = this.props;
+        const { item, key } = this.props;
         return (
             <TouchableOpacity onPress={() => this.navigateToItemList(item)}>
                 <Card style={{ height: 100 }}>
@@ -49,7 +49,7 @@ class SellerItem extends Component {
                                     style={styles.sellerImage}
                                 />
                                 <View style={styles.itemBody}>
-                                    <Text style={styles.name}>{item.name}</Text>
+                                    <Text style={styles.name}>{key} {item.name}</Text>
                                     <Text style={styles.place}>{item.place}</Text>
                                     <Text style={styles.category}>{item.category}</Text>
                                     <Text style={styles.phone}>{item.phone}</Text>

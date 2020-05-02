@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base'
 
 import { loadData } from '../../action/Seller/MainActions'
@@ -53,15 +53,18 @@ class Otp extends Component {
 
         await this.props.registerUser(data).then(e => {
             const { auth } = this.props
-            if (auth.isAuthenticated && auth.type === "customer") {
-                this.props.navigation.navigate('ScrollableDash')
-            } else if (auth.isAuthenticated && auth.type === 'seller') {
-                this.props.loadData()
-                this.props.navigation.navigate('Seller')
+            if (auth.isAuthenticated) {
+                this.props.navigation.navigate('Landing')
             }
         }
         );
 
+    }
+    handleOtpChange(otp) {
+        this.setState({ otp: otp })
+        if (otp.length == 6) {
+            Keyboard.dismiss()
+        }
     }
 
     render() {
@@ -97,7 +100,7 @@ class Otp extends Component {
                             < View style={{ flexDirection: 'row' }}>
 
                                 <Input placeholder="OTP" keyboardType={'numeric'} type="tel" value={this.state.otp}
-                                    onChangeText={(text) => this.setState({ otp: text })}
+                                    onChangeText={(text) => this.handleOtpChange(text)}
 
                                     style={styles.inputBox} />
 

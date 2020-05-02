@@ -32,6 +32,14 @@ function mapStateToProps(state) {
 
 
 class Landing extends Component {
+
+    willFocus = this.props.navigation.addListener(
+        'willFocus',
+        payload => {
+            this._checkUser();
+        }
+    );
+
     constructor(props) {
         super(props)
         this.state = {
@@ -45,8 +53,7 @@ class Landing extends Component {
         });
     }
 
-    componentDidMount() {
-
+    _checkUser() {
         const { auth } = this.props
         if (auth.isAuthenticated && auth.type === "customer") {
             this.props.navigation.navigate('ScrollableDash')
@@ -54,6 +61,10 @@ class Landing extends Component {
             this.props.loadData()
             this.props.navigation.navigate('Seller')
         }
+    }
+    componentDidMount() {
+        this._checkUser()
+
     }
 
 
