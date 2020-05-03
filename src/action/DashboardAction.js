@@ -3,6 +3,7 @@ import {
 } from "src/utils";
 import axiosConfig from 'src/utils/axioConfig';
 const API = axiosConfig()
+
 export const getVendors = (data) => {
 
     const post_data = {

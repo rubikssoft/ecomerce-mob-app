@@ -1,4 +1,5 @@
 import { LOAD_USER, UNLOAD_USER, LOAD_USER_DETAILS } from "src/utils";
+import axios from "axios";
 const initialState = {
     isAuthenticated: false,
     user: {},
@@ -23,6 +24,7 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
 
         case LOAD_USER:
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + payload.token;
             return {
                 user: payload,
                 token: payload.token,
@@ -32,6 +34,7 @@ export default (state = initialState, { type, payload }) => {
             }
             break;
         case UNLOAD_USER:
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + '';
             return {
                 user: {},
                 token: '',
