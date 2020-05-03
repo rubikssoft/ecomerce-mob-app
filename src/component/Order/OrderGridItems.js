@@ -7,10 +7,9 @@ import OrderStatusButton from './OrderStatusButton'
 class OrderGridItems extends Component {
     render() {
         const { order } = this.props;
-        const seller = order.seller;
 
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails', { order: order })}>
                 <Card>
                     <CardItem>
 
@@ -20,16 +19,16 @@ class OrderGridItems extends Component {
 
                                 <Image
                                     source={{
-                                        uri: seller.img
+                                        uri: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
                                     }}
                                     style={styles.sellerImage}
                                 />
                                 <View style={styles.itemBody}>
-                                    <Text style={styles.name}>{order.orderid}</Text>
-                                    <Text style={styles.name}>{seller.name} | {seller.place}</Text>
-                                    <Text style={styles.date}>{order.date}</Text>
+                                    <Text style={styles.name}>{order.order_id}</Text>
+                                    <Text style={styles.name}>{order.shop_name} | {order.seller_details[0].city} | {order.seller_number} </Text>
+                                    <Text style={styles.date}>{order.created_at}</Text>
 
-                                    <OrderStatusButton status={order.status} />
+                                    <OrderStatusButton status={order.order_status} />
 
                                 </View>
 

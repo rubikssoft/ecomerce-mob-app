@@ -34,24 +34,31 @@ class ProductList extends Component {
 
                     </View>
                     <View>
-                        {order.items.map((value, key) => (
+                        {order.order_products.map((value, key) => (
                             <ItemRow item={value} key={key} />
                         ))}
 
                     </View>
 
                     <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Total (4)  </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> 33333 </Text>
+                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> SubTotal ({order.order_products.length})  </Text>
+                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> {order.order_subtotal} </Text>
 
                     </View>
-                    {order.payment === 'cod' &&
-                        <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 20 }}>
-                            <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Payment Options </Text>
-                            <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Cash on delivery (COD) </Text>
 
-                        </View>
-                    }
+                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30 }}>
+                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Total   </Text>
+                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> {order.order_total} </Text>
+
+                    </View>
+
+
+                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 20 }}>
+                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Payment Options </Text>
+                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Cash on delivery (COD) </Text>
+
+                    </View>
+
 
 
                 </View>

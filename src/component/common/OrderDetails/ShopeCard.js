@@ -5,23 +5,28 @@ import { Card, Text, View, CardItem, Body } from 'native-base'
 
 import OrderStatusButton from '../../Order/OrderStatusButton'
 
-export default class CustomerCard extends Component {
+export default class ShopeCard extends Component {
     render() {
 
         const { order } = this.props
-        const customer_details = order.customer_details[0]
         return (
             <Card style={styles.card}>
 
-                <Text> Customer</Text>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center' }} >
 
+                    <Image
+                        source={{
+                            uri: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
+                        }}
+                        style={styles.sellerImage}
+                    />
                     <View style={styles.itemBody}>
+                        <Text style={styles.name}>{order.order_id}</Text>
+                        <Text style={styles.name}>{order.shop_name} | {order.seller_details[0].city} | {order.seller_number} </Text>
+                        <Text style={styles.date}>{order.created_at}</Text>
 
-                        <Text style={styles.name}>{customer_details.name}  </Text>
-                        <Text style={styles.name}>{customer_details.address} | {customer_details.city}   </Text>
-                        <Text style={styles.name}>{customer_details.zip} | {order.user_number} </Text>
-
+                        <OrderStatusButton status={order.order_status} />
 
                     </View>
 
@@ -40,9 +45,9 @@ const styles = StyleSheet.create({
         borderWidth: 0.3,
         padding: 3
     }, sellerImage: {
-        width: 75,
+        width: 100,
         height: 75,
-        flex: 0.4,
+        flex: 0.8,
         borderRadius: 10
     },
     name: {

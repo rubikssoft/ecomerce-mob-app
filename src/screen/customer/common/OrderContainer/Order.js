@@ -12,16 +12,6 @@ let { height } = Dimensions.get("window");
 import {
     Container,
     Content,
-    Button,
-    Icon,
-    Card,
-    CardItem,
-    Text,
-    Body,
-    Left,
-    Right,
-    List,
-    ListItem,
     View,
     Thumbnail
 } from "native-base";

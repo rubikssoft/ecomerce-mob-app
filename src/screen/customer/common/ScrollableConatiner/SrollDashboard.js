@@ -1,44 +1,125 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TouchableOpacit } from 'react-native'
+import { Dimensions } from 'react-native'
+import { getCustomerOrders } from 'src/action/OrderAction'
+import { getVendors } from 'src/action/DashboardAction'
+import { ScrollableTabView } from '@valdio/react-native-scrollable-tabview'
+import {
+    Container, View,
+} from "native-base";
 
-import CustomLabel from '../../../../component/common/CustomLabel'
+import axios from "axios";
+import storeConfig from "src/store";
+
+
+
+
 import SellerGrid from '../../../../component/common/SellerGrid'
 import OrderGrid from '../../../../component/Order/OrderGrid'
-
 import Headers from "../../../../component/common/CustomerHeader";
-import {
-    Container,
-    Content,
-    Button,
-    Icon,
-    Card,
-    CardItem,
-    Text,
-    Body,
-    Left,
-    Right,
-    List,
-    ListItem,
-    View,
-    Thumbnail,
-    Separator
-} from "native-base";
-import { ScrollableTabView, DefaultTabBar, ScrollableTabBar, } from '@valdio/react-native-scrollable-tabview'
+
+
 let { height } = Dimensions.get("window");
+let storeDefaults = storeConfig();
+let store = storeDefaults.store
 
 function mapStateToProps(state) {
     return {
-
+        location: state.location,
+        category: state.category
     };
 }
 
 class SrollDashboard extends Component {
 
+    willFocus = this.props.navigation.addListener(
+        'willFocus',
+        payload => {
+            this._fetchOrderData();
+            this._fetchSellerData();
+            this.axiosConfig()
+        }
+
+    );
+
     constructor(props) {
         super(props)
+        this.state = {
+            orders: [],
+            orders_loading: false,
+
+            sellers: [],
+            seller_loading: false
+
+        }
+
+        this.axiosConfig()
+
     }
+
+
+    async _fetchOrderData() {
+        const { orders } = this.state
+        const data = {
+            offset: 0,
+            limit: orders.length + 8
+        }
+        this.setState({ orders_loading: true })
+        await this.props.getCustomerOrders(data).then(orders => {
+            if (orders != null)
+                this.setState({ orders_loading: false, orders: orders })
+        })
+    }
+
+    async _fetchSellerData() {
+        const { sellers } = this.state
+        const { location, category } = this.props
+        const data = {
+            offset: 0,
+            limit: sellers.length + 8,
+            location: location,
+            category: category
+        }
+        this.setState({ seller_loading: true })
+        await this.props.getVendors(data).then(sellers => {
+            if (sellers != null)
+                this.setState({ seller_loading: false, sellers: sellers })
+        })
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        if (props.location !== state.location) {
+
+            return { location: state.location };
+        }
+        if (props.category !== state.category) {
+
+            return { category: state.category };
+        }
+
+        return null
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if ((this.props.location !== prevProps.location) || (this.props.category !== prevProps.category)) {
+
+            this._fetchSellerData();
+        }
+    }
+
+
+    axiosConfig() {
+        let token = store.getState().auth.token
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    }
+
     render() {
+
+        const { orders, orders_loading } = this.state
+        const { sellers, seller_loading } = this.state
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
@@ -56,14 +137,16 @@ class SrollDashboard extends Component {
                     >
 
 
-                        <View tabLabel='Shops'>
+                        <View tabLabel='Shops' >
                             <View style={{
-                                height: height - 10,
+                                height: height - 150,
                                 marginBottom: 10,
 
                             }}>
 
-                                <SellerGrid {...this.props} />
+                                <SellerGrid {...this.props} sellers={sellers} loading={seller_loading}
+                                    fetchSellerData={() => this._fetchSellerData()}
+                                />
                             </View>
 
                         </View>
@@ -75,7 +158,11 @@ class SrollDashboard extends Component {
                                 height: height - 150,
                                 marginBottom: 10,
                             }}>
-                                <OrderGrid {...this.props} />
+                                <OrderGrid {...this.props}
+                                    orders={orders}
+                                    loading={orders_loading}
+                                    fetchOrderData={() => this._fetchOrderData()}
+                                />
                             </View>
 
                         </View>
@@ -93,5 +180,5 @@ class SrollDashboard extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { getCustomerOrders, getVendors }
 )(SrollDashboard);

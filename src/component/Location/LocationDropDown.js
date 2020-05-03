@@ -29,7 +29,7 @@ class LocationDropDown extends Component {
             limit: 100,
             offset: 0
         }
-        this.props.loadSellers(payload)
+        //   this.props.loadSellers(payload)
     }
     render() {
 

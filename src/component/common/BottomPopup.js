@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -21,7 +21,7 @@ class BottomPopup extends Component {
 
     constructor(props) {
         super(props)
-        this.axiosConfig()
+        // this.axiosConfig()
     }
 
     componentDidUpdate(prevProps) {
@@ -29,15 +29,11 @@ class BottomPopup extends Component {
         const { popUp } = this.props;
         popUp.status ? this.RBSheet.open() : this.RBSheet.close()
 
-        this.axiosConfig()
+
 
 
     }
 
-    axiosConfig() {
-        let token = store.getState().auth.token
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    }
 
 
     render() {

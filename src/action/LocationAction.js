@@ -4,7 +4,7 @@ import {
 } from "src/utils";
 import axiosConfig from '../utils/axioConfig';
 const API = axiosConfig()
-console.log(API)
+
 export const setuplocation = (locaton) => {
     return dispatch => {
         dispatch({

@@ -24,7 +24,7 @@ class itemRow extends Component {
             <View style={[styles.bodyRow]} key={key}>
                 <View style={[styles.bodyColumn, { textAlign: 'left' }]}>
                     <Text style={[styles.name]}>{item.name} </Text>
-                    <Text style={[styles.details]}> 500 gr</Text>
+                    <Text style={[styles.details]}> {item.count} {item.type} </Text>
 
                 </View>
 
