@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, KeyboardAvoidingView, TouchableOpacity, Keyboard } from 'react-native';
 import { Button } from 'native-base'
 import LocationDropDown from 'src/component/Location/LocationDropDown'
 import CategoryDropDown from 'src/component/Category/CategoryDropDown'
@@ -64,7 +64,11 @@ class SellerReg extends Component {
     handleShopNameInput(txt) {
 
     }
+    hndleNumberChange(txt) {
+        this.setState({ number: txt.replace(/\s/g, '') })
+        txt.length == 10 && Keyboard.dismiss() && this.subimitData()
 
+    }
 
     render() {
         const { error } = this.props
@@ -100,7 +104,7 @@ class SellerReg extends Component {
 
                             < View style={{ flexDirection: 'row' }}>
                                 <Input placeholder="number" value=" + 91" style={[styles.inputBox, { maxWidth: 50 }]} disabled></Input>
-                                <Input placeholder="number" keyboardType={'numeric'} value={this.state.number} onChangeText={text => this.setState({ number: text.replace(/\s/g, '') })} style={styles.inputBox} />
+                                <Input placeholder="number" keyboardType={'numeric'} value={this.state.number} onChangeText={(txt) => this.hndleNumberChange(txt)} style={styles.inputBox} />
 
                             </View>
                         </View>

@@ -40,7 +40,7 @@ class Items extends Component {
             msg: '',
             error: false,
         }
-
+        this._fetchData()
 
     }
 
@@ -78,7 +78,7 @@ class Items extends Component {
     }
 
     render() {
-        const { error, msg } = this.state
+        const { error, msg, loading } = this.state
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers routes={this.props.navigation} headername="ItemsList" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={true} />
@@ -90,15 +90,46 @@ class Items extends Component {
                 </View>
                 <ScrollView style={{ flex: 0.8, height: height - 200 }}>
 
+                    <SkeletonContent
+                        containerStyle={{ flex: 1 }}
+                        isLoading={loading}
+                        layout={[
+                            { key: "1", width: 600, height: 80, marginBottom: 6 },
+                            { key: "2", width: 600, height: 80, marginBottom: 6 },
+                            { key: "3", width: 600, height: 80, marginBottom: 6 },
+                            { key: "4", width: 600, height: 80, marginBottom: 6 },
+                            { key: "5", width: 600, height: 80, marginBottom: 6 },
+                            { key: "6", width: 600, height: 80, marginBottom: 6 },
+                            { key: "7", width: 600, height: 80, marginBottom: 6 },
+                            { key: "8", width: 600, height: 80, marginBottom: 6 },
+                            { key: "9", width: 600, height: 80, marginBottom: 6 },
 
 
+                        ]}
+                    >
 
-                    {this.state.categories.map((value, index) => (
+                        {/* {this.state.categories.map((value, index) => (
 
-                        <Category data={value} key={index} {...this.props} />
-                    ))
+                            <Category data={value} key={index} {...this.props} />
+                        )) */}
 
-                    }
+                        }
+
+                        {!this.state.categories.length &&
+
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginTop: 100
+                            }}>
+                                <Text> No Products Available </Text>
+                            </View>
+
+                        }
+
+
+                    </SkeletonContent>
 
 
 

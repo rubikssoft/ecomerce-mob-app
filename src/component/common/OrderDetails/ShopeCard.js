@@ -23,7 +23,7 @@ export default class ShopeCard extends Component {
                     />
                     <View style={styles.itemBody}>
                         <Text style={styles.name}>{order.order_id}</Text>
-                        <Text style={styles.name}>{order.shop_name} | {order.seller_details[0].city} | {order.seller_number} </Text>
+                        <Text style={styles.name}>{order.shop_name} | {order.seller_details.city} | {order.seller_number} </Text>
                         <Text style={styles.date}>{order.created_at}</Text>
 
                         <OrderStatusButton status={order.order_status} />

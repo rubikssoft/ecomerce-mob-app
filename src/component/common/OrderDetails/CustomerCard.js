@@ -9,7 +9,7 @@ export default class CustomerCard extends Component {
     render() {
 
         const { order } = this.props
-        const customer_details = order.customer_details[0]
+        const customer_details = order.customer_details
         return (
             <Card style={styles.card}>
 

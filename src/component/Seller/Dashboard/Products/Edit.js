@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import UnitPicker from './UnitPicker'
-import { URL } from 'src/utils/config'
-
-import axios from "axios";
-// import ImagePicker from 'react-native-image-picker';
 import {
     View,
     Label,
@@ -32,7 +28,7 @@ import { TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-nati
 let { height, width } = Dimensions.get("window");
 
 
-import { loadCategories, addNewProduct } from 'src/action/Seller/ProductAction'
+import { loadCategories, addNewProduct, editProduct } from 'src/action/Seller/ProductAction'
 
 const styles = StyleSheet.create({
     Heading: {
@@ -50,17 +46,9 @@ function mapStateToProps(state) {
 }
 
 
-const options = {
-    title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
 
 
-class AddProduct extends Component {
+class Edit extends Component {
 
     constructor(props) {
         super(props);
@@ -78,7 +66,7 @@ class AddProduct extends Component {
             loading: false
         }
         this.loadDetails()
-        // console.log(categories)
+
     }
 
     componentDidMount() {
@@ -93,12 +81,35 @@ class AddProduct extends Component {
         await this.props.loadCategories({ token: auth.token }).then(categories => {
             this.setState({ categories: categories })
         })
+        const { data } = this.props
+
+
+        this.setState({
+            category: data.category_id,
+            subcategory: data.sub_category_id,
+            name: data.name,
+            image: data.image,
+            units: JSON.parse(data.unit),
+            price: data.price,
+            subCategories: data.subcategories
+
+        })
+        JSON.parse(data.unit).map(e => {
+            if (e.default) {
+                this.setState({ defaultUnit: e.name })
+            }
+        })
+
     }
 
-    async _submitForm() {
-
+    async _submitForm(id) {
+        var isValid = true;
         const data = this.state
         const auth = this.props.auth
+        const product = this.props.data
+        //    console.log(product)
+
+
 
         var post_data = new FormData();
         post_data.append('name', data.name)
@@ -109,14 +120,18 @@ class AddProduct extends Component {
         post_data.append('defaultUnit', data.defaultUnit)
         post_data.append('img', data.imageFile)
         post_data.append('sellerid', auth.user.id)
+        post_data.append('product_id', product.id)
+
 
         this.setState({ loading: true })
-        await this.props.addNewProduct(post_data).then(res => {
+        await this.props.editProduct(post_data).then(res => {
             if (res != null) {
-                this.props.closeAddModal()
+                this.props.closeEditModal()
                 this.setState({ loading: false })
             }
         })
+
+
 
     }
 
@@ -129,29 +144,29 @@ class AddProduct extends Component {
             }
         }
     };
-
-
-
     _pickImage = async () => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
                 aspect: [4, 3],
-                base64: true,
                 quality: 1,
             });
             if (!result.cancelled) {
                 this.setState({ image: result.uri });
                 let localUri = result.uri;
                 let filename = localUri.split('/').pop();
+
+                // Infer the type of the image
                 let match = /\.(\w+)$/.exec(filename);
                 let type = match ? `image/${match[1]}` : `image`;
-                this.setState({ imageFile: { uri: localUri, name: filename, type } });
+
+                this.setState({
+                    imageFile: { uri: localUri, name: filename, type: 'image/jpg' }
+                })
 
             }
         } catch (E) {
-            console.log('erroor')
             console.log(E);
         }
     };
@@ -171,12 +186,14 @@ class AddProduct extends Component {
 
 
     render() {
-        const { units, image, categories, subCategories, name, loading } = this.state;
+        const { units, image, categories, subCategories, name, loading, price } = this.state;
+
         return (
             <View style={{ backgroundColor: "white", width: '100%' }}>
 
 
                 <Form onSubmit={() => this._submitForm()}>
+
 
                     <Item style={{ paddingBottom: 10 }}>
                         <Label style={[styles.label, { flex: 1 }]}>Image</Label>
@@ -238,10 +255,7 @@ class AddProduct extends Component {
                         <Label style={styles.label} > Available Units</Label>
                         <UnitPicker availableUnits={(selected) => {
                             this.setState({ units: selected });
-
-                        }}
-                            units={units}
-                        />
+                        }} units={units} />
                     </Item>
 
                     <Item Picker >
@@ -266,12 +280,12 @@ class AddProduct extends Component {
 
                     <Item >
                         <Label floatingLabel style={styles.label}>Price</Label>
-                        <Input style={{ flex: 0.2, textAlign: 'right' }} onChangeText={(text) => this.setState({ price: text })} keyboardType={'numeric'} />
+                        <Input style={{ flex: 0.2, textAlign: 'right' }} onChangeText={(text) => this.setState({ price: text })} value={price.toString()} keyboardType={'numeric'} />
                         <Text style={{ flex: 0.1 }}>INR</Text>
                     </Item>
 
-                    <Button primary style={{ alignItems: 'center', justifyContent: 'space-between' }} onPress={() => this._submitForm()} >
-                        <Text style={{ flex: 0.6, marginLeft: 'auto' }}> ADD PRODUCT </Text>
+                    <Button info style={{ alignItems: 'center', justifyContent: 'space-between' }} onPress={() => this._submitForm()} >
+                        <Text style={{ flex: 0.6, marginLeft: 'auto' }}> EDIT PRODUCT </Text>
                         {loading && <Spinner />
                         }
 
@@ -287,5 +301,5 @@ class AddProduct extends Component {
 }
 
 export default connect(
-    mapStateToProps, { loadCategories, addNewProduct }
-)(AddProduct);
+    mapStateToProps, { loadCategories, addNewProduct, editProduct }
+)(Edit);

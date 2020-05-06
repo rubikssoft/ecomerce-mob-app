@@ -5,6 +5,7 @@ import {
 const initialState = {
 
     error: false,
+    type: '',
     msg: ''
 }
 
@@ -13,14 +14,15 @@ export default (state = initialState, { type, payload }) => {
         case SET_ERROR:
             return {
                 error: true,
-                msg: payload.msg
+                msg: payload.msg,
+                type: payload.type
             }
             break;
         case CLEAR_ERROR:
-
             return {
 
                 error: false,
+                type: '',
                 msg: ''
             }
             break;

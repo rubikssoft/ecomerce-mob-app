@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TouchableWithoutFeedback, Modal } from 'react-native'
-import RBSheet from "react-native-raw-bottom-sheet";
-
-import OrderContainer from '../../../../component/Seller/Dashboard/OrderContainer'
-import ProductsContainer from '../../../../component/Seller/Dashboard/ProductsContainer'
-import FloatingButton from '../../../../component/Seller/Dashboard/Products/FloatingButton'
-import AddProduct from '../../../../component/Seller/Dashboard/Products/Add'
-
-
-import Headers from "../../../../component/Seller/Header";
+import { TouchableWithoutFeedback, Modal } from 'react-native'
+import { ScrollableTabView } from '@valdio/react-native-scrollable-tabview'
+import { getSellerOrders, getSellerProducts } from 'src/action/Seller/DashboardAction'
 import {
     Container,
     View,
@@ -17,12 +10,26 @@ import {
     Card,
     CardItem, Body
 } from "native-base";
-import { ScrollableTabView, DefaultTabBar, ScrollableTabBar, } from '@valdio/react-native-scrollable-tabview'
-let { height } = Dimensions.get("window");
+
+
+import OrderContainer from '../../../../component/Seller/Dashboard/OrderContainer'
+import ProductsContainer from '../../../../component/Seller/Dashboard/ProductsContainer'
+import FloatingButton from '../../../../component/Seller/Dashboard/Products/FloatingButton'
+import AddProduct from '../../../../component/Seller/Dashboard/Products/Add'
+import Headers from "../../../../component/Seller/Header";
+
+//redux
+import axios from "axios";
+import storeConfig from "src/store";
+let storeDefaults = storeConfig();
+let store = storeDefaults.store
+
+
 
 function mapStateToProps(state) {
     return {
-        error: state.sellerError
+        error: state.sellerError,
+        auth: state.auth
     }
 }
 
@@ -31,25 +38,73 @@ class SrollDashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            addProductModal: false
+            addProductModal: false,
+            orders: [],
+            orderLoading: false,
+
+            products: [],
+            productsLoading: false
         }
+        this._fetchOrderData()
+        this._fetchProductData()
+        this._axiosConfig()
     }
 
-    componentDidUpdate(prevProps) {
+    async _fetchOrderData() {
 
-        // const { error } = this.props;
-        // if (error.error) {
-        //     this.RBSheet.open()
-        // }
+        const { orders } = this.state
+        const { auth } = this.props
+        this.setState({ orderLoading: true });
 
+        const data = {
+            offset: 0,
+            limit: orders.length + 10,
+            token: auth.token
+        }
+        await this.props.getSellerOrders(data).then(orders => {
+            if (orders != null) {
+                this.setState({ orders: orders, orderLoading: false })
+            }
+        })
 
     }
+
+    async _fetchProductData() {
+        const { products } = this.state
+        const { auth } = this.props;
+
+        this.setState({ productsLoading: true });
+        const data = {
+            seller_id: auth.user.id,
+            offset: 0,
+            limit: products.length + 10,
+            token: auth.token
+        }
+        await this.props.getSellerProducts(data).then(res => {
+            if (res != null) {
+                this.setState({ products: res, productsLoading: false })
+            }
+        })
+    }
+
+
+
+
+
+
+    _axiosConfig() {
+        let token = this.props.auth.token
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    }
+
 
     addProductToggle() {
-        console.log('modal toggled')
         this.setState({ addProductModal: !this.state.addProductModal })
     }
     render() {
+
+        const { orders, orderLoading, products, productsLoading } = this.state
+
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
@@ -66,7 +121,7 @@ class SrollDashboard extends Component {
                         <View tabLabel='Orders'>
                             <View style={{ flex: 1 }}>
 
-                                <OrderContainer {...this.props} />
+                                <OrderContainer {...this.props} orders={orders} loading={orderLoading} fetchOrderData={() => this._fetchOrderData()} />
 
 
                             </View>
@@ -78,7 +133,7 @@ class SrollDashboard extends Component {
                         <View tabLabel='Products'>
                             <View style={{ flex: 1 }}>
 
-                                <ProductsContainer />
+                                <ProductsContainer  {...this.props} products={products} loading={productsLoading} loadProducts={() => this._fetchProductData()} />
                                 <FloatingButton {...this.props} addProductToggle={() => this.addProductToggle()} />
                             </View>
 
@@ -124,7 +179,7 @@ class SrollDashboard extends Component {
                         >
                             <Card
                                 style={{
-                                    marginTop: '50%',
+                                    marginTop: '20%',
                                     marginLeft: 20,
                                     marginRight: 20
                                 }}
@@ -132,7 +187,10 @@ class SrollDashboard extends Component {
                                 <CardItem header>
                                     <Body>
 
-                                        <AddProduct />
+                                        <AddProduct categories={[]} closeAddModal={() => {
+                                            this.setState({ addProductModal: false })
+                                            this._fetchProductData()
+                                        }} />
                                     </Body>
                                 </CardItem>
                             </Card>
@@ -149,5 +207,5 @@ class SrollDashboard extends Component {
 
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { getSellerOrders, getSellerProducts }
 )(SrollDashboard);

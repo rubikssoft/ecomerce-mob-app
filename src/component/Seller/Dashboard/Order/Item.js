@@ -1,39 +1,53 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { View, Text, Card, CardItem, Body } from 'native-base'
 import OrderStatusButton from './OrderStatusButton'
 
 class Item extends Component {
     render() {
         const { order } = this.props;
-        const seller = order.seller;
+        const customer_details = order.customer_details;
 
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('SellerOrderDetails', { order: order })}>
                 <Card>
                     <CardItem>
 
-                        <Body>
+                        <Body >
 
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-
-                                <Image
-                                    source={{
-                                        uri: seller.img
-                                    }}
-                                    style={styles.sellerImage}
-                                />
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={styles.itemBody}>
-                                    <Text style={styles.name}>{order.orderid}</Text>
-                                    <Text style={styles.name}>{seller.name} | {seller.place}</Text>
-                                    <Text style={styles.date}>{order.date}</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={styles.name}>{order.order_id}</Text>
+                                        <OrderStatusButton status={order.order_status} />
 
-                                    <OrderStatusButton status={order.status} />
+                                    </View>
+
+                                    <Text style={styles.name}>{customer_details.name}</Text>
+                                    <Text style={styles.name}>{customer_details.address}| {order.user_number}</Text>
+
+
 
                                 </View>
 
+
+                                <View style={styles.itemBody}>
+                                    <View style={{ flex: 1, alignItems: 'center' }}>
+                                        <Text style={styles.total}>{order.order_total} ₹</Text>
+                                        <Text style={styles.total_count}>{order.order_products.length} Items</Text>
+                                        <Text style={styles.date}>{order.created_at}</Text>
+                                    </View>
+
+
+
+
+
+                                </View>
                             </View>
+
+
+
                         </Body>
 
                     </CardItem>
@@ -72,10 +86,15 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#000',
     }, itemBody: {
-        padding: 15
+        padding: 15,
+        flex: 0.5
     },
     date: {
-        fontSize: 12
+        fontSize: 12,
+
+    },
+    total: {
+        fontSize: 22
     }
 
 })

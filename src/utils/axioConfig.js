@@ -1,5 +1,6 @@
 import axios from "axios";
 import storeConfig from "../store";
+import { URL } from './config'
 let storeDefaults = storeConfig();
 let store = storeDefaults.store
 
@@ -19,8 +20,8 @@ export default function () {
             "Content-Type": 'application/json',
         },
 
-        // "baseURL": "http://192.168.100.63/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/",
-        "baseURL": " https://www.rubikssoft.com/shopeasy-backend/api/",
+        "baseURL": URL,
+        // "baseURL": " https://www.rubikssoft.com/shopeasy-backend/api/",
         responseType: "json"
     }
 

@@ -26,7 +26,8 @@ let store = storeDefaults.store
 function mapStateToProps(state) {
     return {
         location: state.location,
-        category: state.category
+        category: state.category,
+        auth: state.auth
     };
 }
 
@@ -112,7 +113,7 @@ class SrollDashboard extends Component {
 
 
     axiosConfig() {
-        let token = store.getState().auth.token
+        let token = this.props.auth.token
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     }
 
