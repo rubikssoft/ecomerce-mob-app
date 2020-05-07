@@ -5,6 +5,7 @@ import { fetch, POST } from "src/apis";
 
 export const addToCart = (seller, item, count, type, unitvalue) => {
 
+
     var item = {
         ...item,
         count: count,

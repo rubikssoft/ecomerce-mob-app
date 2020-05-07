@@ -32,14 +32,22 @@ export default (state = initialState, action) => {
                 if (value.sellerid === seller.id) {
                     var totalAmount = 0;
                     var CartItems = cart[key].items;
-                    CartItems = CartItems.filter(function (obj) {
-                        return obj.id !== item.id;
-                    });
+                    var existing = false
 
-                    CartItems.push(item)
-                    CartItems.map((i, k) => (
+                    CartItems.map((cv, ci) => {
+                        if (cv.id == item.id) {
+
+                            CartItems[ci] = item
+                            existing = true
+                        }
+                    })
+                    if (!existing) {
+                        CartItems.push(item)
+                    }
+
+                    CartItems.map((i, k) => {
                         totalAmount = totalAmount + (i.price * i.unitvalue * i.count)
-                    ));
+                    });
                     cart[key].items = CartItems
                     cart[key].totalAmount = totalAmount
                     cart[key].count = CartItems.length

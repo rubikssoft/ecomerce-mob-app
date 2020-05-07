@@ -70,9 +70,9 @@ class itemRow extends Component {
     }
 
     handleCountChange(item, ncount) {
-
         const activeSeller = this.props.seller.activeSeller;
         const { count, type, unitvalue } = this.state;
+
         if (count !== ncount) {
             this.props.addToCart(activeSeller, item, ncount, type, unitvalue);
             this.setState({ count: ncount })
@@ -111,7 +111,7 @@ class itemRow extends Component {
         const { item, key } = this.props;
         const { type } = this.state
         const unit = JSON.parse(item.unit)
-        console.log(item)
+        // console.log(item)
         return (
 
 
