@@ -1,7 +1,7 @@
 export default
     {
         //status bar 
-        statusBarbg: '#013d6f',
+        statusBarbg: '#5E8D48',
         background: '#fff',
 
         textColor: '#fff',

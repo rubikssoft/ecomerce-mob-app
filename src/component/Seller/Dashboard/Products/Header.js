@@ -11,7 +11,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 
 const styles = StyleSheet.create({
     titleColumn: {
-        flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', padding: 5, textAlign: 'center'
+        flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', padding: 5, textAlign: 'center', textTransform: 'uppercase', fontSize: 12
     }, button: {
 
         width: 100,
@@ -83,8 +83,7 @@ export class Header extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 50, color: '#fff', padding: 10 }}>
                     <Text style={[styles.titleColumn, { flex: 0.7 }]}> Name </Text>
-                    <Text style={[styles.titleColumn]}> Category </Text>
-                    <Text style={[styles.titleColumn]}> Sub Category </Text>
+                    <Text style={[styles.titleColumn]}> Category/Sub </Text>
                     <Text style={[styles.titleColumn,]}> Price </Text>
 
                     {edit &&

@@ -8,6 +8,8 @@ import { StatusBar, View } from 'react-native'
 import theme from 'src/style/theme/default'
 
 import BottomPopup from './component/common/BottomPopup'
+import Common from './component/common/Common'
+import DarkTheme from './component/common/Statusbar'
 import ErrorHandler from './component/common/ErrorHandler'
 
 class Root extends PureComponent {
@@ -16,22 +18,15 @@ class Root extends PureComponent {
     return (
       <Provider store={storeDefaults.store}>
         <PersistGate loading={null} persistor={storeDefaults.persistor}>
-          <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+          <SafeAreaView style={{ flex: 1 }}>
+            <DarkTheme />
 
-            <StatusBar
-
-              barStyle="light-content"
-              //  backgroundColor="rgba(0, 0, 0, 0.251)"
-              backgroundColor='blue'
-              hidden={false}
-              networkActivityIndicatorVisible={true}
-              translucent={true}
-            />
             <Router />
+
             {/* <ErrorHandler /> */}
             <BottomPopup />
-
-          </View>
+            <Common />
+          </SafeAreaView>
 
         </PersistGate>
       </Provider>

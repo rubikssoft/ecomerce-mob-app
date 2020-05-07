@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, TouchableOpacity, Image, Modal, TouchableWithoutFeedback } from 'react-native'
-import { View, Text, CheckBox, Card, CardItem, Body, Button } from 'native-base'
+import { View, Text, CheckBox, Card, CardItem, Body, Button, Thumbnail } from 'native-base'
 import EditProduct from './Edit'
 class Item extends Component {
 
@@ -16,7 +16,6 @@ class Item extends Component {
     }
     render() {
         const { item, edit, checked } = this.props;
-
         return (
 
             <View>
@@ -25,10 +24,17 @@ class Item extends Component {
 
                     style={styles.item} onPress={() => this.modalToggle()}>
 
-                    <Text style={[styles.column, { flex: 0.7 }]}> {item.name} </Text>
-                    <Text style={[styles.column]}> {item.category} </Text>
-                    <Text style={[styles.column]}> {item.sub_category} </Text>
-                    <Text style={[styles.column]}> {item.price} </Text>
+                    <View style={[styles.column, { flex: 0.7, flexDirection: "row", alignItems: 'center', justifyContent: 'flex-start', fontSize: 10 }]}>
+
+                        <Thumbnail source={{ uri: item.img }} />
+                        <Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}> {item.name}
+
+                        </Text>
+                    </View>
+
+                    <Text style={[styles.column]}> {item.category}/{item.sub_category}</Text>
+
+                    <Text style={[styles.column, { fontWeight: 'bold' }]}> {item.price} </Text>
                     {edit &&
                         <View style={[styles.column, styles.checkbox, { flex: 0.3 }]}>
                             <CheckBox checked={checked} onPress={(val) => this.props._itemSelected(item.id)} />
@@ -112,15 +118,16 @@ class Item extends Component {
 const styles = StyleSheet.create({
 
     item: {
-        height: 40,
+        height: 100,
         borderBottomColor: '#000',
         borderBottomWidth: 0.5,
         padding: 4,
         flexDirection: 'row',
-        paddingBottom: 5
+        paddingBottom: 5,
+        alignItems: 'center'
     },
     column: {
-        flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', padding: 5, textAlign: 'center', color: '#000', fontSize: 14
+        flex: 0.5, color: '#fff', textAlign: 'center', padding: 5, textAlign: 'center', color: '#000', fontSize: 14
     },
     checkbox: {
         alignItems: 'center'

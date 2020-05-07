@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'native-base';
 import Item from './SubCategoryItem'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
 
 function mapStateToProps(state) {
     return {
@@ -10,7 +10,21 @@ function mapStateToProps(state) {
     };
 }
 
+const styles = StyleSheet.create({
+    subcatbox: {
 
+        height: 30,
+        borderWidth: 0.5,
+        borderColor: '#000',
+        borderRadius: 5,
+        padding: 5,
+        margin: 5
+    },
+    label: {
+        fontSize: 13,
+        color: '#fff'
+    }
+})
 class SubCategory extends Component {
 
     constructor(props) {
@@ -37,12 +51,16 @@ class SubCategory extends Component {
         return (
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
 
+                <TouchableOpacity style={[styles.subcatbox, this.state.activeCategory === '' ? { backgroundColor: 'green' } : { backgroundColor: 'grey' }]} onPress={() => this.categorySelect('')}>
+                    <Text style={styles.label}> All </Text>
+                </TouchableOpacity>
+                {
+                    data.map((value, index) => (
+                        <Item key={index} data={value} categorySelect={this.categorySelect} activeCategory={this.state.activeCategory} />
+                    ))
+                }
 
-                {data.map((value, index) => (
-                    <Item key={index} data={value} categorySelect={this.categorySelect} activeCategory={this.state.activeCategory} />
-                ))}
-
-            </ScrollView>
+            </ScrollView >
 
 
         );

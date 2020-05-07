@@ -78,7 +78,7 @@ class AddProduct extends Component {
             loading: false
         }
         this.loadDetails()
-        // console.log(categories)
+
     }
 
     componentDidMount() {
@@ -151,7 +151,7 @@ class AddProduct extends Component {
 
             }
         } catch (E) {
-            console.log('erroor')
+
             console.log(E);
         }
     };

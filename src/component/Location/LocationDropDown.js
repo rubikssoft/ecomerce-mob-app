@@ -9,6 +9,7 @@ function mapStateToProps(state) {
     return {
         location: state.location.location,
         category: state.category.category,
+        common: state.common
 
     };
 }
@@ -83,7 +84,7 @@ class LocationDropDown extends Component {
                         maxHeight: 200,
 
                     }}
-                    items={cities}
+                    items={this.props.common.locations}
                     //mapping of item array
                     defaultIndex={this.props.location.id}
                     //default selected item index

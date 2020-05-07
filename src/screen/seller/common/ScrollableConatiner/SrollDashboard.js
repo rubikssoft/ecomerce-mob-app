@@ -106,7 +106,7 @@ class SrollDashboard extends Component {
         const { orders, orderLoading, products, productsLoading } = this.state
 
         return (
-            <Container style={{ backgroundColor: "white" }}>
+            <Container >
                 <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
                 <Content
 

@@ -88,7 +88,7 @@ class Edit extends Component {
             category: data.category_id,
             subcategory: data.sub_category_id,
             name: data.name,
-            image: data.image,
+            image: data.img,
             units: JSON.parse(data.unit),
             price: data.price,
             subCategories: data.subcategories
@@ -107,7 +107,7 @@ class Edit extends Component {
         const data = this.state
         const auth = this.props.auth
         const product = this.props.data
-        //    console.log(product)
+
 
 
 
@@ -156,14 +156,9 @@ class Edit extends Component {
                 this.setState({ image: result.uri });
                 let localUri = result.uri;
                 let filename = localUri.split('/').pop();
-
-                // Infer the type of the image
                 let match = /\.(\w+)$/.exec(filename);
                 let type = match ? `image/${match[1]}` : `image`;
-
-                this.setState({
-                    imageFile: { uri: localUri, name: filename, type: 'image/jpg' }
-                })
+                this.setState({ imageFile: { uri: localUri, name: filename, type } });
 
             }
         } catch (E) {
@@ -199,7 +194,7 @@ class Edit extends Component {
                         <Label style={[styles.label, { flex: 1 }]}>Image</Label>
                         <TouchableOpacity title="Pick an image from camera roll" onPress={this._pickImage} >
                             {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, marginLeft: 'auto' }} />}
-                            {!image && <Image source={require('../../../../../assets/Images/product-image-default.png')} style={{ width: 100, height: 100, marginLeft: 'auto' }} />}
+                            {/* {!image && <Image source={require('../../../../../assets/Images/product-image-default.png')} style={{ width: 100, height: 100, marginLeft: 'auto' }} />} */}
                         </TouchableOpacity>
 
                     </Item>

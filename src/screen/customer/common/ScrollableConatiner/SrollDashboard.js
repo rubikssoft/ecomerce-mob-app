@@ -77,7 +77,7 @@ class SrollDashboard extends Component {
         const { location, category } = this.props
         const data = {
             offset: 0,
-            limit: sellers.length + 8,
+            limit: sellers.length + 5,
             location: location,
             category: category
         }

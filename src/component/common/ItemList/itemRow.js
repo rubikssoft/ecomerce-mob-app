@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Label, Text, Button, Input, CheckBox } from 'native-base'
+import { View, Label, Text, Button, Input, CheckBox, Thumbnail } from 'native-base'
 import { StyleSheet, TouchableOpacity, TextInput, Picker } from 'react-native'
 import { Dropdown } from 'react-native-material-dropdown';
 import { addToCart } from 'src/action/CartActions'
@@ -111,12 +111,16 @@ class itemRow extends Component {
         const { item, key } = this.props;
         const { type } = this.state
         const unit = JSON.parse(item.unit)
-
+        console.log(item)
         return (
 
 
-            <View style={[styles.bodyRow]} key={key}>
-                <Text style={[styles.bodyColumn, { textAlign: 'left' }]}> {item.name} </Text>
+            < View style={[styles.bodyRow]} key={key} >
+                <View style={[styles.bodyColumn, { textAlign: 'left', flexDirection: 'row', alignItems: 'center' }]} >
+                    <Thumbnail square source={{ uri: item.img }} />
+                    <Text > {item.name} </Text>
+                </View>
+
                 <Text style={[styles.bodyColumn]}> {item.price}  </Text>
                 <View style={[styles.bodyColumn, { flex: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 0 }]}>
                     <TextInput
@@ -155,7 +159,7 @@ class itemRow extends Component {
                     <CheckBox checked={this.checkItemAtCart(item)} color="green" onPress={() => this.optionChecked(item)} />
                 </View>
 
-            </View>
+            </View >
 
 
         );

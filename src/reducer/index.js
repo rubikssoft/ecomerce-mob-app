@@ -26,6 +26,7 @@ import BottomPopReducer from './BottomPopReducer'
 
 //error handler 
 import ErrorReducer from './ErrorReducer'
+import CommonReducer from './CommonReducer'
 
 
 
@@ -53,5 +54,7 @@ export default combineReducers({
 
 
   //common
-  bottomPopup: BottomPopReducer
+  bottomPopup: BottomPopReducer,
+  common: CommonReducer
+
 });

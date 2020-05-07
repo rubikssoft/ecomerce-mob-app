@@ -138,7 +138,7 @@ export default createStackNavigator(
   {
     tabBarOptions: {
       style: {
-        backgroundColor: "#2c8ef4"
+        backgroundColor: "red"
       }
     }
   }

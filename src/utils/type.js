@@ -80,3 +80,5 @@ export const LOAD_USER = "LOAD_USER";
 export const UNLOAD_USER = "UNLOAD_USER";
 
 export const CREATE_ORDER = "CREATE_ORDER"
+
+export const LOAD_COMMON_DATA = "LOAD_COMMON_DATA"

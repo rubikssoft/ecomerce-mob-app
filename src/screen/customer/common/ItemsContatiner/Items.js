@@ -108,11 +108,11 @@ class Items extends Component {
                         ]}
                     >
 
-                        {/* {this.state.categories.map((value, index) => (
+                        {this.state.categories.map((value, index) => (
 
                             <Category data={value} key={index} {...this.props} />
-                        )) */}
 
+                        ))
                         }
 
                         {!this.state.categories.length &&

@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         margin: 5
     },
     label: {
-        fontSize: 13
+        fontSize: 13,
+        color: '#fff'
     }
 })
 class SubCategoryItem extends Component {
@@ -32,9 +33,13 @@ class SubCategoryItem extends Component {
     render() {
         const { data } = this.props;
         return (
-            <TouchableOpacity style={[styles.subcatbox, this.props.activeCategory == data.id ? { backgroundColor: 'red' } : null]} onPress={() => this.props.categorySelect(data.id)}>
+
+
+            <TouchableOpacity style={[styles.subcatbox, this.props.activeCategory == data.id ? { backgroundColor: 'green' } : { backgroundColor: 'grey' }]} onPress={() => this.props.categorySelect(data.id)}>
                 <Text style={styles.label}> {data.name}</Text>
             </TouchableOpacity>
+
+
         );
     }
 }
