@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { Card, Text, View, CardItem, Body } from 'native-base'
+import { Card, Text, View, CardItem, Body, Thumbnail } from 'native-base'
 
 import OrderStatusButton from './OrderStatusButton'
 
@@ -9,16 +9,21 @@ class CustomerCard extends Component {
     render() {
 
         const { order } = this.props
+        const { customer_details } = order
         return (
             <Card>
                 <CardItem>
                     <Body>
                         <View>
-                            <Text style={styles.order}> #{order.orderid}</Text>
-                            <Text style={styles.name}> {order.customer.name}</Text>
-                            <Text style={styles.phone}> {order.customer.address.phone}</Text>
+                            <Text style={styles.order}> #{order.order_id}</Text>
 
-                            <OrderStatusButton status={order.status} />
+
+                            <Text style={styles.name}> {customer_details.name}</Text>
+                            <Text style={styles.phone}> {customer_details.address} | {order.user_number}</Text>
+
+
+
+                            <OrderStatusButton status={order.order_status} />
                         </View>
                     </Body>
                 </CardItem>

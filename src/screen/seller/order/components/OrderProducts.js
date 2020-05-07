@@ -12,11 +12,11 @@ class OrderProducts extends Component {
     }
     render() {
         return (
-            <ScrollView style={{ flex: 1, height: height - 150 }}>
+            <ScrollView style={{ flex: 1 }}>
                 <Card style={{ padding: 0, paddingBottom: 20, flex: 2 }}>
                     <CardItem style={{ padding: 0 }}>
 
-                        <ProductList items={this.props.order.items} order={this.props.order} />
+                        <ProductList OrderProducts={this.props.OrderProducts} />
                     </CardItem>
                 </Card>
             </ScrollView>

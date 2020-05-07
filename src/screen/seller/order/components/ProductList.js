@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'native-base'
+import { View, Text, Thumbnail, Input, Picker, Item } from 'native-base'
 import { StyleSheet, ScrollView } from 'react-native';
 import ItemRow from './ItemRow';
 function mapStateToProps(state) {
@@ -17,44 +17,62 @@ class ProductList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            edit: false
 
         }
     }
 
+    setUnitValue(itemValue, itemIndex, key) {
+        console.log(itemValue)
+        console.log(itemIndex)
+        console.log(key)
+    }
+
     render() {
-        const { order } = this.props
+        const { OrderProducts } = this.props
+        console.log('reached here');
+        console.log(OrderProducts);
         return (
             <View style={{ flex: 1 }}>
+                {OrderProducts && OrderProducts.map((value, key) => (
 
-                <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Items </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Price </Text>
+                    <View style={{ flexDirection: 'row', flex: 1, height: 100, alignItems: 'center' }}>
+                        <View style={{ flex: 0.2 }}>
+                            <Thumbnail square large source={{ uri: value.img }} />
+                        </View>
+                        <View style={{ flex: 0.8, padding: 5, flexDirection: "row" }}>
+                            <View style={{ flex: 0.7 }}>
 
-                    </View>
-                    <View>
-                        {order.items.map((value, key) => (
-                            <ItemRow item={value} key={key} />
-                        ))}
+                                <Text style={styles.name}>{value.name}</Text>
+                                <Text>{value.count} {value.type}</Text>
 
-                    </View>
 
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Total (4)  </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> 33333 </Text>
+                                {/* <Picker
+                                    selectedValue={value.type}
+                                    style={{ height: 50, width: 120 }}
+                                    onValueChange={(itemValue, itemIndex) => this.setUnitValue(itemValue, itemIndex, key)}
 
-                    </View>
-                    {order.payment === 'cod' &&
-                        <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 20 }}>
-                            <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Payment Options </Text>
-                            <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Cash on delivery (COD) </Text>
+                                >
+                                    {JSON.parse(value.unit).length !== 0 && JSON.parse(value.unit).map((type, key1) => (<Picker.Item label={type.name} value={type.name} key={key1} />))}
+                                </Picker> */}
+                            </View>
+                            <View style={{ flex: 0.3, alignItems: 'center', borderLeftColor: '#000', borderLeftWidth: 0.5 }}>
+
+                                <Input value={value.price.toString()} style={{ borderBottomColor: '#000', borderBottomWidth: 1 }} keyboardType={'numeric'} />
+                            </View>
 
                         </View>
-                    }
+                    </View>
 
 
-                </View>
+
+
+
+
+
+                ))
+
+                }
 
 
             </View>
@@ -69,6 +87,11 @@ const styles = StyleSheet.create({
     titleColumn: {
         flex: 0.5, color: '#fff', fontWeight: 'bold', textAlign: 'center', fontSize: 12
     },
+    name: {
+        fontWeight: 'bold',
+        color: '#000',
+
+    }
 
 });
 

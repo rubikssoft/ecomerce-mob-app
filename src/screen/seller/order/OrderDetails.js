@@ -28,6 +28,29 @@ const styles = StyleSheet.create({
     bigText: {
         fontSize: 18,
         color: '#000'
+    },
+    button: {
+        backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', height: 40, paddingTop: 10,
+        margin: 5,
+        borderWidth: 0.4,
+        borderColor: 'red',
+        width: '80%'
+
+    },
+    buttonSection: {
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        alignContent: 'flex-end'
+
+    },
+    readyButton: {
+        borderColor: 'grey',
+        backgroundColor: 'green'
+    },
+    cancelButton: {
+        borderColor: 'grey',
+        backgroundColor: 'red'
     }
 })
 
@@ -38,19 +61,22 @@ class OrderDetails extends Component {
         super(props)
         this.state = {
             loading: true,
-            order: []
+            order: [],
+            order_products: [],
+            total_amount: 0
         }
     }
 
     componentDidMount() {
         this.setState({
             order: this.props.navigation.state.params.order,
+            order_products: this.props.navigation.state.params.order.order_products,
             loading: false
         })
     }
 
     render() {
-        const { order, loading } = this.state
+        const { order, loading, order_products } = this.state
         console.log(order)
         return (
 
@@ -78,29 +104,27 @@ class OrderDetails extends Component {
 
                     <CustomerCard order={order} />
 
-                    <OrderProducts order={order}  {...this.props} />
+                    <OrderProducts OrderProducts={order_products}  {...this.props} />
 
-
-
-
-
-
-                    <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#7f1925', height: 70, justifyContent: 'space-between' }}>
-
-
-                        <View style={{ height: 60, flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', height: 40, paddingTop: 10, margin: 5 }}  >
-                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'red' }}>Cancel</Text>
+                    <View style={styles.buttonSection}>
+                        <TouchableOpacity style={[styles.button, styles.readyButton]} onPress={() => this._changeOrderStatus(order.order_id, 4)}>
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>Ready</Text>
+                        </TouchableOpacity>
+                        {order.order_status != 'cancelled' &&
+                            <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => this._changeOrderStatus(order.order_id, 3)}>
+                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>Cancel</Text>
                             </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flex: 0.5, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', height: 40, paddingTop: 10, margin: 5 }}  >
-                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'green' }}>Ready</Text>
+                        }
+                        {order.order_status === 'cancelled' &&
+                            <TouchableOpacity style={styles.button} onPress={() => this._changeOrderStatus(order.order_id, 4)}>
+                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'red' }}>Delete</Text>
                             </TouchableOpacity>
-
-                        </View>
-
+                        }
 
                     </View>
+
+
+
                 </SkeletonContent>
 
             </Container>

@@ -40,10 +40,8 @@ class OrderContainer extends Component {
 
 
     render() {
-        //    const orders = this.props.sellerData.orders
-        const { orders, loading } = this.props
 
-        console.log(orders)
+        const { orders, loading } = this.props
         return (
             <Container>
                 <ScrollView refreshControl={
