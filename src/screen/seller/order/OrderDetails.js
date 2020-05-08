@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
+import { Dimensions, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import SkeletonContent from "react-native-skeleton-content";
+import { orderStatusChange } from "src/action/OrderAction";
 
 import {
     Container,
@@ -9,7 +10,8 @@ import {
     Card,
     CardItem,
     Text,
-    Content
+    Content,
+    Toast
 } from 'native-base'
 
 import Headers from "../../../component/Seller/Header";
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     },
     buttonSection: {
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 100,
         marginBottom: 20,
         alignContent: 'flex-end'
 
@@ -51,7 +53,11 @@ const styles = StyleSheet.create({
     cancelButton: {
         borderColor: 'grey',
         backgroundColor: 'red'
-    }
+    },
+    rowHead: { flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, justifyContent: 'space-between' },
+    titleChange: {
+        color: '#fff', fontWeight: 'bold', textAlign: 'center', fontSize: 12
+    },
 })
 
 
@@ -75,9 +81,54 @@ class OrderDetails extends Component {
         })
     }
 
+
+    _changeOrderStatus(order_id, status) {
+        var label = 'Cancel Order';
+        var msg = 'Are you sure want to cancel this order';
+        var toast = "Cancelled";
+        if (status == 4) {
+            label = 'Delete Order';
+            msg = 'Are you sure want to delete this order';
+            toast = 'Deleted';
+
+        } else if (status == 2) {
+            label = ' Order Ready';
+            msg = 'Are you sure';
+            toast = 'Updated';
+        }
+        Alert.alert(
+            label,
+            msg,
+            [
+                { text: 'no', style: 'cancel' },
+                {
+                    text: 'yes', onPress: async () => {
+                        //order-status-change
+                        await this.props.orderStatusChange({ order_id, status }).then(res => {
+                            if (res != null) {
+                                Toast.show({
+                                    text: "Updated",
+                                    textStyle: { color: "green" },
+                                    duration: 3000
+                                });
+
+                                this.props.navigation.navigate('SellerDashboard')
+                            }
+                        }
+
+                        )
+
+
+                    }
+                },
+
+            ],
+            { cancelable: true },
+        );
+    }
     render() {
         const { order, loading, order_products } = this.state
-        console.log(order)
+
         return (
 
 
@@ -106,8 +157,25 @@ class OrderDetails extends Component {
 
                     <OrderProducts OrderProducts={order_products}  {...this.props} />
 
+
+                    <Card>
+                        <View style={styles.rowHead}>
+                            <Text style={[styles.titleChange, { textAlign: 'left' }]}> Sub Total   </Text>
+                            <Text style={[styles.titleChange, { textAlign: 'right' }]}> {order.order_subtotal}</Text>
+
+                        </View>
+                    </Card>
+
+                    <Card>
+                        <View style={styles.rowHead}>
+                            <Text style={[styles.titleChange, { textAlign: 'left' }]}>  Total   </Text>
+                            <Text style={[styles.titleChange, { textAlign: 'right' }]}>{order.order_total} </Text>
+
+                        </View>
+                    </Card>
+
                     <View style={styles.buttonSection}>
-                        <TouchableOpacity style={[styles.button, styles.readyButton]} onPress={() => this._changeOrderStatus(order.order_id, 4)}>
+                        <TouchableOpacity style={[styles.button, styles.readyButton]} onPress={() => this._changeOrderStatus(order.order_id, 2)}>
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>Ready</Text>
                         </TouchableOpacity>
                         {order.order_status != 'cancelled' &&
@@ -138,7 +206,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-
+    orderStatusChange
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails)

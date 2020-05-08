@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, TouchableOpacity, StyleSheet, Alert, ToastAndroid, ScrollView } from 'react-native'
+import { Dimensions, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native'
 import { orderStatusChange } from "src/action/OrderAction";
 
 import {

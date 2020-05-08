@@ -30,7 +30,7 @@ class Cart extends Component {
         const { activeSeller } = this.props.seller
 
         const { userDetails } = this.props.auth
-        console.log(userDetails);
+        // console.log(userDetails);
         if (userDetails.name == null) {
             return false
         }
@@ -50,7 +50,7 @@ class Cart extends Component {
                     { cancelable: false },
                 );
             }
-            console.log(order_id);
+            // console.log(order_id);
 
         });
 

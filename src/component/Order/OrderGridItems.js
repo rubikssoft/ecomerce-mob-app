@@ -8,7 +8,7 @@ class OrderGridItems extends Component {
     render() {
         const { order } = this.props;
 
-        console.log(order)
+        // console.log(order)
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails', { order: order })}>
                 <Card>

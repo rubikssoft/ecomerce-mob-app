@@ -24,7 +24,7 @@ class Common extends Component {
     }
 
     componentDidMount() {
-        console.log('here')
+        // console.log('here')
         this.props.loadDetails();
     }
     render() {

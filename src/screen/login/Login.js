@@ -36,7 +36,7 @@ export default class Logins extends Component {
       modalVisible: false,
       checkToken: false
     };
-    console.log(props);
+
   }
 
   // componentWillReceiveProps(newProps) {

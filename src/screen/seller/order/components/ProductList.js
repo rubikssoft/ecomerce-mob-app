@@ -23,15 +23,15 @@ class ProductList extends Component {
     }
 
     setUnitValue(itemValue, itemIndex, key) {
-        console.log(itemValue)
-        console.log(itemIndex)
-        console.log(key)
+        // console.log(itemValue)
+        // console.log(itemIndex)
+        // console.log(key)
     }
 
     render() {
-        const { OrderProducts } = this.props
-        console.log('reached here');
-        console.log(OrderProducts);
+        // const { OrderProducts } = this.props
+        // console.log('reached here');
+        // console.log(OrderProducts);
         return (
             <View style={{ flex: 1 }}>
                 {OrderProducts && OrderProducts.map((value, key) => (

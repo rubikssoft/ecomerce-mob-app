@@ -35,6 +35,14 @@ function mapStateToProps(state) {
 
 class SrollDashboard extends Component {
 
+    willFocus = this.props.navigation.addListener(
+        'willFocus',
+        payload => {
+            this._fetchOrderData()
+            this._fetchProductData()
+        }
+    );
+
     constructor(props) {
         super(props)
         this.state = {
@@ -49,6 +57,8 @@ class SrollDashboard extends Component {
         this._fetchProductData()
         this._axiosConfig()
     }
+
+
 
     async _fetchOrderData() {
 

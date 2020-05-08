@@ -62,7 +62,7 @@ class CustomProduct extends Component {
     }
 
     onCategroyValueChange(item) {
-        console.log(item)
+        // console.log(item)
         return true;
     }
 

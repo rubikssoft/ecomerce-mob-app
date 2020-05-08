@@ -7,7 +7,7 @@ import theme from 'src/style/theme/default'
 class LoginContainer extends PureComponent {
 
   render() {
-    console.log(theme);
+    // console.log(theme);
 
     return (
 

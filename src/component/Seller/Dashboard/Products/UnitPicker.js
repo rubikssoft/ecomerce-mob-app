@@ -87,7 +87,7 @@ class UnitPicker extends Component {
 
         const { units } = this.props
 
-        console.log(units)
+        // console.log(units)
 
         return (
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ margin: 10, flex: 1 }}>

@@ -6,7 +6,7 @@ import { Text } from 'native-base';
 export class FloatingButton extends Component {
 
     clickHandler = () => {
-        console.log('click handler called');
+        // console.log('click handler called');
 
     };
 

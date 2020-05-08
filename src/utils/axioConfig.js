@@ -12,7 +12,7 @@ function select(state) {
 
 
 export default function () {
-    console.log('axio config called');
+    // console.log('axio config called');
     let token = select(store.getState())
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     const config = {
