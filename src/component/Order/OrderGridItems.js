@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { View, Text, Card, CardItem, Body } from 'native-base'
+import { View, Text, Card, CardItem, Body, Thumbnail } from 'native-base'
 import OrderStatusButton from './OrderStatusButton'
 
 class OrderGridItems extends Component {
     render() {
         const { order } = this.props;
 
+        console.log(order)
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails', { order: order })}>
                 <Card>
@@ -17,11 +18,11 @@ class OrderGridItems extends Component {
 
                             <View style={{ flexDirection: 'row', alignItems: 'center' }} >
 
-                                <Image
+                                <Thumbnail
                                     source={{
-                                        uri: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
+                                        uri: order.seller_details.img
                                     }}
-                                    style={styles.sellerImage}
+
                                 />
                                 <View style={styles.itemBody}>
                                     <Text style={styles.name}>{order.order_id}</Text>
@@ -71,7 +72,8 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#000',
     }, itemBody: {
-        padding: 15
+        padding: 15,
+
     },
     date: {
         fontSize: 12

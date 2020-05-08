@@ -45,7 +45,7 @@ class SellerItem extends Component {
                             <View style={{ flexDirection: 'row', alignItems: 'center' }} >
                                 <Thumbnail
                                     source={{
-                                        uri: "https://www.rubikssoft.com/assets/img/rubikssoft.jpeg"
+                                        uri: item.img
                                     }}
                                     style={{ flex: 0.2 }}
 
@@ -97,6 +97,9 @@ const styles = StyleSheet.create({
         color: '#000',
     }, itemBody: {
         padding: 15
+    },
+    titleChange: {
+        color: '#fff', fontWeight: 'bold', textAlign: 'center', fontSize: 12
     }
 
 })

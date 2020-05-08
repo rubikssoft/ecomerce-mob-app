@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'native-base'
+import { View, Text, Thumbnail } from 'native-base'
 import { StyleSheet } from 'react-native'
 
 function mapStateToProps(state) {
@@ -20,8 +20,10 @@ class itemRow extends Component {
 
     render() {
         const { item, key } = this.props;
+
         return (
             <View style={[styles.bodyRow]} key={key}>
+                <Thumbnail square source={{ uri: item.img }} />
                 <View style={[styles.bodyColumn, { textAlign: 'left' }]}>
                     <Text style={[styles.name]}>{item.name} </Text>
                     <Text style={[styles.details]}> {item.count} {item.type} </Text>
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
         flex: 0.5, color: '#000', textAlign: 'left', fontWeight: 'bold', fontSize: 12
     },
     bodyRow: {
-        flexDirection: 'row', height: 45, color: '#fff', alignItems: 'center', marginTop: 1,
+        flexDirection: 'row', height: 50, color: '#fff', alignItems: 'center', marginTop: 5,
         borderBottomWidth: 0.4, borderBottomColor: '#000', width: '95%', marginRight: 'auto', marginLeft: 'auto'
 
     },

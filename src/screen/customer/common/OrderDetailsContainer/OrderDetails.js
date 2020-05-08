@@ -77,9 +77,35 @@ class OrderDetails extends Component {
 
 
                     <ShopeCard order={order} />
+
                     <CustomerCard order={order} />
 
                     <OrderProducts order={order}  {...this.props} />
+
+
+                    <Card>
+                        <View style={styles.rowHead}>
+                            <Text style={[styles.titleChange, { textAlign: 'left' }]}> SubTotal ({order.order_products.length})  </Text>
+                            <Text style={[styles.titleChange, { textAlign: 'right' }]}> {order.order_subtotal} </Text>
+
+                        </View>
+
+                        <View style={styles.rowHead}>
+                            <Text style={[styles.titleChange, { textAlign: 'left' }]}> Total   </Text>
+                            <Text style={[styles.titleChange, { textAlign: 'right' }]}> {order.order_total} </Text>
+
+                        </View>
+
+
+                        <View style={styles.rowHead}>
+                            <Text style={[styles.titleChange, { textAlign: 'left' }]}> Payment Options </Text>
+                            <Text style={[styles.titleChange, { textAlign: 'right' }]}> Cash on delivery (COD) </Text>
+
+                        </View>
+                    </Card>
+
+
+
                     <View style={styles.buttonSection}>
                         {order.order_status != 'cancelled' &&
                             <TouchableOpacity style={styles.button} onPress={() => this._changeOrderStatus(order.order_id, 3)}>
@@ -118,10 +144,14 @@ const styles = StyleSheet.create({
     },
     buttonSection: {
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 50,
         marginBottom: 20,
         alignContent: 'flex-end'
 
-    }
+    },
+    titleChange: {
+        color: '#fff', fontWeight: 'bold', textAlign: 'center', fontSize: 12
+    },
+    rowHead: { flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30, justifyContent: 'space-between' }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails)

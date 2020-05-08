@@ -12,8 +12,11 @@ export default class CustomerCard extends Component {
         const customer_details = order.customer_details
         return (
             <Card style={styles.card}>
+                <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10 }}>
+                    <Text style={[styles.titleChange, { textAlign: 'left', color: '#fff' }]}> Customer </Text>
 
-                <Text> Customer</Text>
+
+                </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }} >
 
                     <View style={styles.itemBody}>
@@ -65,7 +68,9 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     card: {
-        padding: 10
+        padding: 0
+    }, titleChange: {
+        color: '#fff', fontWeight: 'bold', textAlign: 'center', fontSize: 12
     }
 
 })

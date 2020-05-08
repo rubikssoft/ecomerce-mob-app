@@ -28,11 +28,7 @@ class ProductList extends Component {
             <View style={{ flex: 1 }}>
 
                 <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Items </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Price </Text>
 
-                    </View>
                     <View>
                         {order.order_products.map((value, key) => (
                             <ItemRow item={value} key={key} />
@@ -40,24 +36,7 @@ class ProductList extends Component {
 
                     </View>
 
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> SubTotal ({order.order_products.length})  </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> {order.order_subtotal} </Text>
 
-                    </View>
-
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 30 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Total   </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> {order.order_total} </Text>
-
-                    </View>
-
-
-                    <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 35, color: '#fff', padding: 10, marginTop: 20 }}>
-                        <Text style={[styles.titleColumn, { textAlign: 'left' }]}> Payment Options </Text>
-                        <Text style={[styles.titleColumn, { textAlign: 'right' }]}> Cash on delivery (COD) </Text>
-
-                    </View>
 
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Image } from 'react-native'
-import { Card, Text, View, CardItem, Body } from 'native-base'
+import { Card, Text, View, CardItem, Body, Thumbnail } from 'native-base'
 
 import OrderStatusButton from '../../Order/OrderStatusButton'
 
@@ -15,11 +15,11 @@ export default class ShopeCard extends Component {
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }} >
 
-                    <Image
+                    <Thumbnail
                         source={{
-                            uri: 'http://www.shpanda.com/uploads/allimg/130723/1-130H3214S30-L.jpg'
+                            uri: order.seller_details.img
                         }}
-                        style={styles.sellerImage}
+
                     />
                     <View style={styles.itemBody}>
                         <Text style={styles.name}>{order.order_id}</Text>
