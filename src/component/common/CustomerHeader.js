@@ -9,6 +9,7 @@ import {
     Body,
     Right,
     Title,
+    Picker,
     View, Row
 } from "native-base";
 import { localize } from "src/internationalization";
@@ -20,6 +21,10 @@ import { TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native'
 
+
+import { setuplocation } from 'src/action/LocationAction'
+import { setupcategory } from 'src/action/CategoryAction'
+
 class Headers extends Component {
     constructor(props) {
         super(props);
@@ -29,9 +34,21 @@ class Headers extends Component {
             //Data Source for the SearchableDropdown
         };
     }
+
+    onlocationSelect(e, index) {
+        const { locations } = this.props.common
+        this.props.setuplocation(locations[index])
+
+
+    }
+    onCategorySelect(e, index) {
+        const { categories } = this.props.common
+        this.props.setupcategory(categories[index])
+    }
     render() {
 
-
+        const { locations, categories } = this.props.common
+        const { location, category } = this.props
         return (
             <View>
                 <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 20 }} androidStatusBarColor={theme.headerbg}>
@@ -71,7 +88,7 @@ class Headers extends Component {
                         {this.props.settingsIcon &&
                             <Button
                                 transparent
-                                onPress={() => this.props.routes.navigate("Settings")}
+                                onPress={() => this.props.routes.navigate("CustomerProfile")}
                             >
 
                                 <Icon name="md-cog" style={{ color: theme.headerIcon }} />
@@ -84,16 +101,47 @@ class Headers extends Component {
                 {this.props.locationSelect &&
                     <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
                         <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
-                            <Text style={{ textAlign: 'center', color: theme.headerTitle }}> {this.props.location.name}</Text>
+                            <Text style={{ textAlign: 'center', color: theme.headerTitle, fontSize: 14 }}> {this.props.location.name} | {this.props.category.name}</Text>
                         </TouchableOpacity>
                         {this.state.locationChooser &&
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
-                                <LocationDropDown
-                                    default={this.props.location.name}
-                                    selected={this.props.location.id} />
-                                <CategoriesDropDown
-                                    default={this.props.category.name}
-                                    selected={this.props.category.id} />
+                                <Picker
+                                    mode="dropdown"
+                                    iosIcon={<Icon name="arrow-down" />}
+                                    style={{ width: '50%', color: '#fff' }}
+                                    placeholder="Select your Location"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={location.id}
+                                    onValueChange={(e, index) => this.onlocationSelect(e, index)}
+                                >
+
+                                    {locations.map((value, index) => (
+                                        <Picker.Item label={value.name} value={value.id} key={index} />
+                                    ))}
+
+
+                                </Picker>
+                                <Picker
+                                    mode="dropdown"
+                                    iosIcon={<Icon name="arrow-down" />}
+                                    style={{ width: '50%', color: '#fff' }}
+                                    placeholder="Category"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={category.id}
+                                    onValueChange={(e, index) => this.onCategorySelect(e, index)}
+                                >
+
+                                    {categories.map((value, index) => (
+                                        <Picker.Item label={value.name} value={value.id} key={index} />
+                                    ))}
+
+
+                                </Picker>
+
+
+
                             </View>
 
 
@@ -123,7 +171,8 @@ function mapStateToProps(state) {
     return {
         location: state.location.location,
         category: state.category.category,
-        activeSeller: state.seller.activeSeller
+        activeSeller: state.seller.activeSeller,
+        common: state.common
 
     };
 }
@@ -137,5 +186,5 @@ const styles = StyleSheet.create({
     }
 });
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { setuplocation, setupcategory }
 )(Headers);

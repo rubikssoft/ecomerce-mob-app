@@ -133,6 +133,7 @@ class Profile extends Component {
 
     }
 
+    
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -307,7 +308,7 @@ class Profile extends Component {
                                     mode="dropdown"
                                     iosIcon={<Icon name="arrow-down" />}
                                     style={{ width: undefined }}
-                                    placeholder="Select your SIM"
+                                    placeholder="Select your Location"
                                     placeholderStyle={{ color: "#bfc6ea" }}
                                     placeholderIconColor="#007aff"
                                     selectedValue={location_id}
@@ -327,7 +328,7 @@ class Profile extends Component {
                                     mode="dropdown"
                                     iosIcon={<Icon name="arrow-down" />}
                                     style={{ width: undefined }}
-                                    placeholder="Select your SIM"
+                                    placeholder="Select Shope Category"
                                     placeholderStyle={{ color: "#bfc6ea" }}
                                     placeholderIconColor="#007aff"
                                     selectedValue={category_id}

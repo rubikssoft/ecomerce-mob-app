@@ -34,6 +34,7 @@ class SellerItem extends Component {
     }
     render() {
         const { item, key } = this.props;
+        console.log(item)
         return (
             <TouchableOpacity onPress={() => this.navigateToItemList(item)}>
                 <Card style={{ height: 100 }}>
@@ -41,12 +42,13 @@ class SellerItem extends Component {
 
                         <Body>
 
-                            <View style={{ flexDirection: 'row' }} >
-                                <Image
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                                <Thumbnail
                                     source={{
                                         uri: "https://www.rubikssoft.com/assets/img/rubikssoft.jpeg"
                                     }}
-                                    style={styles.sellerImage}
+                                    style={{ flex: 0.2 }}
+
                                 />
                                 <View style={styles.itemBody}>
                                     <Text style={styles.name}>{key} {item.name}</Text>

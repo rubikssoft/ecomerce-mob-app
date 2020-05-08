@@ -107,7 +107,7 @@ class SrollDashboard extends Component {
 
         return (
             <Container >
-                <Headers headername="AppName" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
+                <Headers headername="ShopEazy" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
                 <Content
 
                 >

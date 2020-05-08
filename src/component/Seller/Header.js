@@ -32,7 +32,7 @@ class Headers extends Component {
 
         return (
             <View>
-                <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 20 }} androidStatusBarColor={theme.headerbg}>
+                <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 70, paddingBottom: 20 }} androidStatusBarColor={theme.headerbg}>
 
                     <Left>
                         {this.props.leftmenu &&
