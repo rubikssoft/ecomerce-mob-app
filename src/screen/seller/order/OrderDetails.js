@@ -83,7 +83,7 @@ class OrderDetails extends Component {
 
 
             <Container style={{ backgroundColor: "white" }}>
-                <Headers routes={this.props.navigation} leftmenu={{ path: 'SellerDashobard', icon: 'md-arrow-dropleft' }} {...this.props} />
+                <Headers routes={this.props.navigation} leftmenu={{ path: 'SellerDashboard', icon: 'md-arrow-dropleft' }} {...this.props} />
 
 
 

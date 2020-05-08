@@ -109,7 +109,7 @@ class SellerReg extends Component {
                             </View>
                         </View>
 
-                        <KeyboardAvoidingView behavior="padding">
+                        {/* <KeyboardAvoidingView behavior="padding">
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
                                 <View style={{ flexDirection: 'column' }}>
                                     <RubiksInput bgcolor='orange' onChangeText={(txt) => this.setState({ shopeName: txt })} value={this.state.shopeName} />
@@ -128,7 +128,7 @@ class SellerReg extends Component {
 
 
                             </View>
-                        </KeyboardAvoidingView>
+                        </KeyboardAvoidingView> */}
 
 
 

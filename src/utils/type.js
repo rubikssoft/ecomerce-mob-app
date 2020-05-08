@@ -82,3 +82,4 @@ export const UNLOAD_USER = "UNLOAD_USER";
 export const CREATE_ORDER = "CREATE_ORDER"
 
 export const LOAD_COMMON_DATA = "LOAD_COMMON_DATA"
+export const UPDATE_USER_DATA = "UPDATE_USER_DATA"

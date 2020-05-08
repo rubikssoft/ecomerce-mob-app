@@ -105,7 +105,7 @@ class CustomerReg extends Component {
 
                         </View>
 
-                        <KeyboardAvoidingView behavior="padding">
+                        {/* <KeyboardAvoidingView behavior="padding">
                             <View style={{ width: 250, alignItems: 'center', flexDirection: 'row', marginTop: 50, flexDirection: 'column' }}>
 
                                 <View >
@@ -119,7 +119,7 @@ class CustomerReg extends Component {
 
 
                             </View>
-                        </KeyboardAvoidingView>
+                        </KeyboardAvoidingView> */}
 
 
 

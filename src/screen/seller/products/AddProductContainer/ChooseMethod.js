@@ -55,7 +55,7 @@ class ChooseMethod extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers leftmenu={{ path: 'SellerDashobard', icon: 'md-arrow-dropleft' }} routes={this.props.navigation} locationSelect={true} activeSellerView={false} {...this.props} />
+                <Headers leftmenu={{ path: 'SellerDashboard', icon: 'md-arrow-dropleft' }} routes={this.props.navigation} locationSelect={true} activeSellerView={false} {...this.props} />
                 <View
                     style={{
                         height: height - 10,

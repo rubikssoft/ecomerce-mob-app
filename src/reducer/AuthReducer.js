@@ -1,19 +1,9 @@
-import { LOAD_USER, UNLOAD_USER, LOAD_USER_DETAILS } from "src/utils";
+import { LOAD_USER, UNLOAD_USER, LOAD_USER_DETAILS, UPDATE_USER_DATA } from "src/utils";
 import axios from "axios";
 const initialState = {
     isAuthenticated: false,
     user: {},
-    userDetails: {
-        "id": 21,
-        "user_id": 22,
-        "address": null,
-        "city": null,
-        "state": null,
-        "zip": null,
-        "image": "shop.png",
-        "created_at": "2020-04-30T10:04:44.000000Z",
-        "updated_at": "2020-04-30T10:04:44.000000Z"
-    },
+    userDetails: {},
     token: '',
     type: ''
 
@@ -45,10 +35,17 @@ export default (state = initialState, { type, payload }) => {
             break;
 
         case LOAD_USER_DETAILS:
-            console.log(payload)
             return {
                 ...state,
                 userDetails: payload.user_profile
+
+            }
+        case UPDATE_USER_DATA:
+
+            return {
+                ...state,
+                userDetails: payload.user_profile,
+                user: payload.user,
 
             }
 

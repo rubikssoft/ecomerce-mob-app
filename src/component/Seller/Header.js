@@ -69,7 +69,7 @@ class Headers extends Component {
                         {this.props.settingsIcon &&
                             <Button
                                 transparent
-                                onPress={() => this.props.routes.navigate("Settings")}
+                                onPress={() => this.props.routes.navigate("SellerProfile")}
                             >
 
                                 <Icon name="md-cog" style={{ color: theme.headerIcon }} />

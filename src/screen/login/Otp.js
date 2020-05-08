@@ -53,8 +53,11 @@ class Otp extends Component {
 
         await this.props.registerUser(data).then(e => {
             const { auth } = this.props
-            if (auth.isAuthenticated) {
-                this.props.navigation.navigate('Landing')
+            if (auth.isAuthenticated && auth.type === "customer") {
+                this.props.navigation.navigate('CustomerProfile', { login: true })
+            } else if (auth.isAuthenticated && auth.type === 'seller') {
+                this.props.loadData()
+                this.props.navigation.navigate('SellerProfile', { login: true })
             }
         }
         );

@@ -10,16 +10,19 @@ import ProductChooser from "src/screen/seller/products/AddProductContainer/Produ
 // import CustomProduct from "src/screen/seller/products/AddProductContainer/CustomProduct";
 import OrderDetails from "src/screen/seller/order/OrderDetails";
 
+import Profile from 'src/screen/seller/profile'
+
 export default CommonStack = FluidNavigator(
     {
-        SellerDashobard: Dashobard,
+        SellerDashboard: Dashobard,
         AddProduct: AddProductContainer,
         CategoryChooser: CategoryChooser,
         ProductChooser: ProductChooser,
         SubCategoryChooser: SubCategoryChooser,
 
         // CustomProduct: CustomProduct,
-        SellerOrderDetails: OrderDetails
+        SellerOrderDetails: OrderDetails,
+        SellerProfile: Profile
 
 
     },

@@ -59,7 +59,7 @@ class Landing extends Component {
             this.props.navigation.navigate('ScrollableDash')
         } else if (auth.isAuthenticated && auth.type === 'seller') {
             this.props.loadData()
-            this.props.navigation.navigate('Seller')
+            this.props.navigation.navigate('SellerDashboard')
         }
     }
     componentDidMount() {

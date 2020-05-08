@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import UnitPicker from './UnitPicker'
-import { URL } from 'src/utils/config'
 
-import axios from "axios";
-// import ImagePicker from 'react-native-image-picker';
 import {
     View,
     Label,
@@ -29,7 +26,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import { TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native'
-let { height, width } = Dimensions.get("window");
+
 
 
 import { loadCategories, addNewProduct } from 'src/action/Seller/ProductAction'

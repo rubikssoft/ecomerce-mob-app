@@ -1,5 +1,5 @@
 import {
-    LOAD_COMMON_DATA
+    LOAD_COMMON_DATA, UPDATE_USER_DATA, BOTTOM_INFO_OFF, SET_ERROR, LOAD_BOTTOM_INFO
 } from "src/utils";
 
 import { URL } from 'src/utils/config'
@@ -26,6 +26,48 @@ export const loadDetails = () => async (dispatch, getState) => {
 
     } catch (err) {
 
+        dispatch({
+            type: SET_ERROR, payload: {
+                msg: 'Network Request Failed', type: 'NETWORK_REQUEST_FAILED'
+            }
+        });
+        return null
+    }
+}
+
+
+
+export const updateProfile = (post_data) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: LOAD_BOTTOM_INFO, payload: { data: { type: 'loading', msg: 'Updating' } } });
+        const accessToken = getState().auth.token;
+        let response = await axios.post(URL + 'update-user-details', post_data, {
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'multipart/form-data',
+            }
+        })
+        console.log(response)
+        const data = response.data
+        if (data.status) {
+
+            console.log(data.data)
+            dispatch({
+                type: UPDATE_USER_DATA, payload: data.data
+            });
+
+            dispatch({ type: BOTTOM_INFO_OFF });
+
+            console.log('here-------success')
+
+            return data;
+        } else {
+            dispatch({ type: BOTTOM_INFO_OFF });
+            return data;
+        }
+
+    } catch (err) {
+        console.log(err)
         dispatch({
             type: SET_ERROR, payload: {
                 msg: 'Network Request Failed', type: 'NETWORK_REQUEST_FAILED'
