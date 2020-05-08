@@ -21,7 +21,7 @@ class ProfileHeader extends Component {
 
                 {!this.props.FirstTime &&
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate('SellerDashboard')}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('ScrollableDash')}>
                             <Icon name='arrow-back' />
                         </Button>
                     </Left>
