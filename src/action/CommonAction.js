@@ -47,18 +47,17 @@ export const updateProfile = (post_data) => async (dispatch, getState) => {
                 'Content-Type': 'multipart/form-data',
             }
         })
-        console.log(response)
+
         const data = response.data
         if (data.status) {
 
-            console.log(data.data)
+
             dispatch({
                 type: UPDATE_USER_DATA, payload: data.data
             });
 
             dispatch({ type: BOTTOM_INFO_OFF });
 
-            console.log('here-------success')
 
             return data;
         } else {

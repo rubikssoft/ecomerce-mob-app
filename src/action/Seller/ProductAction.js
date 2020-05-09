@@ -42,7 +42,7 @@ export const loadCategories = (data) => async (dispatch, getState) => {
 export const addNewProduct = (post_data) => async (dispatch, getState) => {
     try {
         const accessToken = getState().auth.token;
-        let response = await axios.post('http://192.168.100.63/WC/rubikssoft/ecom/easyshop/shopeasy-backend/api/add-product', post_data, {
+        let response = await axios.post(URL + 'add-product', post_data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': 'Bearer ' + accessToken,
