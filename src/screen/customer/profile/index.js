@@ -74,6 +74,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 5,
         marginBottom: 5
+    },input:{
+        borderColor:theme.headerbg,
+        borderBottomWidth:0.4,
+
     }
 
 })
@@ -260,27 +264,7 @@ class Profile extends Component {
 
                     </View>
                     <View style={styles.middleContainer}>
-                        <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
-                            <Text style={[styles.h1, styles.white]}>Contact Information</Text>
-                        </View>
-
-                        <Form>
-             
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label>Address</Label>
-                                <Input value={address} onChangeText={(e) => this.setState({ address: e })} />
-                            </Item>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label>City</Label>
-                                <Input value={city} onChangeText={(e) => this.setState({ city: e })} />
-                            </Item>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label >Pincode</Label>
-                                <Input value={pincode} onChangeText={(e) => this.setState({ pincode: e })} />
-                            </Item>
-                        </Form>
-
-                        <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center' }}>
                             <Label style={styles.settingsSubLabel}> Contact Information is used for future orders</Label>
                         </View>
 
@@ -317,6 +301,27 @@ class Profile extends Component {
 
 
                         </Form>
+                        <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
+                            <Text style={[styles.h1, styles.white]}>Contact Information</Text>
+                        </View>
+
+                        <Form>
+             
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label>Address</Label>
+                                <Input value={address} onChangeText={(e) => this.setState({ address: e })} style={styles.input} />
+                            </Item>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label>City</Label>
+                                <Input value={city} onChangeText={(e) => this.setState({ city: e })}  style={styles.input}  />
+                            </Item>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label >Pincode</Label>
+                                <Input value={pincode} onChangeText={(e) => this.setState({ pincode: e })}  style={styles.input} />
+                            </Item>
+                        </Form>
+
+                  
                         <View style={{ alignItems: 'center', marginTop: 150 }}>
                             <TouchableOpacity style={{ backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10, width: '80%' }} onPress={() => this._submitForm()}>
                             {firstTime && <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}>

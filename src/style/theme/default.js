@@ -11,7 +11,7 @@ export default
         menuhederbg: '#5c7999',
 
         //header
-        headerbg: '#5c7999',
+        headerbg: '#013d6f',
         headerTitle: '#fff',
         headerIcon: '#fff',
 

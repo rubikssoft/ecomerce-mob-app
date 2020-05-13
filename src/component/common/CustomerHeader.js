@@ -15,8 +15,7 @@ import {
 import { localize } from "src/internationalization";
 
 import theme from '../../style/theme/default'
-import LocationDropDown from '../../component/Location/LocationDropDown'
-import CategoriesDropDown from '../../component/Category/CategoryDropDown'
+
 import { TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native'
@@ -30,7 +29,7 @@ class Headers extends Component {
         super(props);
 
         this.state = {
-            locationChooser: false
+            locationChooser: true
             //Data Source for the SearchableDropdown
         };
     }
@@ -104,44 +103,50 @@ class Headers extends Component {
                             <Text style={{ textAlign: 'center', color: theme.headerTitle, fontSize: 14 }}> {this.props.location.name} | {this.props.category.name}</Text>
                         </TouchableOpacity>
                         {this.state.locationChooser &&
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
-                                <Picker
-                                    mode="dropdown"
-                                    iosIcon={<Icon name="arrow-down" />}
-                                    style={{ width: '50%', color: '#fff' }}
-                                    placeholder="Select your Location"
-                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                    placeholderIconColor="#007aff"
-                                    selectedValue={location.id}
-                                    onValueChange={(e, index) => this.onlocationSelect(e, index)}
-                                >
+                            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                <View style={styles.picker}>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosIcon={<Icon name="arrow-down" />}
+                                        style={styles.pickerStyle}
+                                        placeholder="Select your Location"
+                                        placeholderStyle={{ color: "#bfc6ea" }}
+                                        placeholderIconColor="#007aff"
+                                        selectedValue={location.id}
+                                        onValueChange={(e, index) => this.onlocationSelect(e, index)}
+                                    >
 
-                                    {locations.map((value, index) => (
-                                        <Picker.Item label={value.name} value={value.id} key={index} />
-                                    ))}
-
-
-                                </Picker>
-                                <Picker
-                                    mode="dropdown"
-                                    iosIcon={<Icon name="arrow-down" />}
-                                    style={{ width: '50%', color: '#fff' }}
-                                    placeholder="Category"
-                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                    placeholderIconColor="#007aff"
-                                    selectedValue={category.id}
-                                    onValueChange={(e, index) => this.onCategorySelect(e, index)}
-                                >
-
-                                    {categories.map((value, index) => (
-                                        <Picker.Item label={value.name} value={value.id} key={index} />
-                                    ))}
+                                        {locations.map((value, index) => (
+                                            <Picker.Item label={value.name} value={value.id} key={index} />
+                                        ))}
 
 
-                                </Picker>
+                                    </Picker>
+                                </View>
+                                <View style={styles.picker}>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosIcon={<Icon name="arrow-down" />}
+                                        style={[styles.pickerStyle, { fontSize: 10 }]}
+                                        placeholder="Category"
+                                        placeholderStyle={{ color: "#bfc6ea" }}
+                                        placeholderIconColor="#007aff"
+                                        selectedValue={category.id}
+                                        onValueChange={(e, index) => this.onCategorySelect(e, index)}
+                                    >
+
+                                        {categories.map((value, index) => (
+                                            <Picker.Item label={value.name} value={value.id} key={index} />
+                                        ))}
 
 
 
+                                    </Picker>
+
+
+
+
+                                </View>
                             </View>
 
 
@@ -183,7 +188,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 12,
         textAlign: "center"
-    }
+    }, picker: {
+        flex: 0.4,
+        borderRadius: 5, marginRight: 10,
+        borderRadius: 10,
+        borderWidth: 1
+    },
+    pickerStyle: { color: '#000', backgroundColor: '#fff', borderRadius: 20, textAlign: 'center', borderRadius: 10, }
 });
 export default connect(
     mapStateToProps, { setuplocation, setupcategory }

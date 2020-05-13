@@ -29,7 +29,7 @@ class ProductList extends Component {
     }
 
     render() {
-        // const { OrderProducts } = this.props
+        const { OrderProducts } = this.props
         // console.log('reached here');
         // console.log(OrderProducts);
         return (
