@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Text, View, Image, ImageBackground, Modal, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Image, Modal, TouchableWithoutFeedback } from 'react-native';
 import {
-    Container,
-    Content,
-    Form,
-    Item,
-    Input,
-    Label,
+
     Button,
-    Icon,
+    Toast,
     Card,
     CardItem,
     Body,
-    Right,
-    Left,
-    Toast
+
 } from "native-base";
 
 import Spinner from "react-native-loading-spinner-overlay";
-
+import Header from 'src/component/common/Login/Header'
 import Logo from '../../../assets/icon.png';
 import { loadData } from '../../action/Seller/MainActions'
 function mapStateToProps(state) {
@@ -43,7 +36,7 @@ class Landing extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userType: 'customer',
+            userType: '',
             modalVisible: false
         }
     }
@@ -69,10 +62,23 @@ class Landing extends Component {
 
 
     _onContinue() {
+
+
         const { userType } = this.state;
-        var route = 'CustomerReg'
+        if (userType == '') {
+            Toast.show({
+                text: " Select an option ",
+                textStyle: { color: "red" },
+                duration: 3000
+            });
+            return true
+        }
+        var route = ''
         if (userType == 'seller')
             route = 'SellerReg'
+        else if (userType == 'customer') {
+            route = 'CustomerReg'
+        }
         this.props.navigation.navigate(route)
     }
 
@@ -139,7 +145,9 @@ class Landing extends Component {
     render() {
         const { userType } = this.state;
         return (
+
             <View style={styles.container}>
+                <Header />
                 <View style={styles.topContainer}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.shop}>SHOP</Text>

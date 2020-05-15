@@ -87,7 +87,7 @@ class CustomerReg extends Component {
                     <View style={styles.middleContainer}>
 
                         <View>
-                            {error.errors.map((value, key) => (
+                            {error.errors && error.errors.map((value, key) => (
                                 <Text style={{ color: 'red', textAlign: 'center' }} key={key}>
                                     {value}
                                 </Text>

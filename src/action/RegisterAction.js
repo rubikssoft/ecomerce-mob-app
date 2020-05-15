@@ -31,8 +31,8 @@ export const requestOtp = (data) => {
     const post_data = {
       phone_number: data.number,
       type: data.userType,
-      location_id: data.location ? data.location.id : 0,
-      category_id: data.category ? data.category.id : 0
+      location_id: data.location ? data.location.id : 1,
+      category_id: data.category ? data.category.id : 1
     }
     await API.post('generate-otp', post_data).then(res => {
       const data = res.data

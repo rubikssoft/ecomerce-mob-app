@@ -117,7 +117,7 @@ class Profile extends Component {
     loadData() {
         const { user, userDetails } = this.props.auth
         const { locations, categories } = this.props.common
-        // console.log(this.props.navigation.state.params)
+
         const firstTime = this.props.navigation.state.params != undefined && true
         this.setState({
             name: userDetails.name,
@@ -253,7 +253,7 @@ class Profile extends Component {
                             <View style={{ flex: 0.7, height: 100 }}>
                                 <Label style={styles.settingsLabel}  > Name</Label>
                                 <Input value={name} style={styles.inputBox} onChangeText={(e) => this.setState({ name: e })} />
-                                <Text style={{ fontWeight: 'bold', paddingTop: 10 }}>+91 {phone_number}</Text>
+        <Text style={{ fontWeight: 'bold', paddingTop: 10 }}>+91 {phone_number} </Text>
 
 
                             </View>

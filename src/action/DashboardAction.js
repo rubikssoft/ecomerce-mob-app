@@ -6,6 +6,7 @@ const API = axiosConfig()
 
 export const getVendors = (data) => {
 
+
     const post_data = {
         limit: data.limit,
         offset: data.offset,

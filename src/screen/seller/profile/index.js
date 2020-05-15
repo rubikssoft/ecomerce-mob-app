@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import { updateProfile } from 'src/action/CommonAction'
-import { logout } from  'src/action/RegisterAction'
+import { logout } from 'src/action/RegisterAction'
 
 
 
@@ -133,7 +133,7 @@ class Profile extends Component {
 
     }
 
-    
+
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -169,18 +169,20 @@ class Profile extends Component {
         }
     };
 
-   async _logout(){
+    async _logout() {
         await this.props.logout()
         this.props.navigation.navigate('Landing')
     }
 
-    onlocationSelect(loaction_id) {
+    onlocationSelect(location_id) {
+        console.log('hereree id ' + location_id)
         this.setState({
-            location_id: loaction_id
+            location_id: location_id
         });
     }
 
     onCategorySelect(category_id) {
+        console.log('hereree id ' + category_id)
         this.setState({
             category_id: category_id
         });
@@ -237,13 +239,13 @@ class Profile extends Component {
     render() {
 
 
-        const { name, address, city, pincode, phone_number, shop_name, location_id, category_id, locations, categories, img,firstTime } = this.state
+        const { name, address, city, pincode, phone_number, shop_name, location_id, category_id, locations, categories, img, firstTime } = this.state
 
 
         return (
 
             <Container style={{ backgroundColor: "white" }}>
-                <Header FirstTime={firstTime} {...this.props}/>
+                <Header FirstTime={firstTime} {...this.props} />
                 <ScrollView>
 
                     <View style={styles.topContainer}>
@@ -268,35 +270,7 @@ class Profile extends Component {
 
 
                     </View>
-                    <View style={styles.middleContainer}>
-                        <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
-                            <Text style={[styles.h1, styles.white]}>Contact Information</Text>
-                        </View>
-
-                        <Form>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label>Name</Label>
-                                <Input value={name} onChangeText={(e) => this.setState({ name: e })} />
-                            </Item>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label>Address</Label>
-                                <Input value={address} onChangeText={(e) => this.setState({ address: e })} />
-                            </Item>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label>City</Label>
-                                <Input value={city} onChangeText={(e) => this.setState({ city: e })} />
-                            </Item>
-                            <Item fixedLabel style={styles.itemRow}>
-                                <Label >Pincode</Label>
-                                <Input value={pincode} onChangeText={(e) => this.setState({ pincode: e })} />
-                            </Item>
-                        </Form>
-
-                        <View style={{ alignItems: 'center' }}>
-                            <Label style={styles.settingsSubLabel}> Contact Information is displyed publicly on the app</Label>
-                        </View>
-
-                        <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
+                    <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
                             <Text style={[styles.h1, styles.white]}>Settings</Text>
                         </View>
 
@@ -305,7 +279,7 @@ class Profile extends Component {
 
                             <Item picker>
                                 <Picker
-                                    mode="dropdown"
+                                    mode="dialog"
                                     iosIcon={<Icon name="arrow-down" />}
                                     style={{ width: undefined }}
                                     placeholder="Select your Location"
@@ -313,9 +287,10 @@ class Profile extends Component {
                                     placeholderIconColor="#007aff"
                                     selectedValue={location_id}
                                     onValueChange={(e) => this.onlocationSelect(e)}
+                                   // onValueChange={(e) => this.onlocationSelect(e)}
                                 >
 
-                                    {locations.map((value, index) => (
+{locations.map((value, index) => (
                                         <Picker.Item label={value.name} value={value.id} key={index} />
                                     ))}
 
@@ -346,7 +321,39 @@ class Profile extends Component {
 
 
                         </Form>
-                        <View style={{ alignItems: 'center', marginTop: 30 }}>
+               
+                    <View style={styles.middleContainer}>
+                        <View style={{ height: 35, backgroundColor: theme.headerbg, marginTop: 5 }}>
+                            <Text style={[styles.h1, styles.white]}>Contact Information</Text>
+                        </View>
+
+                        <Form>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label>Name</Label>
+                                <Input value={name} onChangeText={(e) => this.setState({ name: e })} />
+                            </Item>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label>Address</Label>
+                                <Input value={address} onChangeText={(e) => this.setState({ address: e })} />
+                            </Item>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label>City</Label>
+                                <Input value={city} onChangeText={(e) => this.setState({ city: e })} />
+                            </Item>
+                            <Item fixedLabel style={styles.itemRow}>
+                                <Label >Pincode</Label>
+                                <Input value={pincode} onChangeText={(e) => this.setState({ pincode: e })} />
+                            </Item>
+                        </Form>
+
+                        <View style={{ alignItems: 'center' }}>
+                            <Label style={styles.settingsSubLabel}> Contact Information is displyed publicly on the app</Label>
+                        </View>
+
+                    </View>
+
+
+                    <View style={{ alignItems: 'center', marginTop: 30 }}>
                             <TouchableOpacity style={{ backgroundColor: 'green', borderRadius: 5, alignItems: 'center', padding: 10, width: '80%' }} onPress={() => this._submitForm()}>
                             {firstTime && <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}>
                                 
@@ -367,10 +374,7 @@ class Profile extends Component {
                         </View>
 
 
-                    </View>
-
-
-
+                 
 
                 </ScrollView>
 
@@ -388,7 +392,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    updateProfile,logout
+    updateProfile, logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

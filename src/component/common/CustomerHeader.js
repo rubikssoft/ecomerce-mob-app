@@ -34,16 +34,7 @@ class Headers extends Component {
         };
     }
 
-    onlocationSelect(e, index) {
-        const { locations } = this.props.common
-        this.props.setuplocation(locations[index])
 
-
-    }
-    onCategorySelect(e, index) {
-        const { categories } = this.props.common
-        this.props.setupcategory(categories[index])
-    }
     render() {
 
         const { locations, categories } = this.props.common
@@ -97,63 +88,63 @@ class Headers extends Component {
 
                 </Header>
 
-                {this.props.locationSelect &&
-                    <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
-                        <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
+
+                <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
+                    {/* <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
                             <Text style={{ textAlign: 'center', color: theme.headerTitle, fontSize: 14 }}> {this.props.location.name} | {this.props.category.name}</Text>
-                        </TouchableOpacity>
-                        {this.state.locationChooser &&
-                            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                <View style={styles.picker}>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosIcon={<Icon name="arrow-down" />}
-                                        style={styles.pickerStyle}
-                                        placeholder="Select your Location"
-                                        placeholderStyle={{ color: "#bfc6ea" }}
-                                        placeholderIconColor="#007aff"
-                                        selectedValue={location.id}
-                                        onValueChange={(e, index) => this.onlocationSelect(e, index)}
-                                    >
+                        </TouchableOpacity> */}
+                    {this.state.locationChooser &&
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={styles.picker}>
+                                <Picker
+                                    mode="dropdown"
+                                    iosIcon={<Icon name="arrow-down" />}
+                                    style={styles.pickerStyle}
+                                    placeholder="Select your Location"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={location}
+                                    onValueChange={(e) => this.props.setuplocation(e)}
+                                >
 
-                                        {locations.map((value, index) => (
-                                            <Picker.Item label={value.name} value={value.id} key={index} />
-                                        ))}
-
-
-                                    </Picker>
-                                </View>
-                                <View style={styles.picker}>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosIcon={<Icon name="arrow-down" />}
-                                        style={[styles.pickerStyle, { fontSize: 10 }]}
-                                        placeholder="Category"
-                                        placeholderStyle={{ color: "#bfc6ea" }}
-                                        placeholderIconColor="#007aff"
-                                        selectedValue={category.id}
-                                        onValueChange={(e, index) => this.onCategorySelect(e, index)}
-                                    >
-
-                                        {categories.map((value, index) => (
-                                            <Picker.Item label={value.name} value={value.id} key={index} />
-                                        ))}
+                                    {locations.map((value, index) => (
+                                        <Picker.Item label={value.name} value={value} key={index} />
+                                    ))}
 
 
-
-                                    </Picker>
-
-
-
-
-                                </View>
+                                </Picker>
                             </View>
+                            <View style={styles.picker}>
+                                <Picker
+                                    mode="dropdown"
+                                    iosIcon={<Icon name="arrow-down" />}
+                                    style={[styles.pickerStyle]}
+                                    placeholder="Category"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={category}
+                                    onValueChange={(e) => this.props.setupcategory(e)}
+                                >
+
+                                    {categories.map((value, index) => (
+                                        <Picker.Item label={value.name} value={value} key={index} />
+                                    ))}
 
 
-                        }
 
-                    </View>
-                }
+                                </Picker>
+
+
+
+
+                            </View>
+                        </View>
+
+
+                    }
+
+                </View>
+
 
 
                 {this.props.activeSellerView &&
@@ -189,12 +180,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textAlign: "center"
     }, picker: {
-        flex: 0.4,
-        borderRadius: 5, marginRight: 10,
+        flex: 0.5,
+        borderRadius: 5, margin: 3,
         borderRadius: 10,
         borderWidth: 1
     },
-    pickerStyle: { color: '#000', backgroundColor: '#fff', borderRadius: 20, textAlign: 'center', borderRadius: 10, }
+    pickerStyle: { backgroundColor: '#fff', borderRadius: 10 }
 });
 export default connect(
     mapStateToProps, { setuplocation, setupcategory }

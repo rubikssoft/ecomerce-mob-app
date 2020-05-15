@@ -1,4 +1,4 @@
-import { LOAD_CATEGORY } from "../utils";
+import { LOAD_CATEGORY, LOAD_USER } from "../utils";
 import { PURGE, REHYDRATE } from 'redux-persist';
 import { purgeStoredState } from 'redux-persist'
 
@@ -19,12 +19,13 @@ export default (state = initialState, action) => {
             return {
                 category: action.payload
             };
-            REHYDRATE:    // This added just to show that this action type also exists, can be omitted. 
-            console.log("REHYDRATING!!!!");
-            return state;
-            PURGE:
-            console.log("PURGING!!!!");
-            return {};
+        case LOAD_USER:
+            return {
+                category: {
+                    "id": "1",
+                    "name": "Grocerry",
+                }
+            }
         default:
             return state
     }

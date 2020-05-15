@@ -1,14 +1,10 @@
-import { LOAD_LOCATION } from "../utils";
+import { LOAD_LOCATION, LOAD_USER } from "../utils";
 import { PURGE, REHYDRATE } from 'redux-persist';
 import { purgeStoredState } from 'redux-persist'
 
 
 const initialState = {
-    location: {
-        "id": "3",
-        "name": "Bengaluru",
-        "state": "Karnataka"
-    }
+    location: {}
 }
 
 
@@ -20,12 +16,10 @@ export default (state = initialState, action) => {
             return {
                 location: action.payload
             };
-            REHYDRATE:    // This added just to show that this action type also exists, can be omitted. 
-            console.log("REHYDRATING!!!!");
-            return state;
-            PURGE:
-            console.log("PURGING!!!!");
-            return {};
+        case LOAD_USER:
+            return {
+                location: action.payload.location
+            };
         default:
             return state
     }

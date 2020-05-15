@@ -31,6 +31,7 @@ export const loadSellers = (data) => {
             category_id: data.category ? data.category.id : 0
         }
 
+
         await API.post('get-vendors', post_data).then(res => {
             const data = res.data
             if (data.status) {
