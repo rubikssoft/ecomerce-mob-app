@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 2478,
+  "expoServerNgrokUrl": "https://f6-c22.sadutdy.ecomerce-mob-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.f6-c22.sadutdy.ecomerce-mob-app.exp.direct",
+  "ngrokPid": 2505,
   "webpackServerPort": null
 }

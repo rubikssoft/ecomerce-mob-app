@@ -123,7 +123,7 @@ class SrollDashboard extends Component {
         const { sellers, seller_loading } = this.state
         return (
             <Container style={{ backgroundColor: "white" }}>
-                <Headers headername="ShopEazy" leftmenu={false} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
+                <Headers headername="ShopEazy" leftmenu={false} vendorFilter={true} routes={this.props.navigation} locationSelect={true} activeSellerView={false} />
                 <View
                     style={{
                         height: height - 20,

@@ -93,7 +93,7 @@ class Headers extends Component {
                     {/* <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
                             <Text style={{ textAlign: 'center', color: theme.headerTitle, fontSize: 14 }}> {this.props.location.name} | {this.props.category.name}</Text>
                         </TouchableOpacity> */}
-                    {this.state.locationChooser &&
+                    {this.props.vendorFilter &&
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={styles.picker}>
                                 <Picker
@@ -160,7 +160,8 @@ Headers.defaultProps = {
     locationSelect: false,
     activeSellerView: false,
     notification: false,
-    settingsIcon: true
+    settingsIcon: true,
+    vendorFilter: false
 };
 
 function mapStateToProps(state) {
