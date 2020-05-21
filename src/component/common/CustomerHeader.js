@@ -41,7 +41,7 @@ class Headers extends Component {
         const { location, category } = this.props
         return (
             <View>
-                <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 20 }} androidStatusBarColor={theme.headerbg}>
+                <Header style={{ backgroundColor: theme.headerbg, padding: 5, height: 80, paddingBottom: 10 }} androidStatusBarColor={theme.headerbg}>
 
                     <Left>
                         {this.props.leftmenu &&
@@ -88,12 +88,12 @@ class Headers extends Component {
 
                 </Header>
 
-
+                {this.props.vendorFilter &&
                 <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>
                     {/* <TouchableOpacity onPress={() => this.setState({ locationChooser: !this.state.locationChooser })}>
                             <Text style={{ textAlign: 'center', color: theme.headerTitle, fontSize: 14 }}> {this.props.location.name} | {this.props.category.name}</Text>
                         </TouchableOpacity> */}
-                    {this.props.vendorFilter &&
+         
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={styles.picker}>
                                 <Picker
@@ -141,11 +141,11 @@ class Headers extends Component {
                         </View>
 
 
-                    }
+                 
 
                 </View>
 
-
+}
 
                 {this.props.activeSellerView &&
                     <View style={{ backgroundColor: theme.headerbg, padding: 5 }}>

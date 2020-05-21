@@ -29,6 +29,9 @@ import ErrorReducer from './ErrorReducer'
 import CommonReducer from './CommonReducer'
 
 
+import TagReducer from './TagReducer'
+
+
 
 
 export default combineReducers({
@@ -55,6 +58,7 @@ export default combineReducers({
 
   //common
   bottomPopup: BottomPopReducer,
-  common: CommonReducer
+  common: CommonReducer,
+  tag:TagReducer
 
 });

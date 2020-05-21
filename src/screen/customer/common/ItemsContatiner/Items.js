@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dimensions, FlatList, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { View, Item, Text } from "native-base";
 
-
+import Tags from './Tags'
 import Headers from "../../../../component/common/CustomerHeader";
 import Category from "../../../../component/common/Category";
 import SkeletonContent from "react-native-skeleton-content";
@@ -53,17 +53,29 @@ class Items extends Component {
 
     async _fetchData() {
 
-        const { seller } = this.props;
-
+        const { seller,tag } = this.props;
+        this.setState({loading:true})
         const seller_id = seller.activeSeller.seller_id
-        await this.props.loadCategories(seller_id).then(e => {
+        await this.props.loadCategories(seller_id, tag.activeTag).then(e => {
             this.setState({ categories: e, loading: false })
         })
-
-
-
     }
-
+    static getDerivedStateFromProps(nextProps, prevState){
+        console.log('here')
+        if(nextProps.tag!==prevState.tag){
+            console.log('tick')
+          return { tag: nextProps.tag};
+       }
+       else return null;
+     }
+     
+     componentDidUpdate(prevProps, prevState) {
+       if(prevProps.tag!==this.props.tag){
+           console.log('called here')
+         //Perform some operation here
+      this._fetchData();
+       }
+     }
 
     _navigateToCart() {
         const activeCart = this.props.cart.activeCart;
@@ -82,12 +94,17 @@ class Items extends Component {
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <Headers routes={this.props.navigation} headername="ItemsList" leftmenu={{ path: 'ScrollableDashboard', icon: 'md-arrow-dropleft' }} {...this.props} locationSelect={false} activeSellerView={true} />
+                
+                
+            
                 <View style={{ flexDirection: 'row', backgroundColor: '#013d6f', height: 40, color: '#fff', padding: 10 }}>
                     <Text style={[styles.titleColumn]}> Items </Text>
                     <Text style={[styles.titleColumn]}> Price </Text>
                     <Text style={[styles.titleColumn, { alignItems: 'center', marginLeft: 10, flex: 0.4, }]}> Qty </Text>
                     <Text style={[styles.titleColumn, { flex: 0.3 }]}> Select </Text>
                 </View>
+                <Tags />
+               
                 <ScrollView style={{ flex: 0.8, height: height - 200 }}>
 
                     <SkeletonContent
@@ -167,7 +184,8 @@ function mapStateToProps(state) {
     return {
 
         cart: state.cart,
-        seller: state.seller
+        seller: state.seller,
+        tag:state.tag
     };
 }
 

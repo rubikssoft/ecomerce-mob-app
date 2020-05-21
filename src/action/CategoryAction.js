@@ -13,12 +13,13 @@ export const setupcategory = (categories) => {
 };
 
 
-export const loadCategories = (seller_id) => {
+export const loadCategories = (seller_id,tag) => {
     var categories = []
     return categories = async dispatch => {
 
         const post_data = {
             seller_id: seller_id,
+            tags:tag
 
         }
         categories = await API.post('get-seller-categories', post_data).then(res => {

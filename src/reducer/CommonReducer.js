@@ -4,7 +4,8 @@ import { LOAD_COMMON_DATA } from "../utils";
 
 const initialState = {
     locations: [],
-    categories: []
+    categories: [],
+    tags:[]
 }
 
 
@@ -13,7 +14,8 @@ export default (state = initialState, action) => {
         case LOAD_COMMON_DATA:
             return {
                 locations: action.payload.locations,
-                categories: action.payload.categories
+                categories: action.payload.categories,
+                tags: action.payload.tags
             };
 
         default:
