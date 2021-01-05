@@ -8,7 +8,7 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
     "@valdio/react-native-scrollable-tabview": "^0.8.12",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "ex-react-native-i18n": "0.0.4",
     "expo": "^37.0.0",
